@@ -1,0 +1,14 @@
+/* Folio type scale. Serif italic = one emphasised word per heading.
+   Mono = data. Sans = body. */
+
+:root {
+  --text-display-xl: clamp(2.75rem, 7vw, 5.5rem);
+  --text-display-l: clamp(2rem, 4.5vw, 3.5rem);
+  --text-title-m: 1.375rem;
+  --text-body-l: 1.0625rem;
+  --text-body-m: 0.9375rem;
+  --text-caption: 0.75rem;
+  --tracking-eyebrow: 0.14em;
+  --leading-display: 1.05;
+  --leading-body: 1.65;
+}

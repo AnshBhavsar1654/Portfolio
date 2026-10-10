@@ -1,0 +1,41 @@
+/* Folio colour tokens. Both themes, semantic names only.
+   Contrast: body ≥ 4.5:1, muted ≥ 4.5:1, accent-on-bg ≥ 4.5:1 in both themes.
+   Adjust token values here, never component code. */
+
+:root {
+  color-scheme: light;
+  --bg: #faf8f4;
+  --surface: #ffffff;
+  --surface-2: #f2efe8;
+  --text-strong: #14130f;
+  --text-body: #3a3832;
+  --text-muted: #6b6962; /* AA on --bg */
+  --line: rgba(20, 19, 15, 0.12);
+  --accent: #c42b22; /* ball red; AA for text on --bg */
+  --accent-hover: #a8221a;
+  --accent-wash: rgba(176, 40, 31, 0.08);
+  --on-accent: #ffffff;
+  --signal-positive: #17803d;
+  --ball-fill: #c42b22;
+  --ball-stroke: #8e1d17;
+  --ball-seam: #f4d9d4;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0b0b0c;
+  --surface: #131315;
+  --surface-2: #1a1a1d;
+  --text-strong: #f4f1ea;
+  --text-body: #d6d3cb;
+  --text-muted: #9c9a93;
+  --line: rgba(244, 241, 234, 0.12);
+  --accent: #ec5a50;
+  --accent-hover: #f47b72;
+  --accent-wash: rgba(236, 90, 80, 0.12);
+  --on-accent: #14130f;
+  --signal-positive: #3ad07f;
+  --ball-fill: #f6f4ee;
+  --ball-stroke: #cfcbc0;
+  --ball-seam: #b9b5a8;
+}

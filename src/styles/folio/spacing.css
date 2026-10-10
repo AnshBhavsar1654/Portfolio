@@ -1,0 +1,14 @@
+/* Folio spacing + layout tokens. Whitespace is the luxury signal. */
+
+:root {
+  --layout-max: 1200px;
+  --section-py: 6rem;
+  --radius-card: 12px;
+  --radius-input: 8px;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --section-py: 9rem;
+  }
+}

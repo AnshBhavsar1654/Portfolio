@@ -1,0 +1,90 @@
+import Link from "next/link";
+import { About } from "@/components/home/about";
+import { ContactBlock } from "@/components/home/contact-block";
+import { ExperienceList } from "@/components/home/experience-list";
+import { Hero } from "@/components/home/hero";
+import { ResearchList } from "@/components/home/research-list";
+import { Skills } from "@/components/home/skills";
+import { WorkList } from "@/components/home/work-list";
+import { Reveal } from "@/components/site/reveal";
+import { Section, SectionHeading } from "@/components/site/section";
+
+export default function Home() {
+  return (
+    <>
+      <Hero />
+
+      <Section id="about" first>
+        <Reveal>
+          <SectionHeading title="Engineer first," accent="evidence always." />
+        </Reveal>
+        <Reveal className="mt-12">
+          <About />
+        </Reveal>
+      </Section>
+
+      <Section id="experience">
+        <Reveal>
+          <SectionHeading
+            title="Where I have"
+            accent="worked."
+            body="Production work at startups, plus research published with IEEE."
+          />
+        </Reveal>
+        <Reveal className="mt-12">
+          <ExperienceList />
+        </Reveal>
+      </Section>
+
+      <Section id="work">
+        <Reveal className="flex flex-wrap items-end justify-between gap-4">
+          <SectionHeading title="Proof, not" accent="promises." />
+          <Link
+            href="/work"
+            className="text-accent text-sm font-medium hover:underline"
+          >
+            All projects
+          </Link>
+        </Reveal>
+        <Reveal className="mt-12">
+          <WorkList limit={4} />
+        </Reveal>
+      </Section>
+
+      <Section id="research">
+        <Reveal>
+          <SectionHeading title="Peer-reviewed" accent="work." />
+        </Reveal>
+        <Reveal className="mt-12">
+          <ResearchList />
+        </Reveal>
+      </Section>
+
+      <Section id="skills">
+        <Reveal>
+          <SectionHeading
+            title="Tools I"
+            accent="reach for."
+            body="Grouped by what they do, not ranked."
+          />
+        </Reveal>
+        <Reveal className="mt-12">
+          <Skills />
+        </Reveal>
+      </Section>
+
+      <Section id="contact">
+        <Reveal>
+          <SectionHeading
+            title="Have an eval problem?"
+            accent="Bring it."
+            body="I take on LLM evaluation, RAG, and data-app work. Replies within two days."
+          />
+        </Reveal>
+        <Reveal className="mt-12">
+          <ContactBlock />
+        </Reveal>
+      </Section>
+    </>
+  );
+}

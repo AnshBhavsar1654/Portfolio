@@ -1,0 +1,131 @@
+@import "tailwindcss";
+@import "../styles/folio/colors.css";
+@import "../styles/folio/motion.css";
+@import "../styles/folio/typography.css";
+@import "../styles/folio/spacing.css";
+@import "../styles/folio/base.css";
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-strong: var(--text-strong);
+  --color-body: var(--text-body);
+  --color-muted: var(--text-muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-wash: var(--accent-wash);
+  --color-on-accent: var(--on-accent);
+  --font-display: var(--font-sans);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+}
+
+html {
+  background: var(--bg);
+}
+
+body {
+  color: var(--text-body);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+/* Smooth theme change, but never on first paint */
+html.theme-ready,
+html.theme-ready body,
+html.theme-ready * {
+  transition:
+    background-color var(--theme-fade) var(--ease-standard),
+    color var(--theme-fade) var(--ease-standard),
+    border-color var(--theme-fade) var(--ease-standard);
+}
+
+/* Ball toggle: continuous spin, transform-only. Stops under reduced motion. */
+@keyframes ball-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.ball-spin {
+  animation: ball-spin 6s linear infinite;
+}
+
+.group:hover .ball-spin,
+.group:focus-visible .ball-spin {
+  animation-duration: 2s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ball-spin {
+    animation: none;
+  }
+}
+
+/* Disclosure height animation: grid-rows trick, transform-free but cheap. */
+.disclosure {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--dur-slow) var(--ease-out-soft);
+}
+
+.disclosure[data-open="true"] {
+  grid-template-rows: 1fr;
+}
+
+.disclosure > div {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .disclosure {
+    transition: none;
+  }
+}
+
+/* Quiet film grain, fixed, never intercepts input. Breaks digital flatness. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+/* Hero ambient wash: one soft accent glow, top-right. */
+.hero-glow {
+  background: radial-gradient(
+    55% 60% at 85% 0%,
+    var(--accent-wash),
+    transparent 70%
+  );
+}
+
+/* Quiet film grain, fixed, never intercepts input. Breaks digital flatness. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+/* Hero ambient wash: one soft accent glow, top-right. */
+.hero-glow {
+  background: radial-gradient(
+    55% 60% at 85% 0%,
+    var(--accent-wash),
+    transparent 70%
+  );
+}

@@ -1,0 +1,18 @@
+# dependencies
+node_modules/
+
+# next.js
+.next/
+out/
+build/
+next-env.d.ts
+
+# legacy archive
+_legacy/
+
+# plans (local specs, never pushed)
+plans/
+
+# misc
+.DS_Store
+*.local

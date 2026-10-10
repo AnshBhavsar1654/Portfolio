@@ -1,0 +1,7 @@
+_legacy
+node_modules
+.next
+.agents
+.claude
+public
+package-lock.json
