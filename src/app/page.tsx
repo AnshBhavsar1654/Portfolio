@@ -76,9 +76,9 @@ export default function Home() {
       <Section id="contact">
         <Reveal>
           <SectionHeading
-            title="Have an eval problem?"
+            title="Have a product problem?"
             accent="Bring it."
-            body="I take on LLM evaluation, RAG, and data-app work. Replies within two days."
+            body="I take on full-stack builds, AI agents, and data apps. Replies within two days."
           />
         </Reveal>
         <Reveal className="mt-12">

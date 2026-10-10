@@ -10,15 +10,16 @@ import { mono, sans } from "./fonts";
 export const metadata: Metadata = {
   metadataBase: siteUrl,
   title: {
-    default: "Ansh Bhavsar | LLM Engineer & AI/ML Innovator",
+    default: "Ansh Bhavsar | Founding Engineer & Full-Stack Developer",
     template: "%s | Ansh Bhavsar",
   },
   description:
-    "Ansh Bhavsar builds evaluable LLM systems, RAG pipelines, and full-stack data apps. Nirma CS, Serin AI, IEEE published.",
+    "Ansh Bhavsar builds full-stack products, AI agents, and evaluable LLM systems. Nirma CS, Serin AI founding engineer, IEEE published.",
   openGraph: {
     type: "website",
-    title: "Ansh Bhavsar | LLM Engineer",
-    description: "Evaluable LLM systems, RAG, and full-stack data apps.",
+    url: siteUrl.origin,
+    title: "Ansh Bhavsar | Founding Engineer",
+    description: "Full-stack products, AI agents, and evaluable LLM systems.",
   },
 };
 
@@ -26,6 +27,7 @@ const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: profile.name,
+  url: profile.website,
   jobTitle: "Founding Engineer",
   address: {
     "@type": "PostalAddress",
@@ -34,7 +36,13 @@ const personSchema = {
   },
   email: `mailto:${profile.email}`,
   alumniOf: profile.university,
-  knowsAbout: ["LLM evaluation", "RAG", "machine translation"],
+  knowsAbout: [
+    "full-stack development",
+    "AI agents",
+    "LLM evaluation",
+    "RAG",
+    "machine translation",
+  ],
   sameAs: [profile.socials.github, profile.socials.linkedin],
 };
 

@@ -7,7 +7,7 @@ export function GET() {
   const lines = [
     `# ${profile.name} | ${profile.role}`,
     ``,
-    `> LLM Engineer in ${profile.location}. Builds evaluable prompts, RAG pipelines, and full-stack data apps.`,
+    `> Founding Engineer in ${profile.location}. Builds full-stack apps, AI agents, and evaluable LLM systems.`,
     ``,
     `## Contact`,
     `- Email: ${profile.email}`,

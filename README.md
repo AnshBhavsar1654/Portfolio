@@ -18,15 +18,14 @@ npm run ci   # format:check → lint → typecheck → build
 
 ## Site URL
 
-No domain is hard-coded anywhere. Set it once a domain exists:
+Live at https://anshbhavsar.vercel.app. No domain is hard-coded anywhere.
+`NEXT_PUBLIC_SITE_URL` wins; otherwise the site falls back to the Vercel
+production URL, then `http://localhost:3000`. Documented in `.env`.
 
 ```bash
-# .env.local
-NEXT_PUBLIC_SITE_URL=https://example.com
+# .env / Vercel env (Production)
+NEXT_PUBLIC_SITE_URL=https://anshbhavsar.vercel.app
 ```
-
-Without it, the site falls back to the Vercel production URL, then
-`http://localhost:3000`. Documented in `.env.example`.
 
 ## Structure
 

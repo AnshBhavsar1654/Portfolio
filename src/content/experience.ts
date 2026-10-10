@@ -14,7 +14,7 @@ export const experience: Experience[] = [
     period: "Dec 2025 - Present",
     location: "Ahmedabad, India",
     bullets: [
-      "Founding engineer at Serin AI (formerly Blink Analytics): own features end to end, from full-stack product work to LLM prompts and evals.",
+      "Founding engineer at Serin AI (formerly Blink Analytics): own features end to end, from full-stack product work to AI agents, prompts and evals.",
       "Optimized prompts for question generation, resume screening, and evaluation with SFT/RLHF techniques.",
       "Built automated eval frameworks to benchmark interview quality and speed up prompt iteration.",
       "Shipped voice-agent workflows for reminders and feedback collection.",

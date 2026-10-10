@@ -2,8 +2,20 @@
 // Names grounded in the legacy Skills section + profile competencies.
 export const skillGroups: { title: string; skills: string[] }[] = [
   {
-    title: "LLM & evaluation",
+    title: "Full-stack",
     skills: [
+      "Flask",
+      "React",
+      "Leaflet",
+      "JavaScript",
+      "Streamlit",
+      "Vercel / Netlify",
+    ],
+  },
+  {
+    title: "Agents & evaluation",
+    skills: [
+      "AI agents",
       "Prompt optimization",
       "RAG pipelines",
       "Quality benchmarks",
@@ -22,17 +34,6 @@ export const skillGroups: { title: string; skills: string[] }[] = [
       "Transformers",
       "SHAP / LIME",
       "OpenCV",
-    ],
-  },
-  {
-    title: "Full-stack",
-    skills: [
-      "Flask",
-      "React",
-      "Leaflet",
-      "JavaScript",
-      "Streamlit",
-      "Vercel / Netlify",
     ],
   },
   {

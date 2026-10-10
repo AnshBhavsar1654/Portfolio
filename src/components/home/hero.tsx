@@ -4,22 +4,38 @@ import { ArrowRight } from "@phosphor-icons/react/dist/ssr/ArrowRight";
 import { animate, useReducedMotion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { profile } from "@/content/profile";
 
 // Entrance under 700 ms: words rise with a 60 ms stagger, portrait fades.
 // Interruptible (scroll/click jumps to the final state); reduced motion
 // shows the final state immediately.
 const WORDS: { text: string; accent?: boolean }[] = [
-  { text: "LLM" },
-  { text: "systems" },
-  { text: "you" },
-  { text: "can" },
-  { text: "measure.", accent: true },
+  { text: "Building" },
+  { text: "Products" },
+  { text: "at" },
+  { text: "scale.", accent: true },
 ];
+
+// Typewriter: English first, then five languages, then English to stay.
+const TYPE_SEQUENCE = [
+  "Engineer",
+  "Ingeniero",
+  "Ingénieur",
+  "Engenheiro",
+  "Ingegnere",
+  "エンジニア",
+  "Engineer",
+];
+const ENGINEER_FINAL = "Engineer";
+const TYPE_STEP = 60;
+const DELETE_STEP = 32;
+const HOLD_STEP = 950;
 
 export function Hero() {
   const reduce = useReducedMotion();
+  const [typed, setTyped] = useState(ENGINEER_FINAL);
+  const [done, setDone] = useState(false);
 
   useEffect(() => {
     if (reduce) return;
@@ -52,6 +68,50 @@ export function Hero() {
     };
   }, [reduce]);
 
+  useEffect(() => {
+    if (reduce) return;
+    let alive = true;
+    let timer = 0;
+    const wait = (ms: number) =>
+      new Promise<void>((resolve) => {
+        timer = window.setTimeout(resolve, ms);
+      });
+    const finish = () => {
+      alive = false;
+      window.clearTimeout(timer);
+      setTyped(ENGINEER_FINAL);
+      setDone(true);
+    };
+    const run = async () => {
+      setTyped("");
+      for (let i = 0; i < TYPE_SEQUENCE.length && alive; i += 1) {
+        const word = TYPE_SEQUENCE[i];
+        for (let c = 1; c <= word.length && alive; c += 1) {
+          setTyped(word.slice(0, c));
+          await wait(TYPE_STEP);
+        }
+        if (!alive || i === TYPE_SEQUENCE.length - 1) break;
+        await wait(HOLD_STEP);
+        for (let c = word.length - 1; c >= 0 && alive; c -= 1) {
+          setTyped(word.slice(0, c));
+          await wait(DELETE_STEP);
+        }
+      }
+      if (alive) setDone(true);
+    };
+    run();
+    window.addEventListener("wheel", finish, { once: true, passive: true });
+    window.addEventListener("click", finish, { once: true });
+    return () => {
+      alive = false;
+      window.clearTimeout(timer);
+      window.removeEventListener("wheel", finish);
+      window.removeEventListener("click", finish);
+    };
+  }, [reduce]);
+
+  const finished = reduce || done;
+
   const hidden = reduce ? undefined : { opacity: 0 };
 
   return (
@@ -71,11 +131,27 @@ export function Hero() {
           <p
             className="hero-fade border-line text-muted bg-surface/60 inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-medium"
             style={hidden}
+          ></p>
+          <h1
+            className="hero-fade text-strong mt-6 text-5xl leading-[1.02] font-semibold tracking-tighter text-balance sm:text-6xl lg:text-7xl"
+            style={hidden}
           >
-            <span aria-hidden className="bg-accent h-1.5 w-1.5 rounded-full" />
-            {profile.availability}
-          </p>
-          <h1 className="text-strong mt-6 text-5xl leading-[1.02] font-semibold tracking-tighter text-balance sm:text-6xl lg:text-7xl">
+            Hi, I&rsquo;m Ansh.
+            <br />
+            I&rsquo;m an{" "}
+            <span className="text-accent inline-block">
+              <span aria-hidden>
+                {typed}
+                {!finished && (
+                  <span aria-hidden className="animate-pulse">
+                    |
+                  </span>
+                )}
+              </span>
+              <span className="sr-only">Engineer</span>
+            </span>
+          </h1>
+          <p className="text-strong mt-6 text-2xl font-semibold tracking-tight text-balance sm:text-3xl lg:text-4xl">
             {WORDS.map((w) => (
               <span
                 key={w.text}
@@ -87,13 +163,13 @@ export function Hero() {
                 {w.text}
               </span>
             ))}
-          </h1>
+          </p>
           <p
             className="hero-fade text-body mt-6 max-w-[46ch] text-lg leading-relaxed"
             style={hidden}
           >
-            Prompts, evals and RAG pipelines that turn demos into dependable
-            products.
+            Full-stack apps, AI agents and eval pipelines that turn ideas into
+            dependable products.
           </p>
           <div
             className="hero-fade mt-9 flex flex-wrap items-center gap-3"
