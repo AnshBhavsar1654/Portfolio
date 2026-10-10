@@ -128,10 +128,6 @@ export function Hero() {
       </noscript>
       <div className="grid w-full items-center gap-12 lg:grid-cols-12">
         <div className="lg:col-span-7">
-          <p
-            className="hero-fade border-line text-muted bg-surface/60 inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-medium"
-            style={hidden}
-          ></p>
           <h1
             className="hero-fade text-strong mt-6 text-5xl leading-[1.02] font-semibold tracking-tighter text-balance sm:text-6xl lg:text-7xl"
             style={hidden}
@@ -195,7 +191,7 @@ export function Hero() {
           </div>
         </div>
         <div className="hero-fade lg:col-span-5" style={hidden}>
-          <div className="relative mx-auto max-w-sm lg:max-w-none">
+          <div className="relative mx-auto max-w-sm">
             <div
               aria-hidden
               className="bg-accent-wash absolute inset-0 translate-x-4 translate-y-4 rounded-3xl"
@@ -207,7 +203,7 @@ export function Hero() {
                 width={960}
                 height={1200}
                 priority
-                sizes="(max-width: 1024px) 384px, 460px"
+                sizes="384px"
                 className="aspect-[4/5] w-full object-cover object-top"
               />
             </div>

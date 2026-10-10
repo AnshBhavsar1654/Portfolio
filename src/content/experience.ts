@@ -59,16 +59,18 @@ export const experience: Experience[] = [
 
 export const education = [
   {
-    school: "Nirma University, Ahmedabad",
-    degree: "B.Tech Computer Science, Minor in Adaptive AI",
-    period: "Sep 2022 - May 2026",
+    school: "Institute of Technology, Nirma University",
+    degree: "B.Tech Computer Science with Minor in Adaptive AI",
+    period: "Sept 2022 - May 2026",
+    location: "Ahmedabad, India",
     detail:
-      "CGPA 9.07. Algorithms, systems, ML/DL. Active in research, hackathons, and applied AI.",
+      "CGPA 9.07. Algorithms, systems, ML/DL. Active in hackathons and applied AI.",
   },
   {
-    school: "Hillwoods School, Gandhinagar",
+    school: "Hillwoods School",
     degree: "Higher Secondary (PCM)",
     period: "2008 - 2022",
+    location: "Gandhinagar, India",
     detail:
       "97.33% (10th), 97% (12th). Leadership roles, extracurriculars, inter-school sport.",
   },

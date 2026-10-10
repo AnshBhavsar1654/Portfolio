@@ -16,6 +16,13 @@
   --accent-wash: rgba(176, 40, 31, 0.08);
   --on-accent: #ffffff;
   --signal-positive: #17803d;
+  --brand-github: #24292f;
+  --brand-linkedin: #0a66c2;
+  --brand-instagram: #c13584;
+  --brand-youtube: #ff0000;
+  --brand-gmail: #1a73e8;
+  --brand-leetcode: #b26a00;
+  --brand-x: #24292f;
   --ball-fill: #c42b22;
   --ball-stroke: #8e1d17;
   --ball-seam: #f4d9d4;
@@ -35,6 +42,13 @@
   --accent-wash: rgba(236, 90, 80, 0.12);
   --on-accent: #14130f;
   --signal-positive: #3ad07f;
+  --brand-github: #ffffff;
+  --brand-linkedin: #4c9be8;
+  --brand-instagram: #e1306c;
+  --brand-youtube: #ff3333;
+  --brand-gmail: #8ab4f8;
+  --brand-leetcode: #ffa116;
+  --brand-x: #ffffff;
   --ball-fill: #f6f4ee;
   --ball-stroke: #cfcbc0;
   --ball-seam: #b9b5a8;

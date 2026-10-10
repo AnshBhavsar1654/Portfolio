@@ -6,6 +6,7 @@ export type Project = {
   tags: string[];
   github?: string;
   demo?: string;
+  embedSrc?: string; // framed preview of the demo (e.g. chromeless embed URL)
   featured?: boolean;
   metrics: { value: string; label: string }[];
   highlights: string[]; // 2 to 3 short points, each ≤ 140 chars (plan §5.3, TODO(ansh) review)
@@ -16,9 +17,9 @@ export const projects: Project[] = [
     slug: "ahmedabad-metro",
     title: "Ahmedabad Metro",
     summary:
-      "Smart transit platform with route finding, nearby stations, fares, maps, and a trilingual chatbot.",
+      "Plan Ahmedabad Metro trips with routes, fares and nearby stations on a live map, plus a chatbot that answers in three languages.",
     image: "/img/project-2.jpg",
-    tags: ["Flask", "React", "Leaflet", "Botpress"],
+    tags: ["Flask", "React", "Leaflet"],
     github: "https://github.com/AnshBhavsar1654/Ahmedabad-Metro",
     demo: "https://ahmedabad-metro-frontend.vercel.app/",
     featured: true,
@@ -28,7 +29,7 @@ export const projects: Project[] = [
     ],
     highlights: [
       "Route finding between stations with fares and a nearby-station lookup on an interactive Leaflet map.",
-      "Chatbot built on Botpress answers rider questions in three languages.",
+      "Chatbot answers rider questions in three languages.",
       "Flask backend with a React frontend, deployed live on Vercel.",
     ],
   },
@@ -36,11 +37,11 @@ export const projects: Project[] = [
     slug: "cm-outreach-dashboard",
     title: "CM Outreach Dashboard",
     summary:
-      "Geospatial analytics of CM outreach across Gujarat with filters, clustering, and trend charts.",
+      "Track Gujarat CM outreach on a live map with shareable district filters, clustering and trend charts.",
     image: "/img/project-1.jpg",
     tags: ["React", "Leaflet", "Recharts"],
     github: "https://github.com/AnshBhavsar1654",
-    demo: "https://cmvisitdashboard.netlify.app/",
+    demo: "https://cm-dashboard-two.vercel.app/",
     featured: true,
     metrics: [
       { value: "District", label: "deep-linked filters" },
@@ -56,11 +57,13 @@ export const projects: Project[] = [
     slug: "en-gu-transformer",
     title: "English-Gujarati Transformer",
     summary:
-      "Encoder-decoder NMT with multi-head attention, BLEU/CHRF eval, Streamlit app, HF model release.",
+      "Translate English to Gujarati with a custom-built neural model, quality-scored and served as a live demo.",
     image: "/img/project-3.png",
     tags: ["PyTorch", "Transformers", "Streamlit", "Hugging Face"],
     github: "https://github.com/AnshBhavsar1654/en-gu-transformer",
     demo: "https://en-gu-transformer-upigwgvkjtmccxwe5dtbzt.streamlit.app/",
+    embedSrc:
+      "https://en-gu-transformer-upigwgvkjtmccxwe5dtbzt.streamlit.app/?embed=true",
     featured: true,
     metrics: [
       { value: "BLEU/CHRF", label: "eval reported" },
@@ -76,11 +79,11 @@ export const projects: Project[] = [
     slug: "hand-cricket-game",
     title: "Hand Cricket Game",
     summary:
-      "Classic hand cricket in the browser with live scores, best-score persistence, and mobile-first UI.",
+      "Play hand cricket in the browser: call 0-6 each ball with live scores and a saved best, made for phones.",
     image: "/img/hand_cricket.png",
     tags: ["JavaScript", "LocalStorage", "Game"],
     github: "https://github.com/AnshBhavsar1654/Hand-Cricket-Game",
-    demo: "https://anshbhavsar1654.github.io/Hand-Cricket-Game/",
+    demo: "https://hand-cricket-game-self.vercel.app/",
     featured: true,
     metrics: [{ value: "0-6", label: "run input range" }],
     highlights: [
@@ -93,7 +96,7 @@ export const projects: Project[] = [
     slug: "cwc23-tableau",
     title: "Cricket World Cup 2023 Analysis",
     summary:
-      "Tableau dashboard for runs, wickets, venues, and umpire patterns from the 2023 tournament.",
+      "Explore the 2023 Cricket World Cup in an interactive dashboard: runs, wickets, venues and umpire patterns.",
     image: "/img/world_cup.jpg",
     tags: ["Tableau", "Analytics"],
     github: "https://github.com/AnshBhavsar1654/CWC23-Analysis-Using-Tableau",

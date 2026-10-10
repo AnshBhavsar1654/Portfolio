@@ -1,7 +1,6 @@
 import { CountUp } from "@/components/site/count-up";
 import { experience } from "@/content/experience";
 import { profile } from "@/content/profile";
-import { publications } from "@/content/research";
 
 // Stats derived from content arrays, never typed by hand.
 const STATS = [
@@ -11,9 +10,7 @@ const STATS = [
     suffix: "",
     label: "CGPA",
   },
-  { value: publications.length, decimals: 0, suffix: "", label: "IEEE papers" },
   { value: experience.length, decimals: 0, suffix: "", label: "Internships" },
-  { value: 500, decimals: 0, suffix: "+", label: "Resumes ranked" },
 ];
 
 export function About() {

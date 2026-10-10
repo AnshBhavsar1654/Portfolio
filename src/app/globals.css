@@ -17,6 +17,13 @@
   --color-accent-hover: var(--accent-hover);
   --color-accent-wash: var(--accent-wash);
   --color-on-accent: var(--on-accent);
+  --color-brand-github: var(--brand-github);
+  --color-brand-linkedin: var(--brand-linkedin);
+  --color-brand-instagram: var(--brand-instagram);
+  --color-brand-youtube: var(--brand-youtube);
+  --color-brand-gmail: var(--brand-gmail);
+  --color-brand-leetcode: var(--brand-leetcode);
+  --color-brand-x: var(--brand-x);
   --font-display: var(--font-sans);
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);

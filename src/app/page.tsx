@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { About } from "@/components/home/about";
 import { ContactBlock } from "@/components/home/contact-block";
+import { EducationList } from "@/components/home/education-list";
 import { ExperienceList } from "@/components/home/experience-list";
 import { Hero } from "@/components/home/hero";
-import { ResearchList } from "@/components/home/research-list";
 import { Skills } from "@/components/home/skills";
 import { WorkList } from "@/components/home/work-list";
 import { Reveal } from "@/components/site/reveal";
@@ -16,7 +16,7 @@ export default function Home() {
 
       <Section id="about" first>
         <Reveal>
-          <SectionHeading title="Engineer first," accent="evidence always." />
+          <SectionHeading title="A little" accent="about me." />
         </Reveal>
         <Reveal className="mt-12">
           <About />
@@ -28,11 +28,20 @@ export default function Home() {
           <SectionHeading
             title="Where I have"
             accent="worked."
-            body="Production work at startups, plus research published with IEEE."
+            body="Production work at startups."
           />
         </Reveal>
         <Reveal className="mt-12">
           <ExperienceList />
+        </Reveal>
+      </Section>
+
+      <Section id="education">
+        <Reveal>
+          <SectionHeading title="Where I" accent="studied." />
+        </Reveal>
+        <Reveal className="mt-12">
+          <EducationList />
         </Reveal>
       </Section>
 
@@ -48,15 +57,6 @@ export default function Home() {
         </Reveal>
         <Reveal className="mt-12">
           <WorkList limit={4} />
-        </Reveal>
-      </Section>
-
-      <Section id="research">
-        <Reveal>
-          <SectionHeading title="Peer-reviewed" accent="work." />
-        </Reveal>
-        <Reveal className="mt-12">
-          <ResearchList />
         </Reveal>
       </Section>
 

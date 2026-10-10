@@ -20,7 +20,6 @@ export const skillGroups: { title: string; skills: string[] }[] = [
       "RAG pipelines",
       "Quality benchmarks",
       "SFT/RLHF",
-      "Botpress",
       "Hugging Face",
     ],
   },

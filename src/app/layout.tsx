@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     template: "%s | Ansh Bhavsar",
   },
   description:
-    "Ansh Bhavsar builds full-stack products, AI agents, and evaluable LLM systems. Nirma CS, Serin AI founding engineer, IEEE published.",
+    "Ansh Bhavsar builds full-stack products, AI agents, and evaluable LLM systems. Nirma CS, Serin AI founding engineer.",
   openGraph: {
     type: "website",
     url: siteUrl.origin,
