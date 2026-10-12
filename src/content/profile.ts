@@ -2,6 +2,7 @@ export const profile = {
   name: "Ansh Bhavsar",
   role: "Founding Engineer & Full-Stack Developer",
   location: "Ahmedabad, India",
+  timezone: "Asia/Kolkata",
   email: "anshbhavsar164@gmail.com",
   website: "https://anshbhavsar.vercel.app",
   university: "Nirma University",

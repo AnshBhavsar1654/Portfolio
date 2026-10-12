@@ -34,7 +34,7 @@ export default async function Page({
   ].filter(Boolean) as { label: string; href: string }[];
 
   return (
-    <Section first className="pt-10 md:pt-16">
+    <Section first className="pt-28 md:pt-36">
       <Link
         href="/work"
         className="text-muted hover:text-strong inline-flex items-center gap-1.5 text-sm transition-colors"

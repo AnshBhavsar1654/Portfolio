@@ -16,7 +16,12 @@ export default function Home() {
 
       <Section id="about" first>
         <Reveal>
-          <SectionHeading title="A little" accent="about me." />
+          <SectionHeading
+            index="01"
+            label="About"
+            title="A little"
+            accent="about me."
+          />
         </Reveal>
         <Reveal className="mt-12">
           <About />
@@ -26,6 +31,8 @@ export default function Home() {
       <Section id="experience">
         <Reveal>
           <SectionHeading
+            index="02"
+            label="Experience"
             title="Where I have"
             accent="worked."
             body="Production work at startups."
@@ -38,7 +45,12 @@ export default function Home() {
 
       <Section id="education">
         <Reveal>
-          <SectionHeading title="Where I" accent="studied." />
+          <SectionHeading
+            index="03"
+            label="Education"
+            title="Where I"
+            accent="studied."
+          />
         </Reveal>
         <Reveal className="mt-12">
           <EducationList />
@@ -47,7 +59,12 @@ export default function Home() {
 
       <Section id="work">
         <Reveal className="flex flex-wrap items-end justify-between gap-4">
-          <SectionHeading title="Proof, not" accent="promises." />
+          <SectionHeading
+            index="04"
+            label="Work"
+            title="Proof, not"
+            accent="promises."
+          />
           <Link
             href="/work"
             className="text-accent text-sm font-medium hover:underline"
@@ -63,6 +80,8 @@ export default function Home() {
       <Section id="skills">
         <Reveal>
           <SectionHeading
+            index="05"
+            label="Skills"
             title="Tools I"
             accent="reach for."
             body="Grouped by what they do, not ranked."
@@ -76,6 +95,8 @@ export default function Home() {
       <Section id="contact">
         <Reveal>
           <SectionHeading
+            index="06"
+            label="Contact"
             title="Have a product problem?"
             accent="Bring it."
             body="I take on full-stack builds, AI agents, and data apps. Replies within two days."

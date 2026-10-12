@@ -36,8 +36,8 @@ const LINKS: { label: string; href: string; name: BrandName; tone: string }[] =
 export function SiteFooter() {
   const year = new Date().getFullYear();
   return (
-    <footer className="border-line border-t">
-      <div className="mx-auto w-full max-w-[1200px] px-4 py-10">
+    <footer className="border-line overflow-hidden border-t">
+      <div className="mx-auto w-full max-w-[1200px] px-4 pt-10">
         <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
           <p className="text-muted text-sm">
             <span className="text-strong font-medium">{profile.name}</span>
@@ -100,6 +100,12 @@ export function SiteFooter() {
           </a>
         </p>
       </div>
+      <p
+        aria-hidden
+        className="accent-serif text-strong/10 -mb-[0.18em] pt-8 text-center text-[clamp(4rem,17vw,16rem)] leading-[0.85] whitespace-nowrap select-none"
+      >
+        {profile.name}
+      </p>
     </footer>
   );
 }

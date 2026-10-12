@@ -5,7 +5,7 @@ import { SiteNav } from "@/components/site/site-nav";
 import { ThemeScript } from "@/components/site/theme-script";
 import { profile } from "@/content/profile";
 import { siteUrl } from "@/lib/site-url";
-import { mono, sans } from "./fonts";
+import { mono, sans, serif } from "./fonts";
 
 export const metadata: Metadata = {
   metadataBase: siteUrl,
@@ -54,7 +54,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${sans.variable} ${mono.variable}`}
+      className={`${sans.variable} ${mono.variable} ${serif.variable}`}
       suppressHydrationWarning
     >
       <head>

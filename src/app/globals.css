@@ -14,6 +14,7 @@
   --color-muted: var(--text-muted);
   --color-line: var(--line);
   --color-accent: var(--accent);
+  --color-signal: var(--signal-positive);
   --color-accent-hover: var(--accent-hover);
   --color-accent-wash: var(--accent-wash);
   --color-on-accent: var(--on-accent);
@@ -24,7 +25,7 @@
   --color-brand-gmail: var(--brand-gmail);
   --color-brand-leetcode: var(--brand-leetcode);
   --color-brand-x: var(--brand-x);
-  --font-display: var(--font-sans);
+  --font-display: var(--font-serif);
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
 }
@@ -52,28 +53,6 @@ html.theme-ready * {
     background-color var(--theme-fade) var(--ease-standard),
     color var(--theme-fade) var(--ease-standard),
     border-color var(--theme-fade) var(--ease-standard);
-}
-
-/* Ball toggle: continuous spin, transform-only. Stops under reduced motion. */
-@keyframes ball-spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.ball-spin {
-  animation: ball-spin 6s linear infinite;
-}
-
-.group:hover .ball-spin,
-.group:focus-visible .ball-spin {
-  animation-duration: 2s;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .ball-spin {
-    animation: none;
-  }
 }
 
 /* Disclosure height animation: grid-rows trick, transform-free but cheap. */
@@ -117,22 +96,105 @@ body::after {
   );
 }
 
-/* Quiet film grain, fixed, never intercepts input. Breaks digital flatness. */
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 60;
-  pointer-events: none;
-  opacity: 0.035;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+/* Pitch lines: a faint measuring grid that fades out from the top-left. */
+.hero-grid {
+  background-image:
+    linear-gradient(to right, var(--line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+  background-size: var(--grid-cell) var(--grid-cell);
+  mask-image: radial-gradient(70% 80% at 20% 10%, #000, transparent 75%);
 }
 
-/* Hero ambient wash: one soft accent glow, top-right. */
-.hero-glow {
+/* Floating badges on the portrait. */
+@keyframes float-y {
+  50% {
+    transform: translateY(-8px) rotate(var(--tilt, 0deg));
+  }
+}
+
+.float-badge {
+  transform: rotate(var(--tilt, 0deg));
+  animation: float-y var(--dur-float) ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .float-badge {
+    animation: none;
+  }
+}
+
+/* Cursor spotlight: pointer position is written to --mx/--my by JS. */
+.spotlight {
+  position: relative;
+}
+
+.spotlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--dur-base) var(--ease-standard);
   background: radial-gradient(
-    55% 60% at 85% 0%,
+    28rem circle at var(--mx, 50%) var(--my, 50%),
     var(--accent-wash),
-    transparent 70%
+    transparent 60%
   );
+}
+
+.spotlight:hover::before {
+  opacity: 1;
+}
+
+/* Heading emphasis: serif italic, one word per heading. */
+.accent-serif {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+/* Ball toggle: it rolls across the track (rotation matches travel), hops, and
+   squashes on landing. Travel and roll share one token-driven curve so they
+   stay in sync; the hop only plays after first paint (.theme-ready). */
+.ball-travel {
+  transition: transform var(--dur-roll) var(--ease-roll);
+}
+
+.ball-roll {
+  transition: transform var(--dur-roll) var(--ease-roll);
+}
+
+.group:hover .ball-roll {
+  filter: drop-shadow(0 1px 2px var(--line));
+}
+
+@keyframes ball-hop {
+  0% {
+    transform: translateY(0) scale(1, 1);
+  }
+  28% {
+    transform: translateY(-6px) scale(0.96, 1.06);
+  }
+  58% {
+    transform: translateY(0) scale(1.18, 0.82);
+  }
+  76% {
+    transform: translateY(-1.5px) scale(0.98, 1.03);
+  }
+  100% {
+    transform: translateY(0) scale(1, 1);
+  }
+}
+
+.theme-ready .ball-hop {
+  transform-origin: 50% 100%;
+  animation: ball-hop var(--dur-roll) var(--ease-standard);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-ready .ball-hop {
+    animation: none;
+  }
 }

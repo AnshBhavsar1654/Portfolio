@@ -1,6 +1,7 @@
 "use client";
 
 import { List, X } from "@phosphor-icons/react";
+import { motion } from "motion/react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ThemeToggle } from "@/components/site/theme-toggle";
@@ -69,46 +70,53 @@ export function SiteNav() {
   }, [open]);
 
   return (
-    <header
-      className={cn(
-        "sticky top-0 z-40 border-b transition-colors duration-(--dur-base)",
-        scrolled
-          ? "border-line bg-bg/80 backdrop-blur"
-          : "border-transparent bg-transparent"
-      )}
-    >
+    <header className="pointer-events-none fixed inset-x-0 top-(--nav-offset) z-40 px-4">
       <nav
         aria-label="Primary"
-        className="mx-auto flex h-16 w-full max-w-[1200px] items-center justify-between px-4"
+        className={cn(
+          "pointer-events-auto relative z-10 mx-auto flex h-14 w-full max-w-[1200px] items-center justify-between rounded-full border pr-2 pl-5 transition-[background-color,border-color,box-shadow] duration-(--dur-base)",
+          scrolled
+            ? "border-line bg-bg/75 shadow-sm backdrop-blur-xl"
+            : "border-transparent bg-transparent"
+        )}
       >
         <Link
           href="/#top"
-          className="text-strong text-sm font-medium tracking-tight"
+          className="text-strong flex items-center gap-2 text-sm font-semibold tracking-tight"
         >
-          Ansh Bhavsar
+          <span aria-hidden className="bg-accent h-2.5 w-2.5 rounded-full" />
+          {profile.name}
         </Link>
-        <div className="hidden items-center gap-1 lg:flex">
+        <div className="hidden items-center gap-0.5 lg:flex">
           {LINKS.map((l) => (
             <Link
               key={l.id}
               href={l.href}
               aria-current={active === l.id ? "true" : undefined}
               className={cn(
-                "rounded-full px-3 py-2 text-sm transition-colors",
+                "relative rounded-full px-3.5 py-2 text-sm transition-colors",
                 active === l.id ? "text-strong" : "text-muted hover:text-strong"
               )}
             >
+              {active === l.id ? (
+                <motion.span
+                  layoutId="nav-pill"
+                  aria-hidden
+                  className="bg-surface-2 absolute inset-0 -z-10 rounded-full"
+                  transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }}
+                />
+              ) : null}
               {l.label}
             </Link>
           ))}
+        </div>
+        <div className="flex items-center gap-1">
           <Link
             href="/resume"
-            className="text-muted hover:text-strong px-3 py-2 text-sm transition-colors"
+            className="bg-strong text-bg hidden rounded-full px-4 py-2 font-mono text-xs uppercase transition-opacity hover:opacity-85 sm:inline-block"
           >
             Resume
           </Link>
-        </div>
-        <div className="flex items-center gap-1">
           <ThemeToggle />
           <button
             ref={buttonRef}
@@ -130,26 +138,31 @@ export function SiteNav() {
           role="dialog"
           aria-modal="true"
           aria-label="Menu"
-          className="bg-bg fixed inset-x-0 top-16 bottom-0 px-4 pt-4 lg:hidden"
+          className="bg-bg pointer-events-auto fixed inset-0 px-4 pt-24 lg:hidden"
         >
-          {LINKS.map((l) => (
+          {LINKS.map((l, i) => (
             <Link
               key={l.id}
               href={l.href}
               onClick={() => setOpen(false)}
-              className="text-strong block rounded-xl px-4 py-4 text-lg"
+              className="text-strong border-line flex items-baseline gap-4 border-b px-2 py-5 text-3xl tracking-tight"
             >
+              <span className="text-accent font-mono text-xs">
+                {String(i + 1).padStart(2, "0")}
+              </span>
               {l.label}
             </Link>
           ))}
           <Link
             href="/resume"
             onClick={() => setOpen(false)}
-            className="text-muted block rounded-xl px-4 py-4 text-lg"
+            className="text-muted block px-2 py-5 text-lg"
           >
             Resume
           </Link>
-          <p className="text-muted px-4 pt-6 text-sm">{profile.email}</p>
+          <p className="text-muted px-2 pt-6 font-mono text-sm">
+            {profile.email}
+          </p>
         </div>
       ) : null}
     </header>

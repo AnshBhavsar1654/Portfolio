@@ -17,3 +17,24 @@
     --theme-fade: 0ms;
   }
 }
+
+:root {
+  --dur-float: 7s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-float: 0s;
+  }
+}
+
+:root {
+  --dur-roll: 680ms;
+  --ease-roll: cubic-bezier(0.34, 1.35, 0.5, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-roll: 0ms;
+  }
+}

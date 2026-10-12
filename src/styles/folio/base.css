@@ -23,3 +23,8 @@ body {
     scroll-behavior: auto;
   }
 }
+
+/* Decorative bleed (badges, wordmark, ticker) must never create a scrollbar. */
+body {
+  overflow-x: clip;
+}

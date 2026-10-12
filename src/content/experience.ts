@@ -57,21 +57,33 @@ export const experience: Experience[] = [
   },
 ];
 
-export const education = [
+export type Education = {
+  school: string;
+  degree: string;
+  period: string;
+  location: string;
+  scores: { value: string; label: string }[];
+  focus: string[];
+};
+
+export const education: Education[] = [
   {
-    school: "Institute of Technology, Nirma University",
-    degree: "B.Tech Computer Science with Minor in Adaptive AI",
+    school: "Nirma University",
+    degree: "B.Tech in Computer Science, Minor in Adaptive AI",
     period: "Sept 2022 - May 2026",
     location: "Ahmedabad, India",
-    detail:
-      "CGPA 9.07. Algorithms, systems, ML/DL. Active in hackathons and applied AI.",
+    scores: [{ value: "9.07", label: "CGPA" }],
+    focus: ["Algorithms", "Systems", "ML / DL", "Hackathons", "Applied AI"],
   },
   {
     school: "Hillwoods School",
     degree: "Higher Secondary (PCM)",
     period: "2008 - 2022",
     location: "Gandhinagar, India",
-    detail:
-      "97.33% (10th), 97% (12th). Leadership roles, extracurriculars, inter-school sport.",
+    scores: [
+      { value: "97.33%", label: "10th" },
+      { value: "97%", label: "12th" },
+    ],
+    focus: ["Leadership roles", "Extracurriculars", "Inter-school sport"],
   },
 ];

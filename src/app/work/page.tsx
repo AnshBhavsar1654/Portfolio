@@ -7,7 +7,7 @@ export const metadata: Metadata = { title: "Work" };
 
 export default function WorkPage() {
   return (
-    <Section first className="pt-12 md:pt-20">
+    <Section first className="pt-32 md:pt-40">
       <Reveal>
         <SectionHeading
           title="Everything I have"
