@@ -4,6 +4,7 @@ import { ContactBlock } from "@/components/home/contact-block";
 import { EducationList } from "@/components/home/education-list";
 import { ExperienceList } from "@/components/home/experience-list";
 import { Hero } from "@/components/home/hero";
+import { QuoteBlock } from "@/components/home/quote-block";
 import { Skills } from "@/components/home/skills";
 import { WorkList } from "@/components/home/work-list";
 import { Reveal } from "@/components/site/reveal";
@@ -92,6 +93,11 @@ export default function Home() {
         </Reveal>
       </Section>
 
+      <Section first className="py-24 md:py-40">
+        <Reveal>
+          <QuoteBlock />
+        </Reveal>
+      </Section>
       <Section id="contact">
         <Reveal>
           <SectionHeading
