@@ -36,12 +36,23 @@ const LINKS: { label: string; href: string; name: BrandName; tone: string }[] =
 export function SiteFooter() {
   const year = new Date().getFullYear();
   return (
-    <footer className="border-line overflow-hidden border-t">
+    <footer className="border-line bg-bg relative z-10 overflow-hidden border-t">
       <div className="mx-auto w-full max-w-[1200px] px-4 pt-10">
         <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
           <p className="text-muted text-sm">
             <span className="text-strong font-medium">{profile.name}</span>
-            <span className="ml-3">&copy; {year}</span>
+            <span className="ml-3">&copy; {year} All rights reserved.</span>
+            <span className="ml-3">
+              Created by{" "}
+              <a
+                href={profile.socials.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-strong hover:text-accent underline underline-offset-4 transition-colors"
+              >
+                Ansh
+              </a>
+            </span>
           </p>
           <nav
             aria-label="Footer"

@@ -87,42 +87,6 @@ body::after {
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
 }
 
-/* Hero ambient wash: one soft accent glow, top-right. */
-.hero-glow {
-  background: radial-gradient(
-    55% 60% at 85% 0%,
-    var(--accent-wash),
-    transparent 70%
-  );
-}
-
-/* Pitch lines: a faint measuring grid that fades out from the top-left. */
-.hero-grid {
-  background-image:
-    linear-gradient(to right, var(--line) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--line) 1px, transparent 1px);
-  background-size: var(--grid-cell) var(--grid-cell);
-  mask-image: radial-gradient(70% 80% at 20% 10%, #000, transparent 75%);
-}
-
-/* Floating badges on the portrait. */
-@keyframes float-y {
-  50% {
-    transform: translateY(-8px) rotate(var(--tilt, 0deg));
-  }
-}
-
-.float-badge {
-  transform: rotate(var(--tilt, 0deg));
-  animation: float-y var(--dur-float) ease-in-out infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .float-badge {
-    animation: none;
-  }
-}
-
 /* Cursor spotlight: pointer position is written to --mx/--my by JS. */
 .spotlight {
   position: relative;
@@ -197,4 +161,40 @@ body::after {
   .theme-ready .ball-hop {
     animation: none;
   }
+}
+
+/* Frosted card that sits in front of a halftone backdrop. */
+.glass {
+  background: color-mix(in srgb, var(--surface) 86%, transparent);
+  backdrop-filter: blur(16px) saturate(1.2);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+}
+
+/* Fade a one-sided backdrop out toward the content side (wide screens only). */
+@media (min-width: 1024px) {
+  .backdrop-fade-r {
+    mask-image: linear-gradient(to right, #000 55%, transparent);
+  }
+
+  .backdrop-fade-l {
+    mask-image: linear-gradient(to left, #000 55%, transparent);
+  }
+}
+
+/* Soft page-coloured halo so text stays readable over a halftone backdrop. */
+.halo {
+  text-shadow:
+    0 0 2px var(--bg),
+    0 0 8px var(--bg),
+    0 0 20px var(--bg);
+}
+
+/* Cards, forms and filled buttons have their own background: no halo. */
+.halo :is(.glass, article, form, button, .bg-accent, .bg-strong) {
+  text-shadow: none;
+}
+
+/* Page-coloured veil over a halftone print; strength is per theme. */
+.ht-veil {
+  background: color-mix(in srgb, var(--bg) var(--ht-veil), transparent);
 }

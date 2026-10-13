@@ -119,6 +119,7 @@ export function SiteNav() {
           </Link>
           <ThemeToggle />
           <button
+            suppressHydrationWarning
             ref={buttonRef}
             type="button"
             onClick={() => setOpen((o) => !o)}

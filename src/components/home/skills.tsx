@@ -8,7 +8,7 @@ export function Skills() {
       {skillGroups.map((g, i) => (
         <div
           key={g.title}
-          className="border-line bg-surface hover:border-accent/50 group rounded-[var(--radius-panel)] border p-6 transition-colors duration-(--dur-base)"
+          className="border-line glass hover:border-accent/50 group rounded-[var(--radius-panel)] border p-6 transition-colors duration-(--dur-base)"
         >
           <p className="accent-serif text-accent text-6xl leading-none">
             {i + 1}

@@ -1,25 +1,24 @@
 import { quote } from "@/content/quote";
 
-// A pause between the work and the ask: one line, set large in the display
-// serif, credited in mono like a scorecard footnote.
+// The line sits on the right, over the dark half of the page; the speaker's
+// mosaic portrait fills the left half behind it (see BackdropSection).
 export function QuoteBlock() {
   return (
-    <figure className="relative mx-auto max-w-4xl text-center">
+    <figure className="lg:ml-auto lg:w-1/2">
       <span
         aria-hidden
-        className="accent-serif text-accent/20 pointer-events-none absolute -top-16 left-1/2 -translate-x-1/2 text-[12rem] leading-none select-none md:-top-28 md:text-[16rem]"
+        className="accent-serif text-accent/40 block text-[9rem] leading-[0.6] select-none md:text-[12rem]"
       >
         &ldquo;
       </span>
-      <blockquote className="relative">
-        <p className="accent-serif text-strong text-4xl leading-[1.08] text-balance md:text-7xl">
+      <blockquote>
+        <p className="accent-serif text-strong text-5xl leading-[1.05] text-balance md:text-7xl">
           {quote.text}
         </p>
       </blockquote>
-      <figcaption className="text-muted mt-8 flex items-center justify-center gap-3 font-mono text-xs tracking-(--tracking-eyebrow) uppercase">
+      <figcaption className="text-muted mt-8 flex items-center gap-3 font-mono text-xs tracking-(--tracking-eyebrow) uppercase">
         <span aria-hidden className="bg-accent h-px w-10" />
         {quote.author}
-        <span aria-hidden className="bg-accent h-px w-10" />
       </figcaption>
     </figure>
   );

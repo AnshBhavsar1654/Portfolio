@@ -1,15 +1,15 @@
 import { education } from "@/content/experience";
 
-// Same scorecard grammar as the experience list, without the disclosure.
-// Headline figures are set large in the display serif; the rest is a short
-// "focus" line instead of a run-on sentence.
+// Same scorecard grammar as the experience timeline: one glass card per
+// school. Headline figures are set large in the display serif; the rest is a
+// short "focus" line instead of a run-on sentence.
 export function EducationList() {
   return (
-    <ul className="divide-line divide-y">
+    <ul className="space-y-4">
       {education.map((s, i) => (
         <li
           key={s.school}
-          className="grid gap-x-6 gap-y-5 px-3 py-8 first:pt-0 md:grid-cols-[3rem_1fr_14rem]"
+          className="glass border-line grid gap-x-6 gap-y-5 rounded-[var(--radius-panel)] border p-6 md:grid-cols-[3rem_1fr_14rem] md:p-8"
         >
           <span className="text-muted hidden pt-2 font-mono text-xs tabular-nums md:block">
             {String(i + 1).padStart(2, "0")}

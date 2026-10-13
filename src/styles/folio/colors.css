@@ -26,6 +26,15 @@
   --ball-fill: #c42b22;
   --ball-stroke: #8e1d17;
   --ball-seam: #f4d9d4;
+  /* Risograph halftone: two screens (ink + red spot) printed on the page.
+     In light mode dots grow with darkness and multiply like ink on paper;
+     in dark mode they grow with brightness and screen like light. */
+  --ht-ink: #57534a;
+  --ht-spot: #d9675e;
+  --ht-invert: 0;
+  --ht-blend: multiply;
+  --ht-strength: 1; /* scales dot size */
+  --ht-veil: 62%; /* page colour laid over the print so text stays legible */
 }
 
 :root[data-theme="dark"] {
@@ -52,4 +61,10 @@
   --ball-fill: #f6f4ee;
   --ball-stroke: #cfcbc0;
   --ball-seam: #b9b5a8;
+  --ht-ink: #8f8a7f;
+  --ht-spot: #b8443c;
+  --ht-invert: 1;
+  --ht-blend: screen;
+  --ht-strength: 0.8;
+  --ht-veil: 64%;
 }

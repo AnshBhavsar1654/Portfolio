@@ -19,6 +19,7 @@ export function WorkFilter() {
         aria-label="Filter by tag"
       >
         <button
+          suppressHydrationWarning
           type="button"
           onClick={() => setTag(null)}
           aria-pressed={tag === null}
@@ -33,6 +34,7 @@ export function WorkFilter() {
         </button>
         {TAGS.map((t) => (
           <button
+            suppressHydrationWarning
             key={t}
             type="button"
             onClick={() => setTag(tag === t ? null : t)}

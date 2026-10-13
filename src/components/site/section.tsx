@@ -50,7 +50,7 @@ export function SectionHeading({
   return (
     <div>
       {index || label ? (
-        <p className="text-muted mb-6 flex items-center gap-3 font-mono text-xs tracking-(--tracking-eyebrow) uppercase">
+        <p className="glass border-line text-body mb-6 inline-flex items-center gap-3 rounded-full border px-3 py-1.5 font-mono text-xs tracking-(--tracking-eyebrow) uppercase">
           {index ? <span className="text-accent">{index}</span> : null}
           <span aria-hidden className="bg-line h-px w-10" />
           {label ? <span>{label}</span> : null}
@@ -66,7 +66,7 @@ export function SectionHeading({
         ) : null}
       </h2>
       {body ? (
-        <p className="text-muted mt-5 max-w-[56ch] text-base leading-relaxed">
+        <p className="text-body mt-5 max-w-[56ch] text-base leading-relaxed">
           {body}
         </p>
       ) : null}

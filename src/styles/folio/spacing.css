@@ -17,5 +17,8 @@
   --radius-pill: 999px;
   --radius-panel: 28px;
   --nav-offset: 0.875rem;
-  --grid-cell: 64px;
+}
+
+:root {
+  --ht-cell: 7px; /* halftone screen pitch */
 }

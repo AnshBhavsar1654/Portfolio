@@ -28,6 +28,7 @@ export function CopyEmail() {
       </a>
       <p className="mt-4 flex items-center gap-3">
         <button
+          suppressHydrationWarning
           type="button"
           onClick={copy}
           className="border-line text-muted hover:text-strong rounded-full border px-4 py-2 font-mono text-xs transition-colors"

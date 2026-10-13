@@ -7,15 +7,18 @@ import { Hero } from "@/components/home/hero";
 import { QuoteBlock } from "@/components/home/quote-block";
 import { Skills } from "@/components/home/skills";
 import { WorkList } from "@/components/home/work-list";
+import { BackdropSection } from "@/components/site/backdrop-section";
+import { BackdropStage } from "@/components/site/backdrop-stage";
 import { Reveal } from "@/components/site/reveal";
-import { Section, SectionHeading } from "@/components/site/section";
+import { SectionHeading } from "@/components/site/section";
 
 export default function Home() {
   return (
     <>
+      <BackdropStage />
       <Hero />
 
-      <Section id="about" first>
+      <BackdropSection id="about" backdrop="about">
         <Reveal>
           <SectionHeading
             index="01"
@@ -27,9 +30,9 @@ export default function Home() {
         <Reveal className="mt-12">
           <About />
         </Reveal>
-      </Section>
+      </BackdropSection>
 
-      <Section id="experience">
+      <BackdropSection id="experience" backdrop="experience">
         <Reveal>
           <SectionHeading
             index="02"
@@ -42,9 +45,9 @@ export default function Home() {
         <Reveal className="mt-12">
           <ExperienceList />
         </Reveal>
-      </Section>
+      </BackdropSection>
 
-      <Section id="education">
+      <BackdropSection id="education" backdrop="education">
         <Reveal>
           <SectionHeading
             index="03"
@@ -56,29 +59,31 @@ export default function Home() {
         <Reveal className="mt-12">
           <EducationList />
         </Reveal>
-      </Section>
+      </BackdropSection>
 
-      <Section id="work">
-        <Reveal className="flex flex-wrap items-end justify-between gap-4">
+      <BackdropSection id="work" backdrop="work">
+        <Reveal>
           <SectionHeading
             index="04"
             label="Work"
             title="Proof, not"
             accent="promises."
           />
-          <Link
-            href="/work"
-            className="text-accent text-sm font-medium hover:underline"
-          >
-            All projects
-          </Link>
         </Reveal>
         <Reveal className="mt-12">
           <WorkList limit={4} />
+          <div className="mt-8 flex justify-end">
+            <Link
+              href="/work"
+              className="text-accent text-sm font-medium hover:underline"
+            >
+              All projects
+            </Link>
+          </div>
         </Reveal>
-      </Section>
+      </BackdropSection>
 
-      <Section id="skills">
+      <BackdropSection id="skills" backdrop="skills">
         <Reveal>
           <SectionHeading
             index="05"
@@ -91,14 +96,20 @@ export default function Home() {
         <Reveal className="mt-12">
           <Skills />
         </Reveal>
-      </Section>
+      </BackdropSection>
 
-      <Section first className="py-24 md:py-40">
+      <BackdropSection
+        id="quote"
+        backdrop="quote"
+
+        className="lg:py-40"
+      >
         <Reveal>
           <QuoteBlock />
         </Reveal>
-      </Section>
-      <Section id="contact">
+      </BackdropSection>
+
+      <BackdropSection id="contact" backdrop="contact">
         <Reveal>
           <SectionHeading
             index="06"
@@ -111,7 +122,7 @@ export default function Home() {
         <Reveal className="mt-12">
           <ContactBlock />
         </Reveal>
-      </Section>
+      </BackdropSection>
     </>
   );
 }

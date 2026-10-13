@@ -3,6 +3,9 @@
 import { useState } from "react";
 import { profile } from "@/content/profile";
 
+// Form controls carry suppressHydrationWarning: Edge's form fill stamps an
+// fdprocessedid attribute on them before React hydrates.
+
 type Status = "idle" | "sending" | "sent" | "error";
 
 export function ContactForm() {
@@ -72,6 +75,7 @@ export function ContactForm() {
             Your name
           </label>
           <input
+            suppressHydrationWarning
             id="contact-name"
             name="name"
             required
@@ -88,6 +92,7 @@ export function ContactForm() {
             Your email
           </label>
           <input
+            suppressHydrationWarning
             id="contact-email"
             name="email"
             type="email"
@@ -113,6 +118,7 @@ export function ContactForm() {
           Project details
         </label>
         <textarea
+          suppressHydrationWarning
           id="contact-message"
           name="message"
           required
@@ -132,6 +138,7 @@ export function ContactForm() {
       </div>
       {/* Honeypot field: hidden from sighted users and screen readers alike. */}
       <input
+        suppressHydrationWarning
         type="text"
         name="_gotcha"
         tabIndex={-1}
@@ -147,6 +154,7 @@ export function ContactForm() {
             : ""}
       </p>
       <button
+        suppressHydrationWarning
         type="submit"
         disabled={status === "sending"}
         className="bg-accent text-on-accent hover:bg-accent-hover mt-2 rounded-full px-6 py-3 text-sm font-medium whitespace-nowrap transition-colors disabled:opacity-60"
