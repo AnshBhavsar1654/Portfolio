@@ -26,6 +26,12 @@
   --ball-fill: #c42b22;
   --ball-stroke: #8e1d17;
   --ball-seam: #f4d9d4;
+  /* Contribution graph: empty track plus four GitHub-green intensity steps. */
+  --contrib-0: #e7e3d9;
+  --contrib-1: #9be9a8;
+  --contrib-2: #40c463;
+  --contrib-3: #30a14e;
+  --contrib-4: #216e39;
   /* Risograph halftone: two screens (ink + red spot) printed on the page.
      In light mode dots grow with darkness and multiply like ink on paper;
      in dark mode they grow with brightness and screen like light. */
@@ -61,6 +67,11 @@
   --ball-fill: #f6f4ee;
   --ball-stroke: #cfcbc0;
   --ball-seam: #b9b5a8;
+  --contrib-0: #1e1e22;
+  --contrib-1: #0e4429;
+  --contrib-2: #006d32;
+  --contrib-3: #26a641;
+  --contrib-4: #39d353;
   --ht-ink: #8f8a7f;
   --ht-spot: #b8443c;
   --ht-invert: 1;

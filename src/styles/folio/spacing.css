@@ -17,6 +17,7 @@
   --radius-pill: 999px;
   --radius-panel: 28px;
   --nav-offset: 0.875rem;
+  --contrib-cell: 0.625rem; /* contribution graph day-cell size */
 }
 
 :root {

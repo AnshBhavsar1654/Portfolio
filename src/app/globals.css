@@ -25,6 +25,11 @@
   --color-brand-gmail: var(--brand-gmail);
   --color-brand-leetcode: var(--brand-leetcode);
   --color-brand-x: var(--brand-x);
+  --color-contrib-0: var(--contrib-0);
+  --color-contrib-1: var(--contrib-1);
+  --color-contrib-2: var(--contrib-2);
+  --color-contrib-3: var(--contrib-3);
+  --color-contrib-4: var(--contrib-4);
   --font-display: var(--font-serif);
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
