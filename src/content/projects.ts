@@ -21,7 +21,7 @@ export const projects: Project[] = [
     image: "/img/project-2.jpg",
     tags: ["Flask", "React", "Leaflet"],
     github: "https://github.com/AnshBhavsar1654/Ahmedabad-Metro",
-    demo: "https://ahmedabad-metro-frontend.vercel.app/",
+    demo: "https://amdavad-metro.vercel.app/",
     featured: true,
     metrics: [
       { value: "3-lang", label: "chatbot support" },
