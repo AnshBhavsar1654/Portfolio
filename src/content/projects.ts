@@ -5,6 +5,7 @@ export type Project = {
   image: string;
   tags: string[];
   github?: string;
+  site?: string; // project website/landing page (non-embeddable link row)
   demo?: string;
   embedSrc?: string; // framed preview of the demo (e.g. chromeless embed URL)
   featured?: boolean;
@@ -54,6 +55,26 @@ export const projects: Project[] = [
     ],
   },
   {
+    slug: "clipboard-sync",
+    title: "Clipboard Sync",
+    summary:
+      "Share your clipboard between a Windows PC and any phone on the same Wi-Fi — text, photos and files, no cloud or phone app.",
+    image: "/img/clipboard-sync.jpg",
+    tags: ["Python", "FastAPI", "WebSocket", "Win32"],
+    github: "https://github.com/AnshBhavsar1654/Clipboard-Sync",
+    site: "https://clipboard-landing-sigma.vercel.app/",
+    featured: true,
+    metrics: [
+      { value: "QR", label: "device pairing" },
+      { value: "Offline", label: "no cloud" },
+    ],
+    highlights: [
+      "Copies text, photos and files between a Windows PC and any phone browser over the same Wi-Fi — no cloud, no accounts, no phone app.",
+      "FastAPI hub with WebSocket fan-out, SQLite history with search and pins, single-use QR/6-digit pairing and brute-force lockouts.",
+      "Ships as a Windows desktop app (WebView2 shell, system tray, quick-paste hotkey) built with PyInstaller and tested with pytest.",
+    ],
+  },
+  {
     slug: "en-gu-transformer",
     title: "English-Gujarati Transformer",
     summary:
@@ -64,7 +85,7 @@ export const projects: Project[] = [
     demo: "https://en-gu-transformer-upigwgvkjtmccxwe5dtbzt.streamlit.app/",
     embedSrc:
       "https://en-gu-transformer-upigwgvkjtmccxwe5dtbzt.streamlit.app/?embed=true",
-    featured: true,
+    featured: false,
     metrics: [
       { value: "BLEU/CHRF", label: "eval reported" },
       { value: "Live", label: "bilingual demo" },

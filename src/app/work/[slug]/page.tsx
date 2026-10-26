@@ -30,6 +30,7 @@ export default async function Page({
 
   const links = [
     p.demo && { label: "Live demo", href: p.demo },
+    p.site && { label: "Project website", href: p.site },
     p.github && { label: "Source on GitHub", href: p.github },
   ].filter(Boolean) as { label: string; href: string }[];
 
