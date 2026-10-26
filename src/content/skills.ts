@@ -1,24 +1,13 @@
-// Grouped, never ranked: no bars, no percentages, no radial charts.
-// Names grounded in the legacy Skills section + profile competencies.
+// Grouped, never ranked: no bars, percentages or skill levels. Group order is
+// a hierarchy of what leads the work (agents & evaluation first); skills
+// inside a group are unordered. Names grounded in real work only.
 export const skillGroups: { title: string; skills: string[] }[] = [
-  {
-    title: "Full-stack",
-    skills: [
-      "Flask",
-      "React",
-      "Leaflet",
-      "JavaScript",
-      "Streamlit",
-      "Vercel / Netlify",
-    ],
-  },
   {
     title: "Agents & evaluation",
     skills: [
       "AI agents",
       "Prompt optimization",
       "RAG pipelines",
-      "Quality benchmarks",
       "SFT/RLHF",
       "Hugging Face",
     ],
@@ -31,12 +20,23 @@ export const skillGroups: { title: string; skills: string[] }[] = [
       "TensorFlow",
       "Scikit-Learn",
       "Transformers",
-      "SHAP / LIME",
       "OpenCV",
     ],
   },
   {
+    title: "Full-stack",
+    skills: [
+      "Next.js",
+      "Flask",
+      "React",
+      "Leaflet",
+      "JavaScript",
+      "Streamlit",
+      "Vercel / Netlify",
+    ],
+  },
+  {
     title: "Data & analytics",
-    skills: ["SQL", "NumPy", "Pandas", "Recharts", "Tableau"],
+    skills: ["SQL", "Redis", "NumPy", "Pandas", "Recharts", "Tableau"],
   },
 ];

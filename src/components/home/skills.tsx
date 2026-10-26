@@ -1,37 +1,47 @@
 import { skillGroups } from "@/content/skills";
 
-// Batting order: numbered groups, plain typographic lists. Deliberately not
-// chips, so this section does not repeat the tag treatment used elsewhere.
+// Tool index on frosted glass: one panel per group, echoing the experience
+// ledger (glass keeps text readable over the halftone backdrop). Hovering a
+// group lights its index and skill dots in accent — the highlight is
+// hover-driven, not owned by one group. Deliberately not chips and never
+// ranked: no bars, no percentages, no skill levels.
 export function Skills() {
   return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <ul className="grid gap-4">
       {skillGroups.map((g, i) => (
-        <div
+        <li
           key={g.title}
-          className="border-line glass hover:border-accent/50 group rounded-[var(--radius-panel)] border p-6 transition-colors duration-(--dur-base)"
+          className="group glass border-line hover:border-accent/50 relative rounded-[var(--radius-panel)] border p-6 transition-[transform,border-color] duration-(--dur-base) ease-(--ease-out-soft) hover:-translate-y-0.5 active:scale-[0.99] md:p-8"
         >
-          <p className="accent-serif text-accent text-6xl leading-none">
-            {i + 1}
-          </p>
-          <h3 className="text-strong mt-6 text-lg font-semibold tracking-tight">
-            {g.title}
-          </h3>
-          <ul className="text-body mt-4 space-y-2 text-[15px]">
-            {g.skills.map((s) => (
-              <li
-                key={s}
-                className="hover:text-strong flex items-center gap-2 transition-transform duration-(--dur-base) hover:translate-x-1"
+          <div className="grid gap-x-12 gap-y-5 md:grid-cols-[minmax(0,15rem)_1fr] lg:grid-cols-[minmax(0,17rem)_1fr]">
+            <div className="flex items-baseline gap-4 md:gap-6">
+              <span
+                aria-hidden
+                className="accent-serif text-muted group-hover:text-accent text-3xl leading-none transition-colors duration-(--dur-base)"
               >
-                <span
-                  aria-hidden
-                  className="bg-line group-hover:bg-accent h-1 w-1 rounded-full transition-colors"
-                />
-                {s}
-              </li>
-            ))}
-          </ul>
-        </div>
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <h3 className="text-strong text-lg font-semibold tracking-tight md:text-xl">
+                {g.title}
+              </h3>
+            </div>
+            <ul className="text-body flex flex-wrap gap-x-7 gap-y-3 text-[15px]">
+              {g.skills.map((s) => (
+                <li
+                  key={s}
+                  className="hover:text-strong flex items-center gap-2.5 transition-colors duration-(--dur-base)"
+                >
+                  <span
+                    aria-hidden
+                    className="bg-line group-hover:bg-accent h-1 w-1 shrink-0 rounded-full transition-colors"
+                  />
+                  {s}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }

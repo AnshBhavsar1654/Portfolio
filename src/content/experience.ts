@@ -44,17 +44,6 @@ export const experience: Experience[] = [
     ],
     tags: ["Matching", "Automation", "Flask"],
   },
-  {
-    org: "Intech Creative Services",
-    role: "Machine Learning Intern",
-    period: "Jun 2024 - Jul 2024",
-    location: "Gandhinagar, India",
-    bullets: [
-      "Built delivery-timing predictors with EDA and feature engineering.",
-      "Added LIME/SHAP interpretability for transparent decisions.",
-    ],
-    tags: ["ML", "XAI"],
-  },
 ];
 
 export type Education = {
