@@ -26,7 +26,7 @@ function Card({
     >
       <div className="flex items-start justify-between gap-4">
         <p className="text-muted font-mono text-xs tracking-(--tracking-eyebrow) uppercase">
-          {hero ? "Undergraduate" : "School"}
+          {hero ? "University · Class of 2026" : "School"}
         </p>
         <span
           aria-hidden

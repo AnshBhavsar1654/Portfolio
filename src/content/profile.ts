@@ -9,7 +9,7 @@ export const profile = {
   degree: "B.Tech Computer Science, Minor in Adaptive AI",
   cgpa: "9.07",
   about:
-    "I'm Ansh, a computer science undergrad at Nirma University (CGPA 9.07, minor in Adaptive AI) working as a founding engineer at Serin AI. My work jumps between full-stack apps, frontends and backends, AI agents, prompts and evals. I just care about building things people can actually use.",
+    "I'm Ansh, a computer science graduate of Nirma University, class of 2026 (CGPA 9.07, minor in Adaptive AI) working as a founding engineer at Serin AI. My work jumps between full-stack apps, frontends and backends, AI agents, prompts and evals. I just care about building things people can actually use.",
   socials: {
     github: "https://github.com/AnshBhavsar1654",
     leetcode: "https://leetcode.com/u/ansh164/",
