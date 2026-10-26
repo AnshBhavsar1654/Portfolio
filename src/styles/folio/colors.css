@@ -23,6 +23,25 @@
   --brand-gmail: #1a73e8;
   --brand-leetcode: #b26a00;
   --brand-x: #24292f;
+  /* Tech-tool brand colours (official marks, mono glyphs use currentColor).
+     Official hexes stay in light; dark-theme overrides below only rework
+     logos that would vanish on the dark page (see colors.css dark block). */
+  --brand-nextdotjs: #000000;
+  --brand-flask: #3babc3;
+  --brand-react: #61dafb;
+  --brand-leaflet: #199900;
+  --brand-javascript: #f7df1e;
+  --brand-streamlit: #ff4b4b;
+  --brand-vercel: #000000;
+  --brand-python: #3776ab;
+  --brand-pytorch: #ee4c2c;
+  --brand-tensorflow: #ff6f00;
+  --brand-scikitlearn: #f7931e;
+  --brand-huggingface: #ffd21e;
+  --brand-opencv: #5c3ee8;
+  --brand-redis: #ff4438;
+  --brand-numpy: #013243;
+  --brand-pandas: #150458;
   --ball-fill: #c42b22;
   --ball-stroke: #8e1d17;
   --ball-seam: #f4d9d4;
@@ -64,6 +83,12 @@
   --brand-gmail: #8ab4f8;
   --brand-leetcode: #ffa116;
   --brand-x: #ffffff;
+  /* Tool logos that would sink into the dark page: pure-black marks go
+     white; NumPy/Pandas lift to official lighter palette tints. */
+  --brand-nextdotjs: #ffffff;
+  --brand-vercel: #ffffff;
+  --brand-numpy: #4dabcf;
+  --brand-pandas: #7f6df0;
   --ball-fill: #f6f4ee;
   --ball-stroke: #cfcbc0;
   --ball-seam: #b9b5a8;

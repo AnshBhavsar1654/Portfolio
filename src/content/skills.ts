@@ -32,7 +32,7 @@ export const skillGroups: { title: string; skills: string[] }[] = [
       "Leaflet",
       "JavaScript",
       "Streamlit",
-      "Vercel / Netlify",
+      "Vercel",
     ],
   },
   {

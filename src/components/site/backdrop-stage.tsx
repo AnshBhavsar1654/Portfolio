@@ -12,17 +12,20 @@ import { cn } from "@/lib/cn";
 // the incoming print's dots grow, tied to the scroll position, so one image
 // dissolves continuously into the next (and back when scrolling up). Past the
 // last section the print dissolves into the page. Only sections with a
-// non-zero weight are mounted, so at most two or three canvases exist.
+// non-zero weight are mounted, so at most three or four canvases exist.
 
 type Layer = { key: ArtKey; weight: number };
 
 // Half the height of the blend zone around each boundary, as a share of the
-// viewport.
-const BLEND = 0.4;
+// viewport. Generous on purpose: the dissolve starts well before the next
+// section arrives and finishes well after, so one print eases into the next.
+const BLEND = 0.7;
 
 const smooth = (x: number) => {
   const t = Math.min(1, Math.max(0, x));
-  return t * t * (3 - 2 * t);
+  // Smootherstep (C2): zero slope at both ends, so dots start and stop
+  // growing almost imperceptibly and the mid-point is a gentle climb.
+  return t * t * t * (t * (t * 6 - 15) + 10);
 };
 
 export function BackdropStage() {
