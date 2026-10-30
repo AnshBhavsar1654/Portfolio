@@ -40,7 +40,7 @@ export default async function Page({
         href="/work"
         className="text-muted hover:text-strong inline-flex items-center gap-1.5 text-sm transition-colors"
       >
-        <ArrowLeft size={14} /> All work
+        <ArrowLeft size={14} /> All projects
       </Link>
       <h1 className="text-strong mt-6 max-w-[18ch] text-5xl leading-[1.04] font-semibold tracking-tighter text-balance md:text-7xl">
         {p.title}

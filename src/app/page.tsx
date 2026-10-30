@@ -65,9 +65,10 @@ export default function Home() {
         <Reveal>
           <SectionHeading
             index="04"
-            label="Work"
-            title="Proof, not"
-            accent="promises."
+            label="Projects"
+            title="What I have"
+            accent="built."
+            body="Systems with live demos and public code."
           />
         </Reveal>
         <Reveal className="mt-12">

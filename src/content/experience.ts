@@ -3,6 +3,8 @@ export type Experience = {
   role: string;
   period: string;
   location: string;
+  // Org/company website. Links render only when present — TODO(ansh) fill in.
+  url?: string;
   bullets: string[];
   tags: string[];
 };

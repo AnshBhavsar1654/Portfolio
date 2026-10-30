@@ -1,14 +1,15 @@
 import { experience } from "@/content/experience";
 import { cn } from "@/lib/cn";
 
-// Career ledger on frosted glass: one panel per role (glass keeps text
-// readable over the halftone backdrop). Compared to the old timeline, the
-// dot rail and floating period chips are gone — period + location lead as a
-// mono ledger column, the org name is the headline and the serif index sits
-// in the corner like a scorecard. Nothing hidden behind a click: every
-// bullet is always visible. Numbers inside bullets (500+, 95%, 60%) are
-// picked out so results scan fast. Tags read as ledger footnotes: a mono
-// line, not pill chips (chips are the Work treatment).
+// Timeline ledger on frosted glass: one panel per role (glass keeps the
+// ledger readable over the halftone print, since panels get no halo veil).
+// The mono period column is sticky on wide screens so it stays a ledger
+// reference while the row scrolls inside its panel; a hairline rail with a
+// node dot per role runs down the content column — accent + glow ring for
+// the present role. Role leads the headline with the org set in the accent
+// serif (linked when content carries a url). Bullets keep their dash markers
+// and number emphasis; tags read as a mono footnote cloud, not pill chips
+// (chips are the Projects treatment).
 
 const NUMBER = /((?<![A-Za-z])\d+(?:[.,]\d+)*\+?%?(?![A-Za-z]))/g;
 
@@ -24,10 +25,24 @@ function withNumbers(text: string) {
   );
 }
 
+function Org({ org, url }: { org: string; url?: string }) {
+  if (!url) return org;
+  return (
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="hover:text-accent-hover underline-offset-4 transition-colors duration-(--dur-base) hover:underline"
+    >
+      {org}
+    </a>
+  );
+}
+
 export function ExperienceList() {
   return (
     <ol className="grid gap-4">
-      {experience.map((e, i) => {
+      {experience.map((e) => {
         const current = /present/i.test(e.period);
         return (
           <li
@@ -39,8 +54,8 @@ export function ExperienceList() {
                 : "border-line hover:border-accent/40"
             )}
           >
-            <div className="grid gap-x-12 gap-y-6 md:grid-cols-[10rem_1fr]">
-              <div className="font-mono text-xs tabular-nums">
+            <div className="grid gap-x-10 gap-y-6 md:grid-cols-[10rem_1fr] lg:gap-x-12">
+              <div className="font-mono text-xs tabular-nums md:sticky md:top-32 md:self-start">
                 <p
                   className={cn(
                     "whitespace-nowrap",
@@ -60,22 +75,23 @@ export function ExperienceList() {
                   </p>
                 ) : null}
               </div>
-              <div>
-                <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
-                  <h3 className="text-strong hover:text-accent text-3xl font-semibold tracking-tight transition-colors duration-(--dur-base) md:text-4xl">
-                    {e.org}
-                  </h3>
-                  <span
-                    aria-hidden
-                    className={cn(
-                      "accent-serif text-3xl leading-none",
-                      current ? "text-accent" : "text-muted"
-                    )}
-                  >
-                    {String(i + 1).padStart(2, "0")}
+              <div className="border-line relative md:border-l md:pl-10">
+                <span
+                  aria-hidden
+                  className={cn(
+                    "absolute top-[0.6rem] -left-[5.5px] h-2.5 w-2.5 rounded-full",
+                    current
+                      ? "bg-accent ring-accent-wash ring-4"
+                      : "border-line bg-surface-2 border"
+                  )}
+                />
+                <h3 className="text-strong text-2xl leading-snug font-semibold tracking-tight md:text-3xl">
+                  {e.role}
+                  {" — "}
+                  <span className="accent-serif text-accent text-[1.05em]">
+                    <Org org={e.org} url={e.url} />
                   </span>
-                </div>
-                <p className="text-muted mt-2 text-sm">{e.role}</p>
+                </h3>
                 <ul className="text-body mt-7 grid max-w-[72ch] gap-x-10 gap-y-3 text-[15px] leading-relaxed sm:grid-cols-2">
                   {e.bullets.map((b) => (
                     <li
@@ -87,10 +103,13 @@ export function ExperienceList() {
                   ))}
                 </ul>
                 <ul className="text-muted mt-7 flex flex-wrap gap-y-2 font-mono text-[11px]">
-                  {e.tags.map((t) => (
+                  {e.tags.map((t, ti) => (
                     <li
                       key={t}
-                      className="after:mx-2.5 after:content-['·'] last:after:content-none"
+                      className={cn(
+                        ti < e.tags.length - 1 &&
+                          "after:mx-2.5 after:content-['·']"
+                      )}
                     >
                       {t}
                     </li>

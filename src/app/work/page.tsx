@@ -3,7 +3,7 @@ import { Reveal } from "@/components/site/reveal";
 import { Section, SectionHeading } from "@/components/site/section";
 import { WorkFilter } from "./work-filter";
 
-export const metadata: Metadata = { title: "Work" };
+export const metadata: Metadata = { title: "Projects" };
 
 export default function WorkPage() {
   return (

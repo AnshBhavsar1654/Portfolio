@@ -185,7 +185,7 @@ export function Hero() {
               href="#work"
               className="bg-accent text-on-accent hover:bg-accent-hover group inline-flex items-center gap-2 rounded-full py-3.5 pr-5 pl-6 text-sm font-medium whitespace-nowrap transition-[background-color,transform] active:scale-[0.98]"
             >
-              View my work
+              See my projects
               <ArrowRight
                 size={16}
                 weight="bold"
