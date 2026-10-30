@@ -1,15 +1,18 @@
+import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr/ArrowUpRight";
+import { MapPin } from "@phosphor-icons/react/dist/ssr/MapPin";
 import { experience } from "@/content/experience";
 import { cn } from "@/lib/cn";
 
 // Timeline ledger on frosted glass: one panel per role (glass keeps the
 // ledger readable over the halftone print, since panels get no halo veil).
 // The mono period column is sticky on wide screens so it stays a ledger
-// reference while the row scrolls inside its panel; a hairline rail with a
-// node dot per role runs down the content column — accent + glow ring for
-// the present role. Role leads the headline with the org set in the accent
-// serif (linked when content carries a url). Bullets keep their dash markers
-// and number emphasis; tags read as a mono footnote cloud, not pill chips
-// (chips are the Projects treatment).
+// reference while the row scrolls inside its panel; location carries a map
+// pin. A hairline rail with a node dot per role runs down the content
+// column — accent + glow ring for the present role. Role leads the headline;
+// the org sits on its own line in the accent serif, linked to its LinkedIn
+// (url comes from content). Bullets keep their dash markers and number
+// emphasis; tags read as a mono footnote cloud, not pill chips (chips are
+// the Projects treatment).
 
 const NUMBER = /((?<![A-Za-z])\d+(?:[.,]\d+)*\+?%?(?![A-Za-z]))/g;
 
@@ -32,9 +35,15 @@ function Org({ org, url }: { org: string; url?: string }) {
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      className="hover:text-accent-hover underline-offset-4 transition-colors duration-(--dur-base) hover:underline"
+      className="group/lnk hover:text-accent-hover inline-flex items-baseline gap-1 underline-offset-4 transition-colors duration-(--dur-base) hover:underline"
     >
       {org}
+      <ArrowUpRight
+        aria-hidden
+        size={16}
+        weight="bold"
+        className="transition-transform duration-(--dur-base) group-hover/lnk:translate-x-0.5 group-hover/lnk:-translate-y-0.5"
+      />
     </a>
   );
 }
@@ -64,7 +73,10 @@ export function ExperienceList() {
                 >
                   {e.period}
                 </p>
-                <p className="text-muted mt-2">{e.location}</p>
+                <p className="text-muted mt-2 inline-flex items-center gap-1.5">
+                  <MapPin aria-hidden size={12} weight="fill" />
+                  {e.location}
+                </p>
                 {current ? (
                   <p className="text-accent mt-4 flex items-center gap-2 text-[10px] tracking-(--tracking-eyebrow) uppercase">
                     <span
@@ -87,8 +99,7 @@ export function ExperienceList() {
                 />
                 <h3 className="text-strong text-2xl leading-snug font-semibold tracking-tight md:text-3xl">
                   {e.role}
-                  {" — "}
-                  <span className="accent-serif text-accent text-[1.05em]">
+                  <span className="accent-serif text-accent mt-1.5 block text-[1.05em]">
                     <Org org={e.org} url={e.url} />
                   </span>
                 </h3>

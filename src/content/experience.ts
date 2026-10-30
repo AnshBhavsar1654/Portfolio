@@ -3,7 +3,7 @@ export type Experience = {
   role: string;
   period: string;
   location: string;
-  // Org/company website. Links render only when present — TODO(ansh) fill in.
+  // Org/company LinkedIn URL. Links render only when present.
   url?: string;
   bullets: string[];
   tags: string[];
@@ -15,6 +15,7 @@ export const experience: Experience[] = [
     role: "Founding Engineer",
     period: "Dec 2025 - Present",
     location: "Ahmedabad, India",
+    url: "https://linkedin.com/company/serin-labs",
     bullets: [
       "Founding engineer at Serin AI (formerly Blink Analytics): own features end to end, from full-stack product work to AI agents, prompts and evals.",
       "Optimized prompts for question generation, resume screening, and evaluation with SFT/RLHF techniques.",
@@ -25,9 +26,10 @@ export const experience: Experience[] = [
   },
   {
     org: "Pravi",
-    role: "Technical Intern (Part-time)",
+    role: "Technical Intern",
     period: "Aug 2025 - Oct 2025",
     location: "Ahmedabad, India",
+    url: "https://linkedin.com/company/pravi-research",
     bullets: [
       "Improved consulting site, dashboard backend, and database performance.",
       "Built Gujarati e-paper news ingestion automation.",
@@ -39,6 +41,7 @@ export const experience: Experience[] = [
     role: "AI/ML Intern",
     period: "May 2025 - Jul 2025",
     location: "Ahmedabad, India",
+    url: "https://www.linkedin.com/company/intech-creative-services-pvt-ltd",
     bullets: [
       "Ranked 500+ resumes against job descriptions at 95% semantic accuracy.",
       "Cut recruitment coordination 60% with ElevenLabs + n8n outreach automation.",
