@@ -135,25 +135,15 @@ export function WorkList({
                       </li>
                     ))}
                   </ul>
-                  <div className="mt-auto flex flex-wrap gap-x-5 gap-y-2 pt-7">
-                    {p.demo ? (
+                  <div className="mt-auto flex flex-wrap items-center gap-x-2.5 gap-y-2 pt-7">
+                    {p.demo || p.site ? (
                       <a
-                        href={p.demo}
+                        href={p.demo ?? p.site}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-strong hover:text-accent relative z-10 inline-flex items-center gap-1 text-sm font-medium transition-colors"
+                        className="bg-accent hover:bg-accent-hover text-on-accent relative z-10 inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-sm font-medium whitespace-nowrap transition-[background-color] active:scale-[0.98]"
                       >
-                        Live demo
-                        <ArrowUpRight aria-hidden size={14} weight="bold" />
-                      </a>
-                    ) : p.site ? (
-                      <a
-                        href={p.site}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-strong hover:text-accent relative z-10 inline-flex items-center gap-1 text-sm font-medium transition-colors"
-                      >
-                        Landing page
+                        {p.demo ? "Live demo" : "Landing page"}
                         <ArrowUpRight aria-hidden size={14} weight="bold" />
                       </a>
                     ) : null}
@@ -162,15 +152,15 @@ export function WorkList({
                         href={p.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-strong hover:text-accent relative z-10 inline-flex items-center gap-1 text-sm font-medium transition-colors"
+                        className="border-line text-strong hover:border-accent/50 hover:bg-accent-wash relative z-10 inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 font-mono text-[11px] tracking-(--tracking-eyebrow) uppercase transition-colors"
                       >
-                        Code
-                        <ArrowUpRight aria-hidden size={14} weight="bold" />
+                        [ Code ]
+                        <ArrowUpRight aria-hidden size={12} weight="bold" />
                       </a>
                     ) : null}
                     <Link
                       href={`/work/${p.slug}`}
-                      className="text-strong hover:text-accent relative z-10 inline-flex items-center gap-1 text-sm font-medium transition-colors"
+                      className="text-muted hover:text-accent relative z-10 inline-flex items-center gap-1 text-sm font-medium transition-colors"
                     >
                       Details
                       <ArrowRight aria-hidden size={14} weight="bold" />

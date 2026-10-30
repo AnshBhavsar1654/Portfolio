@@ -37,10 +37,15 @@ export const art = {
     focusY: 0.5,
   },
   skills: {
-    src: "/img/code-on-screen.jpg",
+    // Dark code-editor close-up (Pexels #256502, Pexels license): terminal
+    // in low light. Dark photo — dots follow brightness (brightInk). Zoomed
+    // in on the code column so glyphs span enough cells to survive the
+    // ~7px dot pitch at full-bleed; focus sits below the bright top edge.
+    src: "/img/code-editor-dark.jpg",
     brightInk: true,
-    focusX: 0.4,
-    focusY: 0.5,
+    zoom: 1.75,
+    focusX: 0.85,
+    focusY: 0.55,
   },
   quote: {
     src: "/img/ms-dhoni.jpg",
