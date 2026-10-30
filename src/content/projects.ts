@@ -5,7 +5,7 @@ export type Project = {
   image: string;
   tags: string[];
   github?: string;
-  site?: string; // project website/landing page (non-embeddable link row)
+  site?: string; // project website/landing page (link row on detail pages; framed as the card preview when there is no demo)
   demo?: string;
   embedSrc?: string; // framed preview of the demo (e.g. chromeless embed URL)
   featured?: boolean;
