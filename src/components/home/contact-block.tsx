@@ -2,6 +2,7 @@ import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr/ArrowUpRight";
 import { ContactForm } from "@/components/home/contact-form";
 import { CopyEmail } from "@/components/home/copy-email";
 import { GitHubActivity } from "@/components/home/github-activity";
+import { LeetCodeActivity } from "@/components/home/leetcode-activity";
 import { BrandIcon, type BrandName } from "@/components/site/brand-icon";
 import { profile } from "@/content/profile";
 
@@ -76,8 +77,9 @@ export function ContactBlock() {
       <div className="lg:col-span-6">
         <ContactForm />
       </div>
-      <div className="lg:col-span-12">
+      <div className="grid gap-14 lg:col-span-12 lg:grid-cols-2">
         <GitHubActivity />
+        <LeetCodeActivity />
       </div>
     </div>
   );

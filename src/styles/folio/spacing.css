@@ -18,6 +18,7 @@
   --radius-panel: 28px;
   --nav-offset: 0.875rem;
   --contrib-cell: 0.625rem; /* contribution graph day-cell size */
+  --contrib-gap: 0.125rem; /* gap between contribution graph day-cells */
 }
 
 :root {
