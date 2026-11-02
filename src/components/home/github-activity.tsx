@@ -91,7 +91,7 @@ export async function GitHubActivity() {
     return (
       <div className="glass border-line rounded-[var(--radius-panel)] border p-8 md:p-10">
         <h3 className="text-strong text-xl font-semibold tracking-tight">
-          GitHub activity
+          GitHub Activity
         </h3>
         <a
           href={profile.socials.github}
@@ -113,7 +113,7 @@ export async function GitHubActivity() {
     <figure className="glass border-line rounded-[var(--radius-panel)] border p-8 md:p-10">
       <div className="flex flex-wrap items-baseline justify-between gap-2">
         <h3 className="text-strong text-xl font-semibold tracking-tight">
-          GitHub activity
+          GitHub Activity
         </h3>
         <a
           href={profile.socials.github}
