@@ -7,7 +7,9 @@ export type Art = {
   zoom?: number; // 1 = fill the frame, 2 = crop to the middle half
   brightInk?: boolean; // dark-background photo: print the bright parts
   // Wide screens: keep the print to one side, fading toward the content.
-  align?: "full" | "left" | "right";
+  // "half-*" pins a print to exactly one half of the viewport so two prints
+  // can sit side by side in a single row.
+  align?: "full" | "left" | "right" | "half-left" | "half-right";
 };
 
 export const art = {
@@ -47,11 +49,22 @@ export const art = {
     focusX: 0.85,
     focusY: 0.55,
   },
-  quote: {
+  quoteDhoni: {
     src: "/img/ms-dhoni.jpg",
-    align: "left",
-    focusX: 0.68,
+    align: "half-left",
+    focusX: 0.45,
     focusY: 0.5,
+  },
+  // Messi hoisting the 2022 World Cup trophy on his shoulder (Getty Images
+  // #1453215393): bright jersey and trophy over a blurred stadium crowd.
+  // Zoom prints tighter than fill so his face spans enough dot cells to
+  // stay recognizable at the 7px screen pitch.
+  quoteMessi: {
+    src: "/img/lionel-messi.jpg",
+    align: "half-right",
+    focusX: 0.5,
+    focusY: 0.4,
+    zoom: 1.75,
   },
   contact: {
     src: "/img/narendra-modi-stadium.jpg",

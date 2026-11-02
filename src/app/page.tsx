@@ -101,10 +101,18 @@ export default function Home() {
 
       <BackdropSection
         id="quote"
-        backdrop="quote"
+        backdrop="quoteDhoni"
 
         className="lg:py-40"
       >
+        {/* Second print for the right half; the stage keys off any element
+            with a data-backdrop, so this empty pin gives Messi's print the
+            same dissolve timing as the section's own Dhoni print. */}
+        <div
+          aria-hidden
+          data-backdrop="quoteMessi"
+          className="absolute inset-0"
+        />
         <Reveal>
           <QuoteBlock />
         </Reveal>

@@ -89,7 +89,10 @@ export function BackdropStage() {
               "absolute inset-y-0",
               align === "full" && "inset-x-0",
               align === "left" && "backdrop-fade-r left-0 w-full lg:w-[62%]",
-              align === "right" && "backdrop-fade-l right-0 w-full lg:w-[62%]"
+              align === "right" && "backdrop-fade-l right-0 w-full lg:w-[62%]",
+              align === "half-left" && "backdrop-fade-r left-0 w-full lg:w-1/2",
+              align === "half-right" &&
+                "backdrop-fade-l right-0 w-full lg:w-1/2"
             )}
           >
             <HalftoneImage
