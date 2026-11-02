@@ -27,6 +27,14 @@ export function CopyEmail() {
         {profile.email}
       </a>
       <p className="mt-4 flex items-center gap-3">
+        <a
+          href={profile.resume}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="border-line text-muted hover:text-strong rounded-full border px-4 py-2 font-mono text-xs transition-colors"
+        >
+          View resume
+        </a>
         <button
           suppressHydrationWarning
           type="button"

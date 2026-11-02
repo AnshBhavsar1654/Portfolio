@@ -115,7 +115,7 @@ export function ContactForm() {
           htmlFor="contact-message"
           className="text-strong text-sm font-medium"
         >
-          Project details
+          Your message
         </label>
         <textarea
           suppressHydrationWarning
@@ -123,7 +123,7 @@ export function ContactForm() {
           name="message"
           required
           rows={5}
-          placeholder="What are you building, and how will we know it works?"
+          placeholder="Tell me about the role or the project, and the timeline if there is one."
           aria-invalid={errors.message ? true : undefined}
           aria-describedby={
             errors.message ? "contact-message-error" : undefined

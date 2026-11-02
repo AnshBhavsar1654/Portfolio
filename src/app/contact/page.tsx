@@ -11,8 +11,8 @@ export default function ContactPage() {
       <Reveal>
         <SectionHeading
           title="Start a"
-          accent="project."
-          body="One short message is enough: what you are building and how we will measure it."
+          accent="conversation."
+          body="Whether you are hiring or building, one short message is enough. I reply within two days."
         />
       </Reveal>
       <Reveal className="mt-12">

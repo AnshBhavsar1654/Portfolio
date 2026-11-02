@@ -115,9 +115,9 @@ export default function Home() {
           <SectionHeading
             index="06"
             label="Contact"
-            title="Have a product problem?"
-            accent="Bring it."
-            body="I take on full-stack builds, AI agents, and data apps. Replies within two days."
+            title="Have a project?"
+            accent="Or a role?"
+            body="I take on full-stack builds, AI agents and data apps, and I'm also open to full-time roles. Replies within two days."
           />
         </Reveal>
         <Reveal className="mt-12">

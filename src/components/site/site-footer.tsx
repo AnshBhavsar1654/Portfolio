@@ -79,26 +79,6 @@ export function SiteFooter() {
             </a>
           </nav>
         </div>
-        <p className="text-muted mt-6 text-sm">
-          {profile.edits.label} on{" "}
-          <a
-            className="hover:text-strong underline underline-offset-4"
-            href={profile.edits.instagram}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Instagram
-          </a>{" "}
-          &middot;{" "}
-          <a
-            className="hover:text-strong underline underline-offset-4"
-            href={profile.edits.youtube}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            YouTube
-          </a>
-        </p>
       </div>
       <p
         aria-hidden
