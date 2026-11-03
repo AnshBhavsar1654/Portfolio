@@ -99,19 +99,22 @@ export default function Home() {
         </Reveal>
       </BackdropSection>
 
-      <BackdropSection
-        id="quote"
-        backdrop="quoteDhoni"
-
-        className="lg:py-40"
-      >
-        {/* Second print for the right half; the stage keys off any element
-            with a data-backdrop, so this empty pin gives Messi's print the
-            same dissolve timing as the section's own Dhoni print. */}
+      <BackdropSection id="quote" className="lg:py-40">
+        {/* Two wide-screen pins drive the split-half prints (Dhoni left,
+            Messi right) with the whole section's dissolve timing. They are
+            hidden below lg, where each quote's own wrapper pin (see
+            QuoteBlock) takes over: one screen-height block per quote with
+            only its athlete printing behind it. Hidden pins have a zero
+            rect, so the stage never mounts their prints. */}
+        <div
+          aria-hidden
+          data-backdrop="quoteDhoni"
+          className="absolute inset-0 hidden lg:block"
+        />
         <div
           aria-hidden
           data-backdrop="quoteMessi"
-          className="absolute inset-0"
+          className="absolute inset-0 hidden lg:block"
         />
         <Reveal>
           <QuoteBlock />

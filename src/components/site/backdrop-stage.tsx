@@ -30,6 +30,18 @@ const smooth = (x: number) => {
 
 export function BackdropStage() {
   const [layers, setLayers] = useState<Layer[]>([]);
+  // Phones crop to tall boxes, so art entries can carry tighter mobile
+  // focus/zoom values. 64rem is Tailwind's lg breakpoint, in rem so it tracks
+  // the root font size like the rest of the token system.
+  const [wide, setWide] = useState(true);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 64rem)");
+    const sync = () => setWide(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
 
   useEffect(() => {
     const sections = Array.from(
@@ -55,10 +67,18 @@ export function BackdropStage() {
           next.push({ key: s.dataset.backdrop as ArtKey, weight });
         }
       });
-      const sig = next.map((l) => `${l.key}:${l.weight}`).join("|");
+      // Several pins may share one print (e.g. a quote's own wrapper and the
+      // wide-screen section pin). Dots double up when two canvases stack, so
+      // keep only the strongest weight per key.
+      const best = new Map<ArtKey, number>();
+      for (const { key, weight } of next) {
+        best.set(key, Math.max(best.get(key) ?? 0, weight));
+      }
+      const lit = [...best].map(([key, weight]) => ({ key, weight }));
+      const sig = lit.map((l) => `${l.key}:${l.weight}`).join("|");
       if (sig !== last) {
         last = sig;
-        setLayers(next);
+        setLayers(lit);
       }
     };
     const schedule = () => {
@@ -82,6 +102,7 @@ export function BackdropStage() {
       {layers.map(({ key, weight }) => {
         const a: Art = art[key];
         const align = a.align ?? "full";
+        const m = wide ? undefined : a.mobile;
         return (
           <div
             key={key}
@@ -98,9 +119,9 @@ export function BackdropStage() {
             <HalftoneImage
               src={a.src}
               amount={weight}
-              focusX={a.focusX}
-              focusY={a.focusY}
-              zoom={a.zoom}
+              focusX={m?.focusX ?? a.focusX}
+              focusY={m?.focusY ?? a.focusY}
+              zoom={m?.zoom ?? a.zoom}
               brightInk={a.brightInk}
             />
           </div>

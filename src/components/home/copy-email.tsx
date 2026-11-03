@@ -22,7 +22,9 @@ export function CopyEmail() {
     <div>
       <a
         href={`mailto:${profile.email}`}
-        className="text-strong hover:text-accent text-2xl font-semibold tracking-tight break-all md:text-4xl"
+        // XL is small enough for the full email to sit on one line on every
+        // phone; break-all stays as the safety valve for anything narrower.
+        className="text-strong hover:text-accent text-xl font-semibold tracking-tight break-all md:text-4xl"
       >
         {profile.email}
       </a>

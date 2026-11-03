@@ -19,7 +19,7 @@ const STATS = [
 export function About() {
   return (
     <div className="glass border-line rounded-[var(--radius-panel)] border p-8 md:p-10 lg:max-w-3xl">
-      <p className="text-strong text-2xl leading-snug tracking-tight text-pretty md:text-3xl">
+      <p className="text-strong text-xl leading-snug tracking-tight text-pretty md:text-3xl">
         {profile.about}
       </p>
       <dl className="mt-12 grid grid-cols-3 gap-6">

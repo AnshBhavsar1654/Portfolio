@@ -88,10 +88,12 @@ export function ExperienceList() {
                 ) : null}
               </div>
               <div className="border-line relative md:border-l md:pl-10">
+                {/* Node only at md+, where the hairline rail exists; below
+                    that the floating dot would land on the headline. */}
                 <span
                   aria-hidden
                   className={cn(
-                    "absolute top-[0.6rem] -left-[5.5px] h-2.5 w-2.5 rounded-full",
+                    "absolute top-[0.6rem] -left-[5.5px] hidden h-2.5 w-2.5 rounded-full md:block",
                     current
                       ? "bg-accent ring-accent-wash ring-4"
                       : "border-line bg-surface-2 border"

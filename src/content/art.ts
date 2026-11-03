@@ -10,6 +10,10 @@ export type Art = {
   // "half-*" pins a print to exactly one half of the viewport so two prints
   // can sit side by side in a single row.
   align?: "full" | "left" | "right" | "half-left" | "half-right";
+  // Phone/tablet boxes are tall and narrow, so the same focus/zoom that
+  // flatters a landscape half-view can magnify one shapeless sliver. These
+  // values replace focus/zoom below the lg breakpoint when present.
+  mobile?: { focusX?: number; focusY?: number; zoom?: number };
 };
 
 export const art = {
@@ -65,6 +69,9 @@ export const art = {
     focusX: 0.5,
     focusY: 0.4,
     zoom: 1.75,
+    // A phone's full-bleed box is a tall slice of a landscape photo; zoom 1
+    // keeps the full subject in frame instead of magnifying his shoulder.
+    mobile: { zoom: 1 },
   },
   contact: {
     src: "/img/narendra-modi-stadium.jpg",

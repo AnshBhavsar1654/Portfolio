@@ -2,10 +2,10 @@ import type { ReactNode } from "react";
 import type { ArtKey } from "@/content/art";
 import { cn } from "@/lib/cn";
 
-// A full-height section that sits in front of the BackdropStage. It only
-// marks which print the stage should show (data-backdrop); the stage does
-// the drawing and the crossfades between sections. Text directly on the
-// print gets a page-coloured halo (see .halo) so it reads in either theme.
+// A full-height section that sits in front of the BackdropStage. It may mark
+// which print the stage should show (data-backdrop); the stage does the
+// drawing and the crossfades between sections. Text directly on the print
+// gets a page-coloured halo (see .halo) so it reads in either theme.
 export function BackdropSection({
   id,
   backdrop,
@@ -13,7 +13,7 @@ export function BackdropSection({
   children,
 }: {
   id?: string;
-  backdrop: ArtKey;
+  backdrop?: ArtKey;
   className?: string;
   children: ReactNode;
 }) {
