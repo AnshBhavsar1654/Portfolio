@@ -140,15 +140,17 @@ body::after {
   letter-spacing: -0.01em;
 }
 
-/* Ball toggle: it rolls across the track (rotation matches travel), hops, and
-   squashes on landing. Travel and roll share one token-driven curve so they
-   stay in sync; the hop only plays after first paint (.theme-ready). */
+/* Ball toggle: the outer span travels across the track, the tilt span parks
+   the resting seam ~30° off north-south, the stitch rows crawl along that
+   stationary seam band (slow at rest, boosted through each slide; the crawl
+   lives in the component so pace changes never pop the dash pattern), and
+   the hop span squashes on landing. The hop only plays after first paint. */
 .ball-travel {
   transition: transform var(--dur-roll) var(--ease-roll);
 }
 
-.ball-roll {
-  transition: transform var(--dur-roll) var(--ease-roll);
+.ball-tilt {
+  transform: rotate(var(--seam-tilt));
 }
 
 .group:hover .ball-roll {

@@ -21,10 +21,19 @@
 :root {
   --dur-roll: 680ms;
   --ease-roll: cubic-bezier(0.34, 1.35, 0.5, 1);
+  /* Ball: the seam band stays parked and its stitch rows crawl along it at a
+     pace of one loop per --dur-crawl; the component raises that --crawl-boost×
+     for --dur-roll whenever the toggle flips. */
+  --dur-crawl: 10s;
+  --crawl-boost: 15;
+  /* Seam parked 30° clockwise of north-south (the seam is drawn horizontal,
+     so tilt it the remaining 60° to reach 30° from vertical). */
+  --seam-tilt: -60deg;
 }
 
 @media (prefers-reduced-motion: reduce) {
   :root {
     --dur-roll: 0ms;
+    --dur-crawl: 0s;
   }
 }
