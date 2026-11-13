@@ -6,14 +6,17 @@
   color-scheme: light;
   --bg: #faf8f4;
   --surface: #ffffff;
-  --surface-2: #f2efe8;
+  --surface-2: #efeadf;
   --text-strong: #14130f;
   --text-body: #3a3832;
   --text-muted: #6b6962; /* AA on --bg */
-  --line: rgba(20, 19, 15, 0.12);
+  --line: rgba(20, 19, 15, 0.14);
   --accent: #c42b22; /* ball red; AA for text on --bg */
   --accent-hover: #a8221a;
-  --accent-wash: rgba(176, 40, 31, 0.08);
+  --accent-wash: rgba(176, 40, 31, 0.09);
+  --shadow-lift: 0 14px 36px -18px rgba(20, 19, 15, 0.28);
+  --heading-from: #14130f;
+  --heading-to: #6b6962;
   --on-accent: #ffffff;
   --signal-positive: #17803d;
   --brand-github: #24292f;
@@ -65,15 +68,18 @@
 :root[data-theme="dark"] {
   color-scheme: dark;
   --bg: #0b0b0c;
-  --surface: #131315;
-  --surface-2: #1a1a1d;
+  --surface: #141416;
+  --surface-2: #1d1d21;
   --text-strong: #f4f1ea;
   --text-body: #d6d3cb;
-  --text-muted: #9c9a93;
-  --line: rgba(244, 241, 234, 0.12);
-  --accent: #ec5a50;
+  --text-muted: #a5a39c;
+  --line: rgba(244, 241, 234, 0.14);
+  --accent: #f0594e;
   --accent-hover: #f47b72;
-  --accent-wash: rgba(236, 90, 80, 0.12);
+  --accent-wash: rgba(240, 89, 78, 0.14);
+  --shadow-lift: 0 18px 44px -20px rgba(240, 89, 78, 0.35);
+  --heading-from: #f4f1ea;
+  --heading-to: #9c9a93;
   --on-accent: #14130f;
   --signal-positive: #3ad07f;
   --brand-github: #ffffff;

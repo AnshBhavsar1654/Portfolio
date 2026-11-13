@@ -221,3 +221,17 @@ body::after {
 .ht-veil {
   background: color-mix(in srgb, var(--bg) var(--ht-veil), transparent);
 }
+
+/* Hero heading: left to right fade on the text itself, never a background.
+   Shadow must go, or the halo would show through the clipped glyphs. */
+.heading-fade {
+  background-image: linear-gradient(
+    to right,
+    var(--heading-from),
+    var(--heading-to)
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  text-shadow: none;
+}

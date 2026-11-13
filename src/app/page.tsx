@@ -1,3 +1,4 @@
+import { ArrowRight } from "@phosphor-icons/react/dist/ssr/ArrowRight";
 import Link from "next/link";
 import { About } from "@/components/home/about";
 import { ContactBlock } from "@/components/home/contact-block";
@@ -76,9 +77,15 @@ export default function Home() {
           <div className="mt-8 flex justify-end">
             <Link
               href="/work"
-              className="text-accent text-sm font-medium hover:underline"
+              className="text-accent hover:text-accent-hover group inline-flex items-center gap-2 py-3 text-sm font-medium"
             >
               All projects
+              <ArrowRight
+                aria-hidden
+                size={16}
+                weight="bold"
+                className="transition-transform duration-(--dur-base) ease-(--ease-base) group-hover:translate-x-1"
+              />
             </Link>
           </div>
         </Reveal>

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { EnvelopeSimple } from "@phosphor-icons/react/dist/ssr/EnvelopeSimple";
+import { ArrowUp } from "@phosphor-icons/react/dist/ssr/ArrowUp";
 import { FileText } from "@phosphor-icons/react/dist/ssr/FileText";
 import { BrandIcon, type BrandName } from "@/components/site/brand-icon";
 import { profile } from "@/content/profile";
@@ -76,6 +77,17 @@ export function SiteFooter() {
                 className="text-brand-gmail"
               />
               <RollLabel label="Email" tone="text-brand-gmail" />
+            </a>
+            <a
+              className="text-muted hover:text-strong group inline-flex items-center gap-1.5"
+              href="#top"
+            >
+              <ArrowUp
+                aria-hidden
+                size={16}
+                className="text-accent transition-transform duration-(--dur-base) ease-(--ease-base) group-hover:-translate-y-0.5"
+              />
+              Back to top
             </a>
           </nav>
         </div>

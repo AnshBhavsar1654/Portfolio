@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { BackdropSection } from "@/components/site/backdrop-section";
+import { EASE_BASE } from "@/components/site/motion-tokens";
 import { LocalTime } from "@/components/site/local-time";
 import { experience } from "@/content/experience";
 import { profile } from "@/content/profile";
@@ -43,16 +44,16 @@ export function Hero() {
 
   useEffect(() => {
     if (reduce) return;
-    const ease = [0.16, 1, 0.3, 1] as const;
+    const ease = EASE_BASE;
     const words = animate(
       ".hero-word",
       { opacity: [0, 1], y: [18, 0] },
-      { duration: 0.45, delay: (i) => 0.05 + i * 0.06, ease }
+      { duration: 0.7, delay: (i) => 0.05 + i * 0.06, ease }
     );
     const rest = animate(
       ".hero-fade",
       { opacity: [0, 1], y: [10, 0] },
-      { duration: 0.5, delay: (i) => 0.3 + i * 0.08, ease }
+      { duration: 0.7, delay: (i) => 0.3 + i * 0.08, ease }
     );
     const finish = () => {
       words.stop();
@@ -142,7 +143,7 @@ export function Hero() {
             className="hero-fade text-strong mt-6 text-5xl leading-[0.98] font-semibold tracking-tighter text-balance sm:text-7xl lg:text-8xl"
             style={hidden}
           >
-            Hi, I&rsquo;m Ansh.
+            <span className="heading-fade">Hi, I&rsquo;m Ansh.</span>
             <br />
             <span className="text-muted">I&rsquo;m an </span>
             <span className="accent-serif text-accent inline-block text-[1.12em]">

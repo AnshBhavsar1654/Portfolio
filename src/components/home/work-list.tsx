@@ -92,7 +92,7 @@ export function WorkList({
       {list.map((p, i) => (
         <li key={p.slug}>
           <Spotlight className="rounded-[var(--radius-panel)]">
-            <article className="glass group border-line hover:border-accent/50 relative flex h-full flex-col rounded-[var(--radius-panel)] border p-6 transition-[transform,border-color] duration-(--dur-base) ease-(--ease-out-soft) hover:-translate-y-0.5 active:scale-[0.99] md:p-8">
+            <article className="glass group border-line hover:border-accent/50 relative flex h-full flex-col rounded-[var(--radius-panel)] border p-6 transition-[transform,border-color,box-shadow] duration-(--dur-base) ease-(--ease-out-soft) hover:-translate-y-1 hover:shadow-(--shadow-lift) active:scale-[0.99] md:p-8">
               <div className="grid gap-x-10 gap-y-7 md:grid-cols-[1fr_16rem] md:items-center lg:grid-cols-[1fr_20rem] xl:grid-cols-[1fr_22rem]">
                 <div className="flex flex-col">
                   <div className="flex items-start justify-between gap-4">

@@ -1,9 +1,9 @@
 "use client";
 
-import { List, X } from "@phosphor-icons/react";
-import { motion } from "motion/react";
+import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { EASE_BASE } from "@/components/site/motion-tokens";
 import { ThemeToggle } from "@/components/site/theme-toggle";
 import { useActiveSection } from "@/components/site/use-active-section";
 import { profile } from "@/content/profile";
@@ -26,6 +26,7 @@ export function SiteNav() {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const wasOpenRef = useRef(false);
   const active = useActiveSection(IDS);
+  const reduce = useReducedMotion();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -126,46 +127,85 @@ export function SiteNav() {
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? "Close menu" : "Open menu"}
-            className="text-strong flex h-11 w-11 items-center justify-center rounded-full lg:hidden"
+            className="text-strong hover:bg-surface-2 flex h-11 w-11 items-center justify-center rounded-full transition-colors active:scale-95 lg:hidden"
           >
-            {open ? <X size={20} /> : <List size={20} />}
+            <span aria-hidden className="relative block h-3.5 w-5">
+              <span
+                className={cn(
+                  "bg-strong absolute inset-x-0 top-0 h-0.5 rounded-full transition-transform duration-(--dur-slow) ease-(--ease-base)",
+                  open && "translate-y-[6px] rotate-45"
+                )}
+              />
+              <span
+                className={cn(
+                  "bg-strong absolute inset-x-0 top-[6px] h-0.5 rounded-full transition-opacity duration-(--dur-base) ease-(--ease-base)",
+                  open && "opacity-0"
+                )}
+              />
+              <span
+                className={cn(
+                  "bg-strong absolute inset-x-0 bottom-0 h-0.5 rounded-full transition-transform duration-(--dur-slow) ease-(--ease-base)",
+                  open && "-translate-y-[6px] -rotate-45"
+                )}
+              />
+            </span>
           </button>
         </div>
       </nav>
-      {open ? (
-        <div
-          id="mobile-menu"
-          ref={panelRef}
-          role="dialog"
-          aria-modal="true"
-          aria-label="Menu"
-          className="bg-bg pointer-events-auto fixed inset-0 px-4 pt-24 lg:hidden"
-        >
-          {LINKS.map((l, i) => (
-            <Link
-              key={l.id}
-              href={l.href}
-              onClick={() => setOpen(false)}
-              className="text-strong border-line flex items-baseline gap-4 border-b px-2 py-5 text-3xl tracking-tight"
-            >
-              <span className="text-accent font-mono text-xs">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              {l.label}
-            </Link>
-          ))}
-          <Link
-            href="/resume"
-            onClick={() => setOpen(false)}
-            className="text-muted block px-2 py-5 text-lg"
+      <AnimatePresence>
+        {open ? (
+          <motion.div
+            id="mobile-menu"
+            ref={panelRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Menu"
+            initial={{ opacity: reduce ? 1 : 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3, ease: EASE_BASE }}
+            className="bg-bg/95 pointer-events-auto fixed inset-0 px-4 pt-24 backdrop-blur-2xl lg:hidden"
           >
-            Resume
-          </Link>
-          <p className="text-muted px-2 pt-6 font-mono text-sm">
-            {profile.email}
-          </p>
-        </div>
-      ) : null}
+            {LINKS.map((l, i) => (
+              <motion.div
+                key={l.id}
+                initial={reduce ? false : { opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 0.5,
+                  delay: Math.min(0.1 + i * 0.06, 0.4),
+                  ease: EASE_BASE,
+                }}
+              >
+                <Link
+                  href={l.href}
+                  onClick={() => setOpen(false)}
+                  aria-current={active === l.id ? "true" : undefined}
+                  className={cn(
+                    "border-line active:bg-surface-2 flex items-baseline gap-4 border-b px-2 py-5 text-3xl tracking-tight transition-colors",
+                    active === l.id ? "text-accent" : "text-strong"
+                  )}
+                >
+                  <span className="text-accent font-mono text-xs">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  {l.label}
+                </Link>
+              </motion.div>
+            ))}
+            <Link
+              href="/resume"
+              onClick={() => setOpen(false)}
+              className="text-muted hover:text-strong block px-2 py-5 text-lg transition-colors"
+            >
+              Resume
+            </Link>
+            <p className="text-muted px-2 pt-6 font-mono text-sm">
+              {profile.email}
+            </p>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
     </header>
   );
 }

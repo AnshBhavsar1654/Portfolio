@@ -57,7 +57,7 @@ export function ExperienceList() {
           <li
             key={`${e.org}-${e.role}`}
             className={cn(
-              "glass rounded-[var(--radius-panel)] border p-6 transition-[transform,border-color] duration-(--dur-base) ease-(--ease-out-soft) hover:-translate-y-0.5 active:scale-[0.99] md:p-8",
+              "glass rounded-[var(--radius-panel)] border p-6 transition-[transform,border-color,box-shadow] duration-(--dur-base) ease-(--ease-out-soft) hover:-translate-y-1 hover:shadow-(--shadow-lift) active:scale-[0.99] md:p-8",
               current
                 ? "border-accent/40"
                 : "border-line hover:border-accent/40"

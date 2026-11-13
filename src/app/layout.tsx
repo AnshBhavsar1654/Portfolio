@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { ScrollProgress } from "@/components/site/scroll-progress";
 import { SiteFooter } from "@/components/site/site-footer";
 import { SiteNav } from "@/components/site/site-nav";
 import { ThemeScript } from "@/components/site/theme-script";
@@ -71,6 +72,7 @@ export default function RootLayout({
         >
           Skip to content
         </a>
+        <ScrollProgress />
         <SiteNav />
         <main id="main">{children}</main>
         <SiteFooter />
