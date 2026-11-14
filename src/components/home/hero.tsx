@@ -8,6 +8,7 @@ import { PhotoStack } from "@/components/home/photo-stack";
 import { BackdropSection } from "@/components/site/backdrop-section";
 import { EASE_BASE } from "@/components/site/motion-tokens";
 import { LocalTime } from "@/components/site/local-time";
+import { ResumeTrigger } from "@/components/site/resume-dialog";
 import { experience } from "@/content/experience";
 import { profile } from "@/content/profile";
 
@@ -193,16 +194,13 @@ export function Hero() {
                 className="transition-transform duration-(--dur-base) group-hover:translate-x-0.5"
               />
             </Link>
-            <Link
-              href="/resume"
-              className="btn-fill border-line text-strong inline-flex items-center gap-2.5 rounded-full border py-3.5 pr-6 pl-5 font-mono text-xs whitespace-nowrap uppercase transition-transform active:scale-[0.98]"
-            >
+            <ResumeTrigger className="btn-fill border-line text-strong inline-flex items-center gap-2.5 rounded-full border py-3.5 pr-6 pl-5 font-mono text-xs whitespace-nowrap uppercase transition-transform active:scale-[0.98]">
               <span
                 aria-hidden
                 className="btn-fill-dot bg-accent size-1.5 rounded-full"
               />
               [ Resume ]
-            </Link>
+            </ResumeTrigger>
           </div>
         </div>
         <div className="hero-fade lg:col-span-5" style={hidden}>

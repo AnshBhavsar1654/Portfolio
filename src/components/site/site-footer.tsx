@@ -1,8 +1,8 @@
-import Link from "next/link";
 import { EnvelopeSimple } from "@phosphor-icons/react/dist/ssr/EnvelopeSimple";
 import { ArrowUp } from "@phosphor-icons/react/dist/ssr/ArrowUp";
 import { FileText } from "@phosphor-icons/react/dist/ssr/FileText";
 import { BrandIcon, type BrandName } from "@/components/site/brand-icon";
+import { ResumeTrigger } from "@/components/site/resume-dialog";
 import { profile } from "@/content/profile";
 
 const LINKS: { label: string; href: string; name: BrandName; tone: string }[] =
@@ -48,13 +48,10 @@ export function SiteFooter() {
             aria-label="Footer"
             className="flex flex-wrap gap-x-6 gap-y-2 text-sm"
           >
-            <Link
-              className="text-muted hover:text-strong group relative inline-flex items-center gap-1.5"
-              href="/resume"
-            >
+            <ResumeTrigger className="text-muted hover:text-strong group relative inline-flex items-center gap-1.5">
               <FileText aria-hidden size={16} className="text-accent" />
               <RollLabel label="Resume" tone="text-accent" />
-            </Link>
+            </ResumeTrigger>
             {LINKS.map(({ label, href, name, tone }) => (
               <a
                 key={label}

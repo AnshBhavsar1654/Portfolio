@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { ResumeTrigger } from "@/components/site/resume-dialog";
 import { profile } from "@/content/profile";
 
 // Large email CTA with copy button; aria-live announces "Copied".
@@ -29,14 +30,9 @@ export function CopyEmail() {
         {profile.email}
       </a>
       <p className="mt-4 flex items-center gap-3">
-        <a
-          href={profile.resume}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="border-line text-muted hover:text-strong rounded-full border px-4 py-2 font-mono text-xs transition-colors"
-        >
+        <ResumeTrigger className="border-line text-muted hover:text-strong rounded-full border px-4 py-2 font-mono text-xs transition-colors">
           View resume
-        </a>
+        </ResumeTrigger>
         <button
           suppressHydrationWarning
           type="button"

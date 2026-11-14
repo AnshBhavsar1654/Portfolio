@@ -7,6 +7,9 @@ out/
 build/
 next-env.d.ts
 
+# generated PDF.js runtime (scripts/sync-pdfjs.mjs)
+public/pdfjs/
+
 # legacy archive
 _legacy/
 

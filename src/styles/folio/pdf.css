@@ -1,0 +1,91 @@
+/* PDF.js text layer. Mozilla's renderer paints each page to a canvas and lays
+   transparent, absolutely-positioned text on top, which is what keeps the
+   resume selectable, searchable and readable by assistive tech. These rules
+   are pdfjs-dist/web/pdf_viewer.css (Apache-2.0) flattened, with the selection
+   colour mapped to the folio accent. Update them if PDF.js changes its
+   text-layer contract. */
+
+.resume-page {
+  position: relative;
+  flex: none;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  background: var(--surface);
+  box-shadow: var(--shadow-lift);
+}
+
+.resume-page canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.resume-text-layer {
+  --total-scale-factor: 1;
+  --min-font-size: 1;
+  --text-scale-factor: calc(var(--total-scale-factor) * var(--min-font-size));
+  --min-font-size-inv: calc(1 / var(--min-font-size));
+
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  opacity: 1;
+  line-height: 1;
+  letter-spacing: normal;
+  word-spacing: normal;
+  text-align: initial;
+  color-scheme: only light;
+  transform-origin: 0 0;
+  caret-color: CanvasText;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+  forced-color-adjust: none;
+}
+
+.resume-text-layer :is(span, br) {
+  position: absolute;
+  color: transparent;
+  white-space: pre;
+  cursor: text;
+  transform-origin: 0% 0%;
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+.resume-text-layer > :not(.markedContent),
+.resume-text-layer .markedContent span:not(.markedContent) {
+  z-index: 1;
+  --font-height: 0; /* set inline by PDF.js */
+  --scale-x: 1;
+  --rotate: 0deg;
+  font-size: calc(var(--text-scale-factor) * var(--font-height));
+  transform: rotate(var(--rotate)) scaleX(var(--scale-x))
+    scale(var(--min-font-size-inv));
+}
+
+.resume-text-layer .markedContent {
+  display: contents;
+}
+
+.resume-text-layer span[role="img"] {
+  cursor: default;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.resume-text-layer ::selection {
+  color: transparent;
+  background: color-mix(in srgb, var(--accent) 32%, transparent);
+}
+
+.resume-text-layer .endOfContent {
+  position: absolute;
+  inset: 100% 0 0;
+  z-index: 0;
+  display: block;
+  cursor: default;
+  -webkit-user-select: none;
+  user-select: none;
+}

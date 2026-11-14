@@ -4,6 +4,7 @@ import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { EASE_BASE } from "@/components/site/motion-tokens";
+import { ResumeTrigger } from "@/components/site/resume-dialog";
 import { ThemeToggle } from "@/components/site/theme-toggle";
 import { useActiveSection } from "@/components/site/use-active-section";
 import { profile } from "@/content/profile";
@@ -117,12 +118,9 @@ export function SiteNav() {
           ))}
         </div>
         <div className="flex items-center gap-1">
-          <Link
-            href="/resume"
-            className="bg-strong text-bg hidden rounded-full px-4 py-2 font-mono text-xs uppercase transition-opacity hover:opacity-85 sm:inline-block"
-          >
+          <ResumeTrigger className="bg-strong text-bg hidden rounded-full px-4 py-2 font-mono text-xs uppercase transition-opacity hover:opacity-85 sm:inline-block">
             Resume
-          </Link>
+          </ResumeTrigger>
           <ThemeToggle />
           <button
             suppressHydrationWarning
@@ -198,13 +196,12 @@ export function SiteNav() {
                 </Link>
               </motion.div>
             ))}
-            <Link
-              href="/resume"
+            <ResumeTrigger
               onClick={() => setOpen(false)}
               className="text-muted hover:text-strong block px-2 py-5 text-lg transition-colors"
             >
               Resume
-            </Link>
+            </ResumeTrigger>
             <p className="text-muted px-2 pt-6 font-mono text-sm">
               {profile.email}
             </p>
