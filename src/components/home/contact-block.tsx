@@ -1,8 +1,8 @@
-import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr/ArrowUpRight";
 import { ContactForm } from "@/components/home/contact-form";
 import { CopyEmail } from "@/components/home/copy-email";
 import { GitHubActivity } from "@/components/home/github-activity";
 import { LeetCodeActivity } from "@/components/home/leetcode-activity";
+import { ArrowSwap } from "@/components/site/arrow-swap";
 import { BrandIcon, type BrandName } from "@/components/site/brand-icon";
 import { profile } from "@/content/profile";
 
@@ -115,11 +115,7 @@ function LinkRow({
             {handle ? <span className="text-muted ml-2">{handle}</span> : null}
           </span>
         </span>
-        <ArrowUpRight
-          aria-hidden
-          size={16}
-          className="text-muted transition-transform duration-(--dur-base) group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-        />
+        <ArrowSwap size={16} weight="regular" className="text-muted" />
       </a>
     </li>
   );

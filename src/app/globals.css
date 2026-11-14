@@ -235,3 +235,199 @@ body::after {
   color: transparent;
   text-shadow: none;
 }
+
+/* ---------------------------------------------------------------------------
+   Motion kit: shimmer accent, ticker, link sweep, fills.
+   All timing comes from folio/motion.css; loops are switched off under
+   reduced motion at the bottom of this block.
+   ------------------------------------------------------------------------ */
+
+/* Accent word with a slow colour sweep running through the glyphs. The
+   halo shadow would show through clipped glyphs, so it goes. Small inline
+   padding keeps the italic overhang from being clipped. */
+@keyframes shine-x {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.accent-shine {
+  background-image: linear-gradient(
+    100deg,
+    var(--shine-a) 0%,
+    var(--shine-b) 40%,
+    var(--shine-c) 70%,
+    var(--shine-a) 100%
+  );
+  background-size: 200% 200%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  text-shadow: none;
+  padding-inline: 0.04em 0.14em;
+  padding-bottom: 0.08em;
+  animation: shine-x var(--dur-shine) ease-in-out infinite;
+}
+
+/* Infinite ticker. The track holds the list twice, so sliding it by half
+   lands exactly where it started. Edges fade out; hover pauses the row. */
+@keyframes marquee-x {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee {
+  overflow: hidden;
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-x var(--dur-marquee) linear infinite;
+}
+
+.marquee[data-reverse] .marquee-track {
+  animation-direction: reverse;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* Progressive blur under the floating nav: the page softens as it slides
+   beneath, strongest at the very top. */
+.nav-veil {
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--bg) 70%, transparent),
+    transparent
+  );
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  mask-image: linear-gradient(to bottom, #000 45%, transparent);
+}
+
+/* Link underline that sweeps in from the left, ink fading into accent.
+   A faint resting line keeps it reading as a link. */
+.link-sweep {
+  position: relative;
+}
+
+.link-sweep::before,
+.link-sweep::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0.45rem;
+  height: 1px;
+}
+
+.link-sweep::before {
+  background: var(--line);
+}
+
+.link-sweep::after {
+  background: linear-gradient(to right, currentColor, var(--accent));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-slow) var(--ease-base);
+}
+
+.link-sweep:hover::after,
+.link-sweep:focus-visible::after {
+  transform: scaleX(1);
+}
+
+/* Pill that floods with ink from its leading dot on hover. */
+.btn-fill {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transition: color var(--dur-slow) var(--ease-base);
+}
+
+.btn-fill::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--text-strong);
+  clip-path: circle(0% at var(--fill-x, 1.5rem) 50%);
+  transition: clip-path var(--dur-slow) var(--ease-base);
+}
+
+.btn-fill:hover,
+.btn-fill:focus-visible {
+  color: var(--bg);
+}
+
+.btn-fill:hover::before,
+.btn-fill:focus-visible::before {
+  clip-path: circle(150% at var(--fill-x, 1.5rem) 50%);
+}
+
+.btn-fill-dot {
+  transition:
+    opacity var(--dur-base) var(--ease-base),
+    scale var(--dur-base) var(--ease-base);
+}
+
+.btn-fill:hover .btn-fill-dot,
+.btn-fill:focus-visible .btn-fill-dot {
+  opacity: 0;
+  scale: 3;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .accent-shine,
+  .marquee-track {
+    animation: none;
+  }
+}
+
+/* Flat contribution grid entrance. The client wrapper arms the grid (cells
+   hidden) once hydrated, then sets data-play when it scrolls into view, so
+   without JS the grid is simply visible. */
+@keyframes cell-in {
+  from {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+}
+
+[data-armed]:not([data-play]) .contrib-cell {
+  opacity: 0;
+}
+
+[data-play] .contrib-cell {
+  animation: cell-in var(--dur-slow) var(--ease-roll) both;
+  animation-delay: calc((var(--w) + var(--d)) * var(--cell-stagger));
+}
+
+.contrib-cell {
+  transition: transform var(--dur-fast) var(--ease-base);
+}
+
+.contrib-cell:hover {
+  transform: scale(1.45);
+  position: relative;
+  z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-play] .contrib-cell {
+    animation: none;
+  }
+}

@@ -72,6 +72,11 @@ export function SiteNav() {
 
   return (
     <header className="pointer-events-none fixed inset-x-0 top-(--nav-offset) z-40 px-4">
+      {/* Progressive blur: content softens as it slides under the nav. */}
+      <div
+        aria-hidden
+        className="nav-veil fixed inset-x-0 top-0 h-(--nav-veil-h)"
+      />
       <nav
         aria-label="Primary"
         className={cn(

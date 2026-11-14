@@ -77,7 +77,7 @@ export default function Home() {
           <div className="mt-8 flex justify-end">
             <Link
               href="/work"
-              className="text-accent hover:text-accent-hover group inline-flex items-center gap-2 py-3 text-sm font-medium"
+              className="link-sweep text-accent hover:text-accent-hover group inline-flex items-center gap-2 py-2 text-sm font-medium"
             >
               All projects
               <ArrowRight

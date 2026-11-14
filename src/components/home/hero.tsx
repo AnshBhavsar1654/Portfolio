@@ -2,9 +2,9 @@
 
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr/ArrowRight";
 import { animate, useReducedMotion } from "motion/react";
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { PhotoStack } from "@/components/home/photo-stack";
 import { BackdropSection } from "@/components/site/backdrop-section";
 import { EASE_BASE } from "@/components/site/motion-tokens";
 import { LocalTime } from "@/components/site/local-time";
@@ -146,7 +146,7 @@ export function Hero() {
             <span className="heading-fade">Hi, I&rsquo;m Ansh.</span>
             <br />
             <span className="text-muted">I&rsquo;m an </span>
-            <span className="accent-serif text-accent inline-block text-[1.12em]">
+            <span className="accent-serif accent-shine inline-block text-[1.12em]">
               <span aria-hidden>
                 {typed}
                 {!finished && (
@@ -195,30 +195,32 @@ export function Hero() {
             </Link>
             <Link
               href="/resume"
-              className="border-line text-strong hover:bg-surface-2 inline-flex items-center rounded-full border px-6 py-3.5 font-mono text-xs whitespace-nowrap uppercase transition-[background-color,transform] active:scale-[0.98]"
+              className="btn-fill border-line text-strong inline-flex items-center gap-2.5 rounded-full border py-3.5 pr-6 pl-5 font-mono text-xs whitespace-nowrap uppercase transition-transform active:scale-[0.98]"
             >
+              <span
+                aria-hidden
+                className="btn-fill-dot bg-accent size-1.5 rounded-full"
+              />
               [ Resume ]
             </Link>
           </div>
         </div>
         <div className="hero-fade lg:col-span-5" style={hidden}>
-          <div className="relative mx-auto max-w-sm">
-            <div
-              aria-hidden
-              className="border-accent/40 absolute inset-0 translate-x-4 translate-y-4 rounded-[var(--radius-panel)] border"
-            />
-            <div className="border-line bg-surface relative overflow-hidden rounded-[var(--radius-panel)] border">
-              <Image
-                src={profile.heroImage}
-                alt="Portrait of Ansh Bhavsar"
-                width={960}
-                height={1200}
-                priority
-                sizes="384px"
-                className="aspect-[4/5] w-full object-cover object-top"
+          <div className="relative mx-auto max-w-sm pt-10">
+            <div className="relative">
+              <div
+                aria-hidden
+                className="border-accent/40 absolute inset-0 translate-x-4 translate-y-4 rounded-[var(--radius-panel)] border"
               />
+              <PhotoStack />
+              <p
+                aria-hidden
+                className="accent-serif text-muted pointer-events-none absolute -top-9 -left-2 z-10 -rotate-6 text-lg"
+              >
+                drag me &#10022;
+              </p>
             </div>
-            <div className="glass border-line absolute -bottom-6 -left-4 rounded-2xl border px-5 py-4 shadow-sm sm:-left-8">
+            <div className="glass border-line absolute -bottom-6 -left-4 z-10 rounded-2xl border px-5 py-4 shadow-sm sm:-left-8">
               <p className="text-strong text-xl leading-tight font-semibold tracking-tight">
                 {current.org}
               </p>

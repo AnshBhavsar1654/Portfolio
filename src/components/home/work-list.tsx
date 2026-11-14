@@ -1,5 +1,6 @@
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr/ArrowRight";
 import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr/ArrowUpRight";
+import { ArrowSwap } from "@/components/site/arrow-swap";
 import Image from "next/image";
 import Link from "next/link";
 import { Spotlight } from "@/components/site/spotlight";
@@ -110,12 +111,7 @@ export function WorkList({
                       className="hover:text-accent inline-flex flex-wrap items-baseline gap-x-2"
                     >
                       {p.title}
-                      <ArrowUpRight
-                        aria-hidden
-                        size={18}
-                        weight="bold"
-                        className="relative transition-transform duration-(--dur-base) group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                      />
+                      <ArrowSwap size={18} className="self-center" />
                     </Link>
                   </h3>
                   <p className="text-body mt-3 max-w-[58ch] text-sm leading-relaxed md:text-[15px]">
@@ -160,7 +156,7 @@ export function WorkList({
                     ) : null}
                     <Link
                       href={`/work/${p.slug}`}
-                      className="text-muted hover:text-accent relative z-10 inline-flex items-center gap-1 text-sm font-medium transition-colors"
+                      className="link-sweep text-muted hover:text-accent relative z-10 inline-flex items-center gap-1 py-2 text-sm font-medium transition-colors"
                     >
                       Details
                       <ArrowRight aria-hidden size={14} weight="bold" />

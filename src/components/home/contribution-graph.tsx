@@ -1,10 +1,13 @@
+import type { CSSProperties } from "react";
+import { ActivityViews } from "@/components/home/activity-views";
 import type { ContributionDay } from "@/lib/github-contributions";
 
 // One shared contribution-graph panel for any daily-count source (GitHub
 // calendar, LeetCode submission calendar). Month labels on top, Mon/Wed/Fri
 // down the side, one cell per day, Less-to-More legend below. Cells are
 // decorative (aria-hidden); the yearly total is exposed as the accessible
-// name. Style tokens match lib/github-contributions levels.
+// name. Style tokens match lib/github-contributions levels. The panel offers
+// a second, orbitable 3D view of the same year (see ActivityViews).
 
 const LEVEL_BG = [
   "bg-contrib-0",
@@ -80,6 +83,33 @@ function monthLabels(weeks: Cell[][]): {
   }));
 }
 
+// Headline numbers shown above both views: busiest day, longest run of active
+// days, and how many days had any activity at all.
+function yearStats(days: ContributionDay[]) {
+  let best = days[0];
+  let streak = 0;
+  let run = 0;
+  let active = 0;
+  for (const d of days) {
+    if (d.count > best.count) best = d;
+    if (d.count > 0) {
+      active += 1;
+      run += 1;
+      streak = Math.max(streak, run);
+    } else run = 0;
+  }
+  const on = utcDay(best.date).toLocaleDateString("en", {
+    month: "short",
+    day: "numeric",
+    timeZone: "UTC",
+  });
+  return [
+    { value: best.count, label: `busiest day (${on})` },
+    { value: streak, label: "day best streak" },
+    { value: active, label: "active days" },
+  ];
+}
+
 export function ContributionGraph({
   title,
   handle,
@@ -100,93 +130,119 @@ export function ContributionGraph({
   const weeks = toWeeks(days);
   const labels = monthLabels(weeks);
 
+  const header = (
+    <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+      <h3 className="text-strong text-xl font-semibold tracking-tight">
+        {title}
+      </h3>
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-muted hover:text-accent font-mono text-xs transition-colors"
+      >
+        {handle ? `@${handle}` : "Open profile"}
+      </a>
+    </div>
+  );
+
+  const grid = (
+    <div
+      className="overflow-x-auto pb-1"
+      // Container-query width is measured here, so the graph below can
+      // shrink its cells to fit the full year without scrolling.
+      style={{ containerType: "inline-size" }}
+    >
+      <div
+        role="img"
+        aria-label={`${total} ${unit} in the last year`}
+        className="grid w-full gap-(--contrib-gap)"
+        style={{
+          gridTemplateColumns: `repeat(${weeks.length}, ${cellSize(weeks.length)})`,
+          gridTemplateRows: `auto repeat(7, ${cellSize(weeks.length)})`,
+        }}
+      >
+        {labels.map((l) => (
+          <span
+            key={`${l.col}-${l.label}`}
+            aria-hidden
+            className="text-muted font-mono text-xs whitespace-nowrap"
+            style={{
+              gridColumn: `${l.col + 2} / span ${l.span}`,
+              gridRow: 1,
+            }}
+          >
+            {l.label}
+          </span>
+        ))}
+        {weeks.map((week, wi) =>
+          week.map((day, di) =>
+            day ? (
+              <span
+                key={day.date}
+                aria-hidden
+                title={`${day.count} ${
+                  day.count === 1 ? dayUnit : unit
+                } on ${utcDay(day.date).toLocaleDateString("en", {
+                  month: "short",
+                  day: "numeric",
+                  year: "numeric",
+                  timeZone: "UTC",
+                })}`}
+                className={`contrib-cell rounded-xs ${LEVEL_BG[day.level]}`}
+                style={
+                  {
+                    gridColumn: wi + 1,
+                    gridRow: di + 2,
+                    "--w": wi,
+                    "--d": di,
+                  } as CSSProperties
+                }
+              />
+            ) : (
+              <span
+                key={`${wi}-${di}`}
+                aria-hidden
+                style={{ gridColumn: wi + 1, gridRow: di + 2 }}
+              />
+            )
+          )
+        )}
+      </div>
+    </div>
+  );
+
+  const caption = (
+    <figcaption className="mt-6 flex flex-wrap items-center justify-between gap-3">
+      <p className="text-muted text-sm">
+        {total} {unit} in the last year
+      </p>
+      <p className="text-muted flex items-center gap-1 font-mono text-xs">
+        Less
+        {LEVEL_BG.map((bg) => (
+          <span
+            key={bg}
+            aria-hidden
+            className={`h-2.5 w-2.5 rounded-xs ${bg}`}
+          />
+        ))}
+        More
+      </p>
+    </figcaption>
+  );
+
   return (
     <figure className="glass border-line rounded-[var(--radius-panel)] border p-8 md:p-10">
-      <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <h3 className="text-strong text-xl font-semibold tracking-tight">
-          {title}
-        </h3>
-        <a
-          href={href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-muted hover:text-accent font-mono text-xs transition-colors"
-        >
-          {handle ? `@${handle}` : "Open profile"}
-        </a>
-      </div>
-      <div
-        className="mt-6 overflow-x-auto pb-1"
-        // Container-query width is measured here, so the graph below can
-        // shrink its cells to fit the full year without scrolling.
-        style={{ containerType: "inline-size" }}
-      >
-        <div
-          role="img"
-          aria-label={`${total} ${unit} in the last year`}
-          className="grid w-full gap-(--contrib-gap)"
-          style={{
-            gridTemplateColumns: `repeat(${weeks.length}, ${cellSize(weeks.length)})`,
-            gridTemplateRows: `auto repeat(7, ${cellSize(weeks.length)})`,
-          }}
-        >
-          {labels.map((l) => (
-            <span
-              key={`${l.col}-${l.label}`}
-              aria-hidden
-              className="text-muted font-mono text-xs whitespace-nowrap"
-              style={{
-                gridColumn: `${l.col + 2} / span ${l.span}`,
-                gridRow: 1,
-              }}
-            >
-              {l.label}
-            </span>
-          ))}
-          {weeks.map((week, wi) =>
-            week.map((day, di) =>
-              day ? (
-                <span
-                  key={day.date}
-                  aria-hidden
-                  title={`${day.count} ${
-                    day.count === 1 ? dayUnit : unit
-                  } on ${utcDay(day.date).toLocaleDateString("en", {
-                    month: "short",
-                    day: "numeric",
-                    year: "numeric",
-                    timeZone: "UTC",
-                  })}`}
-                  className={`rounded-xs ${LEVEL_BG[day.level]}`}
-                  style={{ gridColumn: wi + 1, gridRow: di + 2 }}
-                />
-              ) : (
-                <span
-                  key={`${wi}-${di}`}
-                  aria-hidden
-                  style={{ gridColumn: wi + 1, gridRow: di + 2 }}
-                />
-              )
-            )
-          )}
-        </div>
-      </div>
-      <figcaption className="mt-6 flex flex-wrap items-center justify-between gap-3">
-        <p className="text-muted text-sm">
-          {total} {unit} in the last year
-        </p>
-        <p className="text-muted flex items-center gap-1 font-mono text-xs">
-          Less
-          {LEVEL_BG.map((bg) => (
-            <span
-              key={bg}
-              aria-hidden
-              className={`h-2.5 w-2.5 rounded-xs ${bg}`}
-            />
-          ))}
-          More
-        </p>
-      </figcaption>
+      <ActivityViews
+        header={header}
+        grid={grid}
+        caption={caption}
+        stats={yearStats(days)}
+        days={days}
+        unit={unit}
+        dayUnit={dayUnit}
+        label={`${total} ${unit} in the last year`}
+      />
     </figure>
   );
 }

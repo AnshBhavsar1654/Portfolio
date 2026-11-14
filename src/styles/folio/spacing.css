@@ -24,3 +24,7 @@
 :root {
   --ht-cell: 7px; /* halftone screen pitch */
 }
+
+:root {
+  --nav-veil-h: 6.5rem; /* progressive blur behind the floating nav */
+}

@@ -49,3 +49,15 @@
     --dur-reveal: 0ms;
   }
 }
+
+/* Ambient loops and hover micro-motion. Loops stop entirely under reduced
+   motion (see globals.css); these only set their pace. */
+:root {
+  --dur-shine: 6s; /* one there-and-back of the accent shimmer */
+  --dur-marquee: 48s; /* one full pass of a skills ticker row */
+}
+
+/* Flat contribution grid: cells pop in as a diagonal wave. */
+:root {
+  --cell-stagger: 9ms; /* delay per week column + day row */
+}

@@ -63,6 +63,11 @@
   --ht-blend: multiply;
   --ht-strength: 1; /* scales dot size */
   --ht-veil: 62%; /* page colour laid over the print so text stays legible */
+  /* Shimmer sweep on heading accent words: ball red through amber to
+     magenta. Large display text only (3:1 large-text floor on --bg). */
+  --shine-a: #c42b22;
+  --shine-b: #c25e10;
+  --shine-c: #a3246e;
 }
 
 :root[data-theme="dark"] {
@@ -109,4 +114,7 @@
   --ht-blend: screen;
   --ht-strength: 0.8;
   --ht-veil: 64%;
+  --shine-a: #f0594e;
+  --shine-b: #f5a053;
+  --shine-c: #e46aa8;
 }

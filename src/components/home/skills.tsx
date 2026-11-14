@@ -94,7 +94,46 @@ function SkillMark({ name }: { name: string }) {
   );
 }
 
+// Two ticker rows of every mark, drifting in opposite directions above the
+// grouped index. Hover pauses a row. Decorative: the same names are listed
+// in full right below, so the ticker is hidden from assistive tech.
+function SkillTicker() {
+  const all = skillGroups.flatMap((g) => g.skills);
+  const half = Math.ceil(all.length / 2);
+  const rows = [all.slice(0, half), all.slice(half)];
+  return (
+    <div aria-hidden className="mb-10 grid gap-3">
+      {rows.map((row, r) => (
+        <div key={r} className="marquee" data-reverse={r % 2 ? "" : undefined}>
+          <div className="marquee-track">
+            {[0, 1].map((copy) =>
+              row.map((s) => (
+                <span
+                  key={`${copy}-${s}`}
+                  className="group/row glass border-line text-body hover:text-strong hover:border-accent/40 mr-3 inline-flex shrink-0 items-center gap-2.5 rounded-full border px-4 py-2 text-[13px] whitespace-nowrap transition-colors duration-(--dur-base)"
+                >
+                  <SkillMark name={s} />
+                  {s}
+                </span>
+              ))
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export function Skills() {
+  return (
+    <>
+      <SkillTicker />
+      <SkillGroups />
+    </>
+  );
+}
+
+function SkillGroups() {
   return (
     <ul className="grid gap-4">
       {skillGroups.map((g, i) => (
