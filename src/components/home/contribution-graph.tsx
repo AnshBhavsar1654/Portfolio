@@ -3,8 +3,8 @@ import { ActivityViews } from "@/components/home/activity-views";
 import type { ContributionDay } from "@/lib/github-contributions";
 
 // One shared contribution-graph panel for any daily-count source (GitHub
-// calendar, LeetCode submission calendar). Month labels on top, Mon/Wed/Fri
-// down the side, one cell per day, Less-to-More legend below. Cells are
+// calendar, LeetCode submission calendar). Month labels on top, one cell
+// per day (Sunday at the top), Less-to-More legend below. Cells are
 // decorative (aria-hidden); the yearly total is exposed as the accessible
 // name. Style tokens match lib/github-contributions levels. The panel offers
 // a second, orbitable 3D view of the same year (see ActivityViews).
@@ -60,10 +60,14 @@ function toWeeks(days: ContributionDay[]): Cell[][] {
   return weeks;
 }
 
+// The trailing month usually has only a week or two of columns left, too
+// narrow for its name; it is right-aligned to the grid edge so the text
+// spills left into free space instead of past the panel.
 function monthLabels(weeks: Cell[][]): {
   col: number;
   span: number;
   label: string;
+  alignEnd: boolean;
 }[] {
   const firsts: { col: number; date: Date }[] = [];
   weeks.forEach((week, col) => {
@@ -76,11 +80,16 @@ function monthLabels(weeks: Cell[][]): {
   const kept = firsts.filter(
     (f, i) => i === 0 || f.col - firsts[i - 1].col >= MONTH_GAP
   );
-  return kept.map((k, i) => ({
-    col: k.col,
-    span: (i + 1 < kept.length ? kept[i + 1].col : weeks.length) - k.col,
-    label: k.date.toLocaleString("en", { month: "short", timeZone: "UTC" }),
-  }));
+  return kept.map((k, i) => {
+    const last = i === kept.length - 1;
+    const span = (last ? weeks.length : kept[i + 1].col) - k.col;
+    return {
+      col: k.col,
+      span,
+      label: k.date.toLocaleString("en", { month: "short", timeZone: "UTC" }),
+      alignEnd: last && span < MONTH_GAP,
+    };
+  });
 }
 
 // Headline numbers shown above both views: busiest day, longest run of active
@@ -162,14 +171,19 @@ export function ContributionGraph({
           gridTemplateRows: `auto repeat(7, ${cellSize(weeks.length)})`,
         }}
       >
-        {labels.map((l) => (
+        {labels.map((l, i) => (
           <span
             key={`${l.col}-${l.label}`}
             aria-hidden
-            className="text-muted font-mono text-xs whitespace-nowrap"
+            // In a narrow panel twelve names cannot fit: keep every other
+            // month, counting back from the newest so it always shows.
+            className={`text-muted font-mono text-xs whitespace-nowrap ${
+              (labels.length - 1 - i) % 2 ? "@max-sm:invisible" : ""
+            }`}
             style={{
-              gridColumn: `${l.col + 2} / span ${l.span}`,
+              gridColumn: `${l.col + 1} / span ${l.span}`,
               gridRow: 1,
+              justifySelf: l.alignEnd ? "unsafe end" : undefined,
             }}
           >
             {l.label}
