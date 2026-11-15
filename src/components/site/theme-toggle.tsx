@@ -78,6 +78,7 @@ export function ThemeToggle() {
   const crawl = useRef<Animation[]>([]);
   const boosting = useRef(false);
   const settle = useRef(0);
+  const fade = useRef(0);
 
   useEffect(() => {
     // Enable colour transitions only after first paint.
@@ -86,7 +87,10 @@ export function ThemeToggle() {
         document.documentElement.classList.add("theme-ready")
       )
     );
-    return () => window.clearTimeout(settle.current);
+    return () => {
+      window.clearTimeout(settle.current);
+      window.clearTimeout(fade.current);
+    };
   }, []);
 
   // The keyed hop span remounts on every flip, which recreates the stitch
@@ -106,7 +110,34 @@ export function ThemeToggle() {
 
   const toggle = () => {
     const next: Theme = theme === "dark" ? "light" : "dark";
-    document.documentElement.dataset.theme = next;
+    const root = document.documentElement;
+    const reduce = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    const apply = () => {
+      root.dataset.theme = next;
+    };
+
+    if (reduce) {
+      apply();
+    } else if (typeof document.startViewTransition === "function") {
+      // Whole-page crossfade (see .theme-vt in globals.css). The class
+      // scopes the custom timing to theme switches only.
+      root.classList.add("theme-vt");
+      const transition = document.startViewTransition(apply);
+      void transition.finished.finally(() => {
+        root.classList.remove("theme-vt");
+      });
+    } else {
+      root.classList.add("theme-switching");
+      apply();
+      window.clearTimeout(fade.current);
+      fade.current = window.setTimeout(
+        () => root.classList.remove("theme-switching"),
+        tokenMs("--theme-fade")
+      );
+    }
+
     try {
       localStorage.setItem("theme", next);
     } catch {
@@ -114,7 +145,7 @@ export function ThemeToggle() {
     }
     // Fast while the slide runs (--dur-roll), then settle back to the idle
     // crawl. Changing pace by restart is seamless at whole dash periods.
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (reduce) return;
     window.clearTimeout(settle.current);
     boosting.current = true;
     settle.current = window.setTimeout(() => {
@@ -133,7 +164,7 @@ export function ThemeToggle() {
       aria-label="Dark mode"
       onClick={toggle}
       suppressHydrationWarning
-      className="group relative inline-flex h-11 w-17 items-center justify-center"
+      className="theme-toggle group relative inline-flex h-11 w-17 items-center justify-center"
     >
       <span className="border-line bg-surface-2 relative block h-7 w-14 rounded-full border">
         <span

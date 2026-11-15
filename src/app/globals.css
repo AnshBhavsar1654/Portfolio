@@ -68,14 +68,39 @@ body {
   color: var(--on-accent);
 }
 
-/* Smooth theme change, but never on first paint */
-html.theme-ready,
-html.theme-ready body,
-html.theme-ready * {
+/* Theme switch. Where view transitions exist, the toggle crossfades a
+   snapshot of the old page into the live new one, so gradients, SVGs, images
+   and the halftone prints all change together instead of some snapping. The
+   toggle itself is lifted out of the fade so its ball rolls live on top. */
+:root.theme-vt::view-transition-old(root),
+:root.theme-vt::view-transition-new(root) {
+  animation-duration: var(--theme-fade);
+  animation-timing-function: var(--ease-theme);
+}
+
+.theme-toggle {
+  view-transition-name: theme-toggle;
+}
+
+:root.theme-vt::view-transition-group(theme-toggle),
+:root.theme-vt::view-transition-new(theme-toggle) {
+  animation: none;
+}
+
+:root.theme-vt::view-transition-old(theme-toggle) {
+  display: none;
+}
+
+/* Fallback without view transitions: fade colours, only while switching.
+   :where() keeps this at zero specificity so it never overrides a
+   component's own transition (hover lifts, the ball's roll). */
+:where(html.theme-switching, html.theme-switching *) {
   transition:
-    background-color var(--theme-fade) var(--ease-standard),
-    color var(--theme-fade) var(--ease-standard),
-    border-color var(--theme-fade) var(--ease-standard);
+    background-color var(--theme-fade) var(--ease-theme),
+    color var(--theme-fade) var(--ease-theme),
+    border-color var(--theme-fade) var(--ease-theme),
+    fill var(--theme-fade) var(--ease-theme),
+    stroke var(--theme-fade) var(--ease-theme);
 }
 
 /* Disclosure height animation: grid-rows trick, transform-free but cheap. */
@@ -132,6 +157,24 @@ body::after {
 
 .spotlight:hover::before {
   opacity: 1;
+}
+
+/* Stacked cards (jobs, projects). Each card pins under the nav a step lower
+   than the one before, so the next card slides over it and the earlier
+   card's top edge stays visible; scrolling up unpins them in reverse. Pure
+   CSS sticky, no scroll handlers. Only on screens tall and wide enough for a
+   whole card: a pinned card taller than the viewport would hide its own
+   bottom. Covered cards go opaque so text never shows through the glass. */
+@media (min-width: 768px) and (min-height: 640px) {
+  .stack-card {
+    position: sticky;
+    top: calc(var(--stack-top) + var(--stack-i, 0) * var(--stack-step));
+  }
+
+  .stack-card.glass,
+  .stack-card .glass {
+    background: var(--surface);
+  }
 }
 
 /* Heading emphasis: serif italic, one word per heading. */

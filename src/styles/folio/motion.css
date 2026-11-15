@@ -6,7 +6,8 @@
   --dur-slow: 500ms;
   --ease-standard: cubic-bezier(0.32, 0.72, 0, 1);
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
-  --theme-fade: 240ms;
+  --theme-fade: 520ms; /* light/dark crossfade */
+  --ease-theme: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @media (prefers-reduced-motion: reduce) {

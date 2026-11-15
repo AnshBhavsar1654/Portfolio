@@ -1,5 +1,6 @@
 import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr/ArrowUpRight";
 import { MapPin } from "@phosphor-icons/react/dist/ssr/MapPin";
+import type { CSSProperties } from "react";
 import { experience } from "@/content/experience";
 import { cn } from "@/lib/cn";
 
@@ -51,13 +52,14 @@ function Org({ org, url }: { org: string; url?: string }) {
 export function ExperienceList() {
   return (
     <ol className="grid gap-4">
-      {experience.map((e) => {
+      {experience.map((e, i) => {
         const current = /present/i.test(e.period);
         return (
           <li
             key={`${e.org}-${e.role}`}
+            style={{ "--stack-i": i } as CSSProperties}
             className={cn(
-              "glass rounded-[var(--radius-panel)] border p-6 transition-[transform,border-color,box-shadow] duration-(--dur-base) ease-(--ease-out-soft) hover:-translate-y-1 hover:shadow-(--shadow-lift) active:scale-[0.99] md:p-8",
+              "glass stack-card rounded-[var(--radius-panel)] border p-6 transition-[transform,border-color,box-shadow] duration-(--dur-base) ease-(--ease-out-soft) hover:-translate-y-1 hover:shadow-(--shadow-lift) active:scale-[0.99] md:p-8",
               current
                 ? "border-accent/40"
                 : "border-line hover:border-accent/40"

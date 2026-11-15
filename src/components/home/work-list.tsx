@@ -3,6 +3,7 @@ import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr/ArrowUpRight";
 import { ArrowSwap } from "@/components/site/arrow-swap";
 import Image from "next/image";
 import Link from "next/link";
+import type { CSSProperties } from "react";
 import { Spotlight } from "@/components/site/spotlight";
 import { projects, type Project } from "@/content/projects";
 
@@ -91,7 +92,11 @@ export function WorkList({
   return (
     <ul className="grid gap-4">
       {list.map((p, i) => (
-        <li key={p.slug}>
+        <li
+          key={p.slug}
+          className="stack-card"
+          style={{ "--stack-i": i } as CSSProperties}
+        >
           <Spotlight className="rounded-[var(--radius-panel)]">
             <article className="glass group border-line hover:border-accent/50 relative flex h-full flex-col rounded-[var(--radius-panel)] border p-6 transition-[transform,border-color,box-shadow] duration-(--dur-base) ease-(--ease-out-soft) hover:-translate-y-1 hover:shadow-(--shadow-lift) active:scale-[0.99] md:p-8">
               <div className="grid gap-x-10 gap-y-7 md:grid-cols-[1fr_16rem] md:items-center lg:grid-cols-[1fr_20rem] xl:grid-cols-[1fr_22rem]">

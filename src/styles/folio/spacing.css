@@ -28,3 +28,8 @@
 :root {
   --nav-veil-h: 6.5rem; /* progressive blur behind the floating nav */
 }
+
+:root {
+  --stack-top: 6rem; /* where stacked cards pin: just under the floating nav */
+  --stack-step: 1.25rem; /* how much of each covered card stays visible */
+}
