@@ -1,7 +1,14 @@
-import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
+import {
+  Bricolage_Grotesque,
+  Geist_Mono,
+  Instrument_Serif,
+} from "next/font/google";
 
-export const sans = Geist({
+// Body and headings. The optical-size axis gives display sizes tighter,
+// more characterful shapes while small text stays open and readable.
+export const sans = Bricolage_Grotesque({
   subsets: ["latin"],
+  axes: ["opsz"],
   variable: "--font-sans",
   display: "swap",
 });
