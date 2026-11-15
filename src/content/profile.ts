@@ -13,6 +13,7 @@ export const profile = {
   socials: {
     github: "https://github.com/AnshBhavsar1654",
     leetcode: "https://leetcode.com/u/ansh164/",
+    huggingface: "https://huggingface.co/ansh164",
     linkedin: "https://www.linkedin.com/in/ansh-bhavsar-263a73273",
     x: "https://x.com/ansh_bhavsar7",
     instagram: "https://www.instagram.com/anshbhavsar101",

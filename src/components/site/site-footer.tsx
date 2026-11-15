@@ -20,6 +20,12 @@ const LINKS: { label: string; href: string; name: BrandName; tone: string }[] =
       tone: "text-brand-leetcode",
     },
     {
+      label: "Hugging Face",
+      href: profile.socials.huggingface,
+      name: "huggingface",
+      tone: "text-brand-huggingface-link",
+    },
+    {
       label: "LinkedIn",
       href: profile.socials.linkedin,
       name: "linkedin",

@@ -38,6 +38,7 @@
   --color-brand-tensorflow: var(--brand-tensorflow);
   --color-brand-scikitlearn: var(--brand-scikitlearn);
   --color-brand-huggingface: var(--brand-huggingface);
+  --color-brand-huggingface-link: var(--brand-huggingface-link);
   --color-brand-opencv: var(--brand-opencv);
   --color-brand-redis: var(--brand-redis);
   --color-brand-numpy: var(--brand-numpy);

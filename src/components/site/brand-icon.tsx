@@ -1,6 +1,7 @@
 import { IconBrandLinkedinFilled } from "@tabler/icons-react";
 import {
   siGithub,
+  siHuggingface,
   siInstagram,
   siLeetcode,
   siX,
@@ -12,6 +13,7 @@ import {
 // the folio brand tokens via currentColor, so they hold in both themes.
 const PATHS = {
   github: siGithub.path,
+  huggingface: siHuggingface.path,
   leetcode: siLeetcode.path,
   instagram: siInstagram.path,
   x: siX.path,

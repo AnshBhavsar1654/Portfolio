@@ -13,6 +13,7 @@ export function GET() {
     `- GitHub: ${profile.socials.github}`,
     `- LeetCode: ${profile.socials.leetcode}`,
     `- LinkedIn: ${profile.socials.linkedin}`,
+    `- Hugging Face: ${profile.socials.huggingface}`,
     `- X: ${profile.socials.x}`,
     ``,
     `## Experience`,

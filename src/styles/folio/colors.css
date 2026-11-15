@@ -25,6 +25,7 @@
   --brand-youtube: #ff0000;
   --brand-gmail: #1a73e8;
   --brand-leetcode: #b26a00;
+  --brand-huggingface-link: #9a7400;
   --brand-x: #24292f;
   /* Tech-tool brand colours (official marks, mono glyphs use currentColor).
      Official hexes stay in light; dark-theme overrides below only rework
@@ -93,6 +94,7 @@
   --brand-youtube: #ff3333;
   --brand-gmail: #8ab4f8;
   --brand-leetcode: #ffa116;
+  --brand-huggingface-link: #ffd21e;
   --brand-x: #ffffff;
   /* Tool logos that would sink into the dark page: pure-black marks go
      white; NumPy/Pandas lift to official lighter palette tints. */
