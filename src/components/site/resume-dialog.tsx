@@ -1,5 +1,6 @@
 "use client";
 
+import { ArrowSquareOut } from "@phosphor-icons/react/dist/ssr/ArrowSquareOut";
 import { X } from "@phosphor-icons/react/dist/ssr/X";
 import { DownloadSimple } from "@phosphor-icons/react/dist/ssr/DownloadSimple";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
@@ -24,18 +25,52 @@ type ResumeApi = { open: (trigger: HTMLElement | null) => void };
 
 const ResumeContext = createContext<ResumeApi | null>(null);
 
+const HISTORY_FLAG = "resumeDialog";
+
+function isDialogEntry() {
+  const state = window.history.state as Record<string, unknown> | null;
+  return state?.[HISTORY_FLAG] === true;
+}
+
 // One dialog instance for the whole site: the nav, hero, footer and contact
 // card all open the same window instead of a new tab.
 export function ResumeProvider({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
   const returnFocusRef = useRef<HTMLElement | null>(null);
+  const popping = useRef(false);
 
+  // Opening pushes a history entry so the browser/phone Back button closes
+  // the window instead of leaving the site. Next.js patches pushState and
+  // keeps its own router state alongside this flag.
   const open = useCallback((trigger: HTMLElement | null) => {
     returnFocusRef.current = trigger;
+    popping.current = false;
     setIsOpen(true);
+    if (!isDialogEntry()) {
+      window.history.pushState({ [HISTORY_FLAG]: true }, "");
+    }
   }, []);
 
-  const close = useCallback(() => setIsOpen(false), []);
+  // Close first, then tidy history. Closing must never wait on popstate:
+  // mobile browsers can delay or swallow it, which made the first tap look
+  // dead. The ref stops a second back() if the button is tapped again
+  // before the first one settles.
+  const close = useCallback(() => {
+    setIsOpen(false);
+    if (isDialogEntry() && !popping.current) {
+      popping.current = true;
+      window.history.back();
+    }
+  }, []);
+
+  useEffect(() => {
+    const onPop = () => {
+      popping.current = false;
+      if (!isDialogEntry()) setIsOpen(false);
+    };
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
+  }, []);
   const api = useMemo(() => ({ open }), [open]);
 
   return (
@@ -210,6 +245,16 @@ function ResumeDialog({
                 </p>
               </div>
               <div className="ml-auto flex shrink-0 items-center gap-2">
+                <a
+                  href={profile.resume}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Open resume in a new tab"
+                  className="border-line text-muted hover:text-strong hover:border-strong/40 inline-flex h-11 items-center gap-2 rounded-full border px-3.5 font-mono text-xs transition-colors"
+                >
+                  <ArrowSquareOut aria-hidden size={16} />
+                  <span className="hidden sm:inline">New tab</span>
+                </a>
                 <a
                   href={profile.resume}
                   download

@@ -20,6 +20,12 @@ const LINKS = [
 
 const IDS = LINKS.map((l) => l.id);
 
+const INITIALS = profile.name
+  .split(/\s+/)
+  .map((part) => part[0])
+  .join("")
+  .toUpperCase();
+
 export function SiteNav() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -89,10 +95,11 @@ export function SiteNav() {
       >
         <Link
           href="/#top"
+          aria-label={profile.name}
           className="text-strong flex items-center gap-2 text-sm font-semibold tracking-tight"
         >
           <span aria-hidden className="bg-accent h-2.5 w-2.5 rounded-full" />
-          {profile.name}
+          {INITIALS}
         </Link>
         <div className="hidden items-center gap-0.5 lg:flex">
           {LINKS.map((l) => (

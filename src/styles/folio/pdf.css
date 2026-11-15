@@ -23,6 +23,10 @@
 
 .resume-text-layer {
   --total-scale-factor: 1;
+  /* PDF.js sizes the layer with round(..., var(--scale-round-*)); without
+     these the width/height declarations are invalid and dropped. */
+  --scale-round-x: 1px;
+  --scale-round-y: 1px;
   --min-font-size: 1;
   --text-scale-factor: calc(var(--total-scale-factor) * var(--min-font-size));
   --min-font-size-inv: calc(1 / var(--min-font-size));

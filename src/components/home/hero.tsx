@@ -12,18 +12,12 @@ import { ResumeTrigger } from "@/components/site/resume-dialog";
 import { experience } from "@/content/experience";
 import { profile } from "@/content/profile";
 
-// Entrance under 700 ms: words rise with a 60 ms stagger, the rest fades.
-// The portrait sits in front of the section's halftone print.
-// Interruptible (scroll/click jumps to the final state); reduced motion
-// shows the final state immediately.
-const WORDS: { text: string; accent?: boolean }[] = [
-  { text: "Building" },
-  { text: "Products" },
-  { text: "at" },
-  { text: "scale.", accent: true },
-];
+const [firstName, ...surnameParts] = profile.name.split(" ");
+const surname = surnameParts.join(" ");
 
-// Typewriter: English first, then five languages, then English to stay.
+// Entrance under 700 ms: the stack fades up in sequence. The portrait sits in
+// front of the section's halftone print. Interruptible (scroll/click jumps to
+// the final state); reduced motion shows the final state immediately.
 const TYPE_SEQUENCE = [
   "Engineer",
   "Ingeniero",
@@ -46,20 +40,14 @@ export function Hero() {
   useEffect(() => {
     if (reduce) return;
     const ease = EASE_BASE;
-    const words = animate(
-      ".hero-word",
-      { opacity: [0, 1], y: [18, 0] },
-      { duration: 0.7, delay: (i) => 0.05 + i * 0.06, ease }
-    );
     const rest = animate(
       ".hero-fade",
       { opacity: [0, 1], y: [10, 0] },
       { duration: 0.7, delay: (i) => 0.3 + i * 0.08, ease }
     );
     const finish = () => {
-      words.stop();
       rest.stop();
-      document.querySelectorAll(".hero-word, .hero-fade").forEach((el) => {
+      document.querySelectorAll(".hero-fade").forEach((el) => {
         (el as HTMLElement).style.opacity = "";
         (el as HTMLElement).style.transform = "";
       });
@@ -69,7 +57,6 @@ export function Hero() {
     return () => {
       window.removeEventListener("wheel", finish);
       window.removeEventListener("click", finish);
-      words.stop();
       rest.stop();
     };
   }, [reduce]);
@@ -124,9 +111,9 @@ export function Hero() {
   return (
     <BackdropSection id="top" backdrop="hero" className="pt-28 md:pt-32">
       <noscript>
-        <style>{`.hero-word,.hero-fade{opacity:1 !important;transform:none !important}`}</style>
+        <style>{`.hero-fade{opacity:1 !important;transform:none !important}`}</style>
       </noscript>
-      <div className="grid items-center gap-14 lg:grid-cols-12">
+      <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
         <div className="lg:col-span-7">
           <p
             className="hero-fade glass border-line text-body inline-flex flex-wrap items-center gap-x-3 gap-y-1 rounded-full border px-3 py-1.5 font-mono text-xs tracking-(--tracking-eyebrow) uppercase"
@@ -141,11 +128,16 @@ export function Hero() {
             <LocalTime timeZone={profile.timezone} />
           </p>
           <h1
-            className="hero-fade text-strong mt-6 text-5xl leading-[0.98] font-semibold tracking-tighter text-balance sm:text-7xl lg:text-8xl"
+            className="hero-fade text-strong mt-6 text-5xl leading-[0.98] font-semibold tracking-tighter text-balance sm:text-6xl lg:text-7xl xl:text-8xl"
             style={hidden}
           >
-            <span className="heading-fade">Hi, I&rsquo;m Ansh.</span>
-            <br />
+            <span className="heading-fade">{firstName}</span> <br />
+            <span className="accent-serif accent-shine">{surname}</span>
+          </h1>
+          <p
+            className="hero-fade text-strong mt-8 text-3xl font-semibold tracking-tight text-balance sm:text-4xl xl:text-5xl"
+            style={hidden}
+          >
             <span className="text-muted">I&rsquo;m an </span>
             <span className="accent-serif accent-shine inline-block text-[1.12em]">
               <span aria-hidden>
@@ -158,26 +150,15 @@ export function Hero() {
               </span>
               <span className="sr-only">Engineer</span>
             </span>
-          </h1>
-          <p className="text-strong mt-8 text-2xl font-semibold tracking-tight text-balance sm:text-3xl">
-            {WORDS.map((w) => (
-              <span
-                key={w.text}
-                className={`hero-word mr-[0.24em] inline-block will-change-transform ${
-                  w.accent ? "accent-serif text-accent text-[1.12em]" : ""
-                }`}
-                style={hidden}
-              >
-                {w.text}
-              </span>
-            ))}
           </p>
           <p
-            className="hero-fade text-body mt-6 max-w-[46ch] text-lg leading-relaxed"
+            className="hero-fade text-body mt-6 max-w-[54ch] text-lg leading-relaxed sm:text-xl"
             style={hidden}
           >
-            Full-stack apps, AI agents and eval pipelines that turn ideas into
-            dependable products.
+            Building products at scale: full-stack apps,{" "}
+            <strong className="text-strong font-semibold">AI agents</strong> and{" "}
+            <strong className="text-strong font-semibold">RAG systems</strong>{" "}
+            that turn ideas into dependable software.
           </p>
           <div
             className="hero-fade mt-9 flex flex-wrap items-center gap-3"
