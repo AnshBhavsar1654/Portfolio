@@ -1,0 +1,3 @@
+# Exclude tooling/agent files from GitHub language stats
+.agents/** linguist-vendored
+.claude/** linguist-vendored
