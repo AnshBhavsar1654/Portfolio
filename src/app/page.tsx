@@ -98,7 +98,6 @@ export default function Home() {
             label="Skills"
             title="Tools I"
             accent="reach for."
-            body="Grouped by what they do, not ranked."
           />
         </Reveal>
         <Reveal className="mt-12">

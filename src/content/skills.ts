@@ -1,42 +1,42 @@
-// Grouped, never ranked: no bars, percentages or skill levels. Group order is
-// a hierarchy of what leads the work (agents & evaluation first); skills
-// inside a group are unordered. Names grounded in real work only.
+// Never ranked: no bars, percentages or skill levels. Groups only set the
+// order of the logo wall (languages, then frameworks and tools, then AI);
+// they are not shown as headings. Names grounded in real work only.
 export const skillGroups: { title: string; skills: string[] }[] = [
   {
-    title: "Agents & evaluation",
+    title: "Languages",
+    skills: ["Python", "JavaScript", "C++", "SQL"],
+  },
+  {
+    title: "Frameworks & tools",
+    skills: [
+      "Next.js",
+      "React",
+      "Flask",
+      "Streamlit",
+      "Leaflet",
+      "Recharts",
+      "Vercel",
+      "PostgreSQL",
+      "Redis",
+      "NumPy",
+      "Pandas",
+      "Tableau",
+    ],
+  },
+  {
+    title: "AI",
     skills: [
       "AI agents",
       "Prompt optimization",
       "RAG pipelines",
       "SFT/RLHF",
-      "Hugging Face",
-    ],
-  },
-  {
-    title: "ML / deep learning",
-    skills: [
-      "Python",
+      "LangChain",
+      "LangGraph",
       "PyTorch",
-      "TensorFlow",
       "Scikit-Learn",
       "Transformers",
+      "Hugging Face",
       "OpenCV",
     ],
-  },
-  {
-    title: "Full-stack",
-    skills: [
-      "Next.js",
-      "Flask",
-      "React",
-      "Leaflet",
-      "JavaScript",
-      "Streamlit",
-      "Vercel",
-    ],
-  },
-  {
-    title: "Data & analytics",
-    skills: ["SQL", "Redis", "NumPy", "Pandas", "Recharts", "Tableau"],
   },
 ];

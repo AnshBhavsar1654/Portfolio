@@ -58,6 +58,8 @@ export type Education = {
   location: string;
   scores: { value: string; label: string }[];
   focus: string[];
+  // Optional short paragraph under the degree; renders only when present.
+  description?: string;
 };
 
 export const education: Education[] = [
