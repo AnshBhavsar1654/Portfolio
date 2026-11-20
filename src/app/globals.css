@@ -42,6 +42,9 @@
   --color-brand-redis: var(--brand-redis);
   --color-brand-numpy: var(--brand-numpy);
   --color-brand-pandas: var(--brand-pandas);
+  --color-brand-tableau: var(--brand-tableau);
+  --color-brand-docker: var(--brand-docker);
+  --color-brand-mlflow: var(--brand-mlflow);
   --color-brand-cplusplus: var(--brand-cplusplus);
   --color-brand-postgresql: var(--brand-postgresql);
   --color-brand-langchain: var(--brand-langchain);

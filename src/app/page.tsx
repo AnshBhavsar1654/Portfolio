@@ -64,13 +64,13 @@ export default function Home() {
           body="Systems with live demos and public code."
         />
         <div className="mt-12">
-          <WorkList limit={4} />
+          <WorkList limit={3} />
           <div className="mt-8 flex justify-end">
             <Link
               href="/work"
               className="link-sweep text-accent hover:text-accent-hover group inline-flex items-center gap-2 py-2 text-sm font-medium"
             >
-              All projects
+              Show more
               <ArrowRight
                 aria-hidden
                 size={16}

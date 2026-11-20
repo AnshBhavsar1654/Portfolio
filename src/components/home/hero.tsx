@@ -4,7 +4,7 @@ import { ArrowRight } from "@phosphor-icons/react/dist/ssr/ArrowRight";
 import { animate, useReducedMotion } from "motion/react";
 import Link from "next/link";
 import { useEffect } from "react";
-import { HeroSignal } from "@/components/home/hero-signal";
+import { AsciiDesk } from "@/components/home/ascii-desk";
 import { BackdropSection } from "@/components/site/backdrop-section";
 import {
   EASE_BASE,
@@ -14,7 +14,6 @@ import {
 } from "@/components/site/motion-tokens";
 import { LocalTime } from "@/components/site/local-time";
 import { ResumeTrigger } from "@/components/site/resume-dialog";
-import { experience } from "@/content/experience";
 import { profile } from "@/content/profile";
 
 const [firstName, ...surnameParts] = profile.name.split(" ");
@@ -41,7 +40,6 @@ export function Hero() {
   }, [reduce]);
 
   const hidden = reduce ? undefined : { opacity: 0 };
-  const current = experience[0];
 
   return (
     <BackdropSection id="top" backdrop="none" className="pt-32 md:pt-44">
@@ -107,16 +105,8 @@ export function Hero() {
           </div>
         </div>
         <div className="hero-fade lg:col-span-5" style={hidden}>
-          <div className="relative mx-auto max-w-md pb-8">
-            <div className="aspect-[5/4] w-full">
-              <HeroSignal />
-            </div>
-            <div className="glass absolute bottom-0 left-2 z-10 rounded-2xl px-5 py-4 shadow-sm sm:-left-4">
-              <p className="text-strong text-xl leading-(--leading-tight) font-semibold tracking-(--tracking-tight)">
-                {current.org}
-              </p>
-              <p className="text-muted mt-0.5 text-sm">{current.role}</p>
-            </div>
+          <div className="relative mx-auto max-w-xl">
+            <AsciiDesk />
           </div>
         </div>
       </div>
