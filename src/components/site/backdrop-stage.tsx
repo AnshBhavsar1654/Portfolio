@@ -63,7 +63,9 @@ export function BackdropStage() {
         const enter = k === 0 ? 1 : smooth((mid - r.top) / zone + 0.5);
         const leave = smooth((r.bottom - mid) / zone + 0.5);
         const weight = Math.round(enter * leave * 100) / 100;
-        if (weight > 0) {
+        // "none" holds a section's place in the sequence without a print
+        // (the hero draws its own art), so the next print still dissolves in.
+        if (weight > 0 && s.dataset.backdrop !== "none") {
           next.push({ key: s.dataset.backdrop as ArtKey, weight });
         }
       });

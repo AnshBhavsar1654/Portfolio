@@ -17,7 +17,6 @@ import {
   type ReactNode,
 } from "react";
 import { Contribution3D } from "@/components/home/contribution-3d";
-import { CountUp } from "@/components/site/count-up";
 import { EASE_BASE, VIEW_SWAP_SECONDS } from "@/components/site/motion-tokens";
 import type { ContributionDay } from "@/lib/github-contributions";
 import { cn } from "@/lib/cn";
@@ -135,8 +134,8 @@ export function ActivityViews({
             <dt className="text-muted font-mono text-[10px] tracking-(--tracking-eyebrow) uppercase">
               {s.label}
             </dt>
-            <dd className="text-strong order-first text-sm font-semibold">
-              <CountUp to={s.value} />
+            <dd className="text-strong order-first text-sm font-semibold tabular-nums">
+              {s.value}
             </dd>
           </div>
         ))}

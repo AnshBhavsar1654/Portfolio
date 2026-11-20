@@ -1,4 +1,3 @@
-import { CountUp } from "@/components/site/count-up";
 import { experience } from "@/content/experience";
 import { profile } from "@/content/profile";
 import { projects } from "@/content/projects";
@@ -18,15 +17,15 @@ const STATS = [
 // left, in front of it.
 export function About() {
   return (
-    <div className="glass border-line rounded-[var(--radius-panel)] border p-8 md:p-10 lg:max-w-3xl">
+    <div className="panel-soft rounded-(--radius-leaf) p-8 md:p-10 lg:max-w-3xl">
       <p className="text-strong text-xl leading-snug tracking-tight text-pretty md:text-3xl">
         {profile.about}
       </p>
       <dl className="mt-12 grid grid-cols-3 gap-6">
         {STATS.map((s) => (
           <div key={s.label} className="border-line border-t pt-4">
-            <dd className="accent-serif text-strong text-5xl leading-none md:text-7xl">
-              <CountUp to={s.value} decimals={s.decimals} suffix="" />
+            <dd className="accent-serif text-strong text-5xl leading-none tabular-nums md:text-7xl">
+              {s.value.toFixed(s.decimals)}
             </dd>
             <dt className="text-muted mt-3 font-mono text-xs uppercase">
               {s.label}

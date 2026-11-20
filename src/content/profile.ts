@@ -1,6 +1,10 @@
 export const profile = {
   name: "Ansh Bhavsar",
   role: "Founding Engineer & Full-Stack Developer",
+  // Hero positioning line and short bio. The long form lives in `about`.
+  positioning: "AI & Systems Engineer",
+  heroBio:
+    "I build AI agents, voice workflows and automated evals for LLM systems, plus the full-stack products around them.",
   location: "Ahmedabad, India",
   timezone: "Asia/Kolkata",
   email: "anshbhavsar164@gmail.com",
@@ -26,11 +30,4 @@ export const profile = {
     youtubeHandle: "@anshbhavsar71018",
   },
   resume: "/Ansh_Resume.pdf",
-  heroImage: "/img/header-img.jpg",
-  aboutImage: "/img/about-2.jpg",
-  // Hero photo stack, front card first. Drag or press Enter to shuffle.
-  heroStack: [
-    { src: "/img/header-img.jpg", alt: "Portrait of Ansh Bhavsar" },
-    { src: "/img/about-2.jpg", alt: "Ansh Bhavsar, candid" },
-  ],
 };
