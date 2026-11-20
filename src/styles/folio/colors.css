@@ -45,6 +45,9 @@
   --brand-redis: #ff4438;
   --brand-numpy: #013243;
   --brand-pandas: #150458;
+  --brand-tableau: #e97627;
+  --brand-docker: #2496ed;
+  --brand-mlflow: #0194e2;
   --brand-cplusplus: #00599c;
   --brand-postgresql: #4169e1;
   --brand-langchain: #1a6fa8;
@@ -61,6 +64,19 @@
   --contrib-2: #40c463;
   --contrib-3: #30a14e;
   --contrib-4: #216e39;
+  /* Desk illustration (hero): drawn from the page's own palette so it sits on
+     the site background; only the cool mountain blue is its own. */
+  --desk-bg: var(--surface);
+  --desk-dot: var(--surface-2);
+  --desk-line: var(--text-body);
+  --desk-dim: var(--text-muted);
+  --desk-glow: var(--accent);
+  --desk-green: var(--signal-positive);
+  --desk-blue: #3d5a7a;
+  --desk-pink: #b5502f;
+  --desk-plant: #4f7a3a;
+  --desk-wood: #8a5a2b;
+  --desk-moon: var(--accent);
   /* Risograph halftone: two screens (ink + orange spot) printed on the page.
      In light mode dots grow with darkness and multiply like ink on paper;
      in dark mode they grow with brightness and screen like light. */
@@ -107,6 +123,14 @@
   --brand-vercel: #ffffff;
   --brand-numpy: #4dabcf;
   --brand-pandas: #7f6df0;
+  --desk-blue: #8aa4c0;
+  --desk-pink: #e0866a;
+  --desk-plant: #86a36f;
+  --desk-wood: #b5864f;
+  --desk-moon: var(--text-strong);
+  --brand-tableau: #f08a45;
+  --brand-docker: #4fb0f5;
+  --brand-mlflow: #3aa9ec;
   --brand-cplusplus: #4aa3e0;
   --brand-postgresql: #6f8cf0;
   --brand-langchain: #7fc8ff;

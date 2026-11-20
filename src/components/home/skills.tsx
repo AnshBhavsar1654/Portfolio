@@ -1,20 +1,15 @@
 import type { ComponentType } from "react";
-import { BrainIcon } from "@phosphor-icons/react/dist/ssr/Brain";
-import { ChartBarIcon } from "@phosphor-icons/react/dist/ssr/ChartBar";
-import { ChartLineIcon } from "@phosphor-icons/react/dist/ssr/ChartLine";
-import { DatabaseIcon } from "@phosphor-icons/react/dist/ssr/Database";
-import { FlowArrowIcon } from "@phosphor-icons/react/dist/ssr/FlowArrow";
-import { MagicWandIcon } from "@phosphor-icons/react/dist/ssr/MagicWand";
-import { RobotIcon } from "@phosphor-icons/react/dist/ssr/Robot";
 import { ShapesIcon } from "@phosphor-icons/react/dist/ssr/Shapes";
 import {
   siCplusplus,
+  siDocker,
   siFlask,
   siHuggingface,
   siJavascript,
   siLangchain,
   siLanggraph,
   siLeaflet,
+  siMlflow,
   siNextdotjs,
   siNumpy,
   siOpencv,
@@ -37,6 +32,9 @@ import { cn } from "@/lib/cn";
 // follows skillGroups so what leads the work comes first, but nothing is
 // labelled or ranked. Official colours live as --brand-* token pairs in
 // folio/colors.css.
+
+const TABLEAU_PATH =
+  "M11.25 7h1.5v4.25H17v1.5h-4.25V17h-1.5v-4.25H7v-1.5h4.25ZM11.5 .5h1v2h2v1h-2v2h-1v-2h-2v-1h2ZM11.5 18.5h1v2h2v1h-2v2h-1v-2h-2v-1h2ZM.5 11.5h2v-2h1v2h2v1h-2v2h-1v-2h-2ZM18.5 11.5h2v-2h1v2h2v1h-2v2h-1v-2h-2Z";
 
 type Brand = { path: string; cls: string };
 type Glyph = ComponentType<{ className?: string }>;
@@ -63,18 +61,13 @@ const BRAND: Record<string, Brand> = {
   LangChain: { path: siLangchain.path, cls: "text-brand-langchain" },
   LangGraph: { path: siLanggraph.path, cls: "text-brand-langgraph" },
   Pandas: { path: siPandas.path, cls: "text-brand-pandas" },
-  "Hugging Face": { path: siHuggingface.path, cls: "text-brand-huggingface" },
+  Docker: { path: siDocker.path, cls: "text-brand-docker" },
+  MLflow: { path: siMlflow.path, cls: "text-brand-mlflow" },
+  // Tableau is not in simple-icons: hand-drawn mark of its plus-sign grid.
+  Tableau: { path: TABLEAU_PATH, cls: "text-brand-tableau" },
 };
 
-const GLYPH: Record<string, Glyph> = {
-  "AI agents": RobotIcon,
-  "Prompt optimization": MagicWandIcon,
-  "RAG pipelines": FlowArrowIcon,
-  "SFT/RLHF": BrainIcon,
-  SQL: DatabaseIcon,
-  Recharts: ChartLineIcon,
-  Tableau: ChartBarIcon,
-};
+const GLYPH: Record<string, Glyph> = {};
 
 function SkillMark({ name }: { name: string }) {
   const brand = BRAND[name];

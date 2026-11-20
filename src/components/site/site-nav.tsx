@@ -196,9 +196,6 @@ export function SiteNav() {
                     active === l.id ? "text-accent" : "text-strong"
                   )}
                 >
-                  <span className="text-accent font-mono text-xs">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
                   {l.label}
                 </Link>
               </motion.div>

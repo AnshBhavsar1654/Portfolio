@@ -1,80 +1,120 @@
-import { ArrowRight } from "@phosphor-icons/react/dist/ssr/ArrowRight";
 import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr/ArrowUpRight";
-import { ArrowSwap } from "@/components/site/arrow-swap";
+import { GithubLogo } from "@phosphor-icons/react/dist/ssr/GithubLogo";
+import { Globe } from "@phosphor-icons/react/dist/ssr/Globe";
+import { PlayCircle } from "@phosphor-icons/react/dist/ssr/PlayCircle";
 import Image from "next/image";
 import Link from "next/link";
-import type { CSSProperties } from "react";
-import { Spotlight } from "@/components/site/spotlight";
 import { projects, type Project } from "@/content/projects";
 
-// Proof-and-preview card: type and metrics lead on the left, the live demo
-// sits in a framed pane on the right (a screenshot when there is nothing to
-// embed). The scorecard treatment stays — mono proof line with metric values
-// picked out, serif index in the corner, inline mono tech cloud instead of
-// pill chips — and the action row anchors the text column's floor.
+// Editorial project card: large screenshot on top (~45% of the card), serif
+// title, uppercase letter-spaced meta line (from the project's metrics — there
+// are no project dates in the content), short summary, subtle tech line and
+// pill links that only render when the URL exists. The whole card opens the
+// detail page through a stretched title link; the pills sit above it.
 
-function Proof({ values }: { values: Project["metrics"] }) {
-  return (
-    <p className="flex flex-wrap gap-y-1 font-mono text-[12px]">
-      {values.map((m, i) => (
-        <span
-          key={m.label}
-          className={
-            i < values.length - 1
-              ? "after:mx-2.5 after:content-['·']"
-              : undefined
-          }
-        >
-          <span className="text-strong font-semibold tabular-nums">
-            {m.value}
-          </span>{" "}
-          <span className="text-muted">{m.label}</span>
-        </span>
-      ))}
-    </p>
-  );
-}
+const pill =
+  "border-line text-body hover:border-accent/50 hover:text-strong hover:bg-accent-wash relative z-10 inline-flex min-h-(--hit-min) items-center gap-1.5 rounded-full border px-4 text-sm font-medium whitespace-nowrap transition-[transform,background-color,border-color,color] duration-(--dur-fast) ease-(--ease-out) active:scale-(--press-scale) md:min-h-0 md:py-1.5";
 
-function Preview({ p }: { p: Project }) {
+function ProjectCard({ p }: { p: Project }) {
+  const previewHref = p.demo ?? p.site;
+  const meta = p.metrics.map((m) => `${m.value} ${m.label}`).join(" · ");
+
   return (
-    <div className="bg-surface-2 @container relative block aspect-[16/10] overflow-hidden rounded-(--radius-leaf) shadow-sm transition-transform duration-(--dur-base) ease-(--ease-out-soft) group-hover:scale-[1.01]">
-      {(p.demo ?? p.site) ? (
-        <a
-          href={p.demo ?? p.site}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`${p.title} live preview (opens in new tab)`}
-        >
-          {/* Rendered at a desktop viewport and scaled into the pane, so the
-              preview shows the laptop-width layout, not a phone crop. */}
-          <iframe
-            src={p.embedSrc ?? p.demo ?? p.site}
-            title={`${p.title} live preview`}
-            loading="lazy"
-            sandbox="allow-scripts allow-same-origin"
-            scrolling="no"
-            className="pointer-events-none absolute top-0 left-0 border-0"
-            style={{
-              width: "1440px",
-              height: "900px",
-              transform: "scale(calc(100cqw / 1440px))",
-              transformOrigin: "top left",
-            }}
-          />
-        </a>
-      ) : (
-        <Link href={`/work/${p.slug}`} aria-label={`${p.title} details`}>
+    <article className="group bg-surface border-line relative flex h-full flex-col overflow-hidden rounded-(--radius-panel) border transition-[transform,box-shadow] duration-(--dur-base) ease-(--ease-out) hover:-translate-y-1 hover:shadow-(--shadow-lift) active:scale-(--press-scale-card)">
+      <div className="bg-surface-2 @container relative aspect-[16/10] overflow-hidden">
+        {previewHref ? (
+          <a
+            href={previewHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`${p.title} live preview (opens in new tab)`}
+            className="relative z-10 block h-full w-full"
+          >
+            {/* Rendered at a desktop viewport, scaled into the pane. */}
+            <iframe
+              src={p.embedSrc ?? previewHref}
+              title={`${p.title} live preview`}
+              loading="lazy"
+              sandbox="allow-scripts allow-same-origin"
+              scrolling="no"
+              className="pointer-events-none absolute top-0 left-0 origin-top-left border-0"
+              style={{
+                width: "1440px",
+                height: "900px",
+                transform: "scale(calc(100cqw / 1440px))",
+              }}
+            />
+          </a>
+        ) : (
           <Image
             src={p.image}
-            alt={`${p.title} preview`}
+            alt={`${p.title} screenshot`}
             width={1200}
             height={750}
-            sizes="(max-width: 768px) 100vw, 400px"
-            className="aspect-[16/10] w-full object-cover"
+            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 400px"
+            className="h-full w-full object-cover object-top transition-transform duration-(--dur-slow) ease-(--ease-out) group-hover:scale-105"
           />
-        </Link>
-      )}
-    </div>
+        )}
+      </div>
+
+      <div className="flex flex-1 flex-col p-6 md:p-7">
+        <h3 className="font-display text-strong text-2xl leading-tight tracking-tight md:text-3xl">
+          <Link
+            href={`/work/${p.slug}`}
+            className="after:absolute after:inset-0 after:content-['']"
+          >
+            {p.title}
+          </Link>
+        </h3>
+        <p className="text-muted mt-2 font-mono text-[11px] tracking-(--tracking-eyebrow) uppercase tabular-nums">
+          {meta}
+        </p>
+        <p className="text-body mt-4 line-clamp-3 text-sm leading-relaxed">
+          {p.summary}
+        </p>
+        <p className="text-muted mt-4 font-mono text-[11px]">
+          {p.tags.join(" · ")}
+        </p>
+
+        <div className="mt-auto flex flex-wrap gap-2 pt-6">
+          {p.github ? (
+            <a
+              href={p.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={pill}
+            >
+              <GithubLogo aria-hidden size={16} />
+              GitHub
+            </a>
+          ) : null}
+          {p.demo ? (
+            <a
+              href={p.demo}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={pill}
+            >
+              <PlayCircle aria-hidden size={16} />
+              Live demo
+              <ArrowUpRight aria-hidden size={12} weight="bold" />
+            </a>
+          ) : null}
+          {p.site ? (
+            <a
+              href={p.site}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={pill}
+            >
+              <Globe aria-hidden size={16} />
+              Website
+              <ArrowUpRight aria-hidden size={12} weight="bold" />
+            </a>
+          ) : null}
+        </div>
+      </div>
+    </article>
   );
 }
 
@@ -90,88 +130,10 @@ export function WorkList({
     (limit ? projects.filter((p) => p.featured).slice(0, limit) : projects);
 
   return (
-    <ul className="grid gap-4">
-      {list.map((p, i) => (
-        <li
-          key={p.slug}
-          className="stack-card"
-          style={{ "--stack-i": i } as CSSProperties}
-        >
-          <Spotlight className="rounded-[var(--radius-panel)]">
-            <article className="panel-soft group relative flex h-full flex-col rounded-[var(--radius-panel)] p-6 transition-[transform,box-shadow] duration-(--dur-base) ease-(--ease-out-soft) hover:-translate-y-1 hover:shadow-(--shadow-lift) active:scale-[0.99] md:p-8">
-              <div className="grid gap-x-10 gap-y-7 md:grid-cols-[1fr_16rem] md:items-center lg:grid-cols-[1fr_20rem] xl:grid-cols-[1fr_22rem]">
-                <div className="flex flex-col">
-                  <div className="flex items-start justify-between gap-4">
-                    <Proof values={p.metrics} />
-                    <span
-                      aria-hidden
-                      className="accent-serif text-muted text-2xl leading-none"
-                    >
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                  </div>
-                  <h3 className="text-strong mt-5 text-2xl font-semibold tracking-tight transition-colors duration-(--dur-base) md:text-3xl">
-                    <Link
-                      href={`/work/${p.slug}`}
-                      className="hover:text-accent inline-flex flex-wrap items-baseline gap-x-2"
-                    >
-                      {p.title}
-                      <ArrowSwap size={18} className="self-center" />
-                    </Link>
-                  </h3>
-                  <p className="text-body mt-3 max-w-[58ch] text-sm leading-relaxed md:text-[15px]">
-                    {p.summary}
-                  </p>
-                  <ul className="text-muted mt-5 flex flex-wrap gap-y-2 font-mono text-[11px]">
-                    {p.tags.map((t, ti) => (
-                      <li
-                        key={t}
-                        className={
-                          ti < p.tags.length - 1
-                            ? "after:mx-2.5 after:content-['·']"
-                            : undefined
-                        }
-                      >
-                        {t}
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="mt-auto flex flex-wrap items-center gap-x-2.5 gap-y-2 pt-7">
-                    {p.demo || p.site ? (
-                      <a
-                        href={p.demo ?? p.site}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="bg-accent hover:bg-accent-hover text-on-accent relative z-10 inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-sm font-medium whitespace-nowrap transition-[background-color] active:scale-[0.98]"
-                      >
-                        {p.demo ? "Live demo" : "Landing page"}
-                        <ArrowUpRight aria-hidden size={14} weight="bold" />
-                      </a>
-                    ) : null}
-                    {p.github ? (
-                      <a
-                        href={p.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="border-line text-strong hover:border-accent/50 hover:bg-accent-wash relative z-10 inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 font-mono text-[11px] tracking-(--tracking-eyebrow) uppercase transition-colors"
-                      >
-                        [ Code ]
-                        <ArrowUpRight aria-hidden size={12} weight="bold" />
-                      </a>
-                    ) : null}
-                    <Link
-                      href={`/work/${p.slug}`}
-                      className="link-sweep text-muted hover:text-accent relative z-10 inline-flex items-center gap-1 py-2 text-sm font-medium transition-colors"
-                    >
-                      Details
-                      <ArrowRight aria-hidden size={14} weight="bold" />
-                    </Link>
-                  </div>
-                </div>
-                <Preview p={p} />
-              </div>
-            </article>
-          </Spotlight>
+    <ul className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+      {list.map((p) => (
+        <li key={p.slug} className="min-w-0">
+          <ProjectCard p={p} />
         </li>
       ))}
     </ul>
