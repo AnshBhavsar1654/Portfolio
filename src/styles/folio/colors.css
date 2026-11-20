@@ -4,21 +4,21 @@
 
 :root {
   color-scheme: light;
-  --bg: #faf8f4;
-  --surface: #ffffff;
-  --surface-2: #efeadf;
-  --text-strong: #14130f;
-  --text-body: #3a3832;
-  --text-muted: #6b6962; /* AA on --bg */
-  --line: rgba(20, 19, 15, 0.14);
-  --accent: #c42b22; /* ball red; AA for text on --bg */
-  --accent-hover: #a8221a;
-  --accent-wash: rgba(176, 40, 31, 0.09);
-  --shadow-lift: 0 14px 36px -18px rgba(20, 19, 15, 0.28);
-  --heading-from: #14130f;
-  --heading-to: #6b6962;
+  --bg: #f5f3ee;
+  --surface: #fcfbf8;
+  --surface-2: #e7e4db;
+  --text-strong: #0f1b2e;
+  --text-body: #2b3a52;
+  --text-muted: #5f6b80; /* AA on --bg */
+  --line: rgba(15, 27, 46, 0.15);
+  --accent: #bd3f0a; /* burnt orange; AA for text on --bg */
+  --accent-hover: #992f05;
+  --accent-wash: rgba(189, 63, 10, 0.07);
+  --shadow-lift: 0 14px 36px -18px rgba(15, 27, 46, 0.3);
+  --heading-from: #0f1b2e;
+  --heading-to: #5f6b80;
   --on-accent: #ffffff;
-  --signal-positive: #17803d;
+  --signal-positive: #1f8a50;
   --brand-github: #24292f;
   --brand-linkedin: #0a66c2;
   --brand-instagram: #c13584;
@@ -49,48 +49,50 @@
   --brand-postgresql: #4169e1;
   --brand-langchain: #1a6fa8;
   --brand-langgraph: #1a6fa8;
+  /* The ball is the one deliberate exception to the accent: a red leather
+     ball by day (Test cricket) and a white ball by night (floodlit white-ball
+     games), whatever the brand colour. */
   --ball-fill: #c42b22;
   --ball-stroke: #8e1d17;
   --ball-seam: #f4d9d4;
   /* Contribution graph: empty track plus four GitHub-green intensity steps. */
-  --contrib-0: #e7e3d9;
+  --contrib-0: #e3e0d6;
   --contrib-1: #9be9a8;
   --contrib-2: #40c463;
   --contrib-3: #30a14e;
   --contrib-4: #216e39;
-  /* Risograph halftone: two screens (ink + red spot) printed on the page.
+  /* Risograph halftone: two screens (ink + orange spot) printed on the page.
      In light mode dots grow with darkness and multiply like ink on paper;
      in dark mode they grow with brightness and screen like light. */
-  --ht-ink: #57534a;
-  --ht-spot: #d9675e;
+  --ht-ink: #1d2e4a;
+  --ht-spot: #e08a4a;
   --ht-invert: 0;
   --ht-blend: multiply;
   --ht-strength: 1; /* scales dot size */
   --ht-veil: 62%; /* page colour laid over the print so text stays legible */
-  /* Shimmer sweep on heading accent words: ball red through amber to
-     magenta. Large display text only (3:1 large-text floor on --bg). */
-  --shine-a: #c42b22;
-  --shine-b: #c25e10;
-  --shine-c: #a3246e;
+  /* Shimmer sweep on heading accent words: burnt orange through orange to navy-ink (orange through apricot to mist in dark). Large display text only (3:1 large-text floor on --bg). */
+  --shine-a: #bd3f0a;
+  --shine-b: #e0661a;
+  --shine-c: #1d3557;
 }
 
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --bg: #0b0b0c;
-  --surface: #141416;
-  --surface-2: #1d1d21;
-  --text-strong: #f4f1ea;
-  --text-body: #d6d3cb;
-  --text-muted: #a5a39c;
-  --line: rgba(244, 241, 234, 0.14);
-  --accent: #f0594e;
-  --accent-hover: #f47b72;
-  --accent-wash: rgba(240, 89, 78, 0.14);
-  --shadow-lift: 0 18px 44px -20px rgba(240, 89, 78, 0.35);
-  --heading-from: #f4f1ea;
-  --heading-to: #9c9a93;
-  --on-accent: #14130f;
-  --signal-positive: #3ad07f;
+  --bg: #0d0c0b;
+  --surface: #171411;
+  --surface-2: #221e1a;
+  --text-strong: #f4efe6;
+  --text-body: #d4cdc1;
+  --text-muted: #9e968a;
+  --line: rgba(244, 239, 230, 0.15);
+  --accent: #ff8a2b;
+  --accent-hover: #ffa459;
+  --accent-wash: rgba(255, 138, 43, 0.08);
+  --shadow-lift: 0 18px 44px -20px rgba(255, 138, 43, 0.24);
+  --heading-from: #f4efe6;
+  --heading-to: #9e968a;
+  --on-accent: #1f0e00;
+  --signal-positive: #7be0a6;
   --brand-github: #ffffff;
   --brand-linkedin: #4c9be8;
   --brand-instagram: #e1306c;
@@ -112,18 +114,18 @@
   --ball-fill: #f6f4ee;
   --ball-stroke: #cfcbc0;
   --ball-seam: #b9b5a8;
-  --contrib-0: #1e1e22;
+  --contrib-0: #1d1a17;
   --contrib-1: #0e4429;
   --contrib-2: #006d32;
   --contrib-3: #26a641;
   --contrib-4: #39d353;
-  --ht-ink: #8f8a7f;
-  --ht-spot: #b8443c;
+  --ht-ink: #bdb3a3;
+  --ht-spot: #7a4520;
   --ht-invert: 1;
   --ht-blend: screen;
   --ht-strength: 0.8;
   --ht-veil: 64%;
-  --shine-a: #f0594e;
-  --shine-b: #f5a053;
-  --shine-c: #e46aa8;
+  --shine-a: #ff8a2b;
+  --shine-b: #ffc37a;
+  --shine-c: #f4efe6;
 }

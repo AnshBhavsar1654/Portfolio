@@ -4,7 +4,7 @@ import { ArrowRight } from "@phosphor-icons/react/dist/ssr/ArrowRight";
 import { animate, useReducedMotion } from "motion/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { PhotoStack } from "@/components/home/photo-stack";
+import { HeroSignal } from "@/components/home/hero-signal";
 import { BackdropSection } from "@/components/site/backdrop-section";
 import { EASE_BASE } from "@/components/site/motion-tokens";
 import { LocalTime } from "@/components/site/local-time";
@@ -15,8 +15,8 @@ import { profile } from "@/content/profile";
 const [firstName, ...surnameParts] = profile.name.split(" ");
 const surname = surnameParts.join(" ");
 
-// Entrance under 700 ms: the stack fades up in sequence. The portrait sits in
-// front of the section's halftone print. Interruptible (scroll/click jumps to
+// Entrance under 700 ms: the stack fades up in sequence. The dot signal on
+// the right is the hero's own print. Interruptible (scroll/click jumps to
 // the final state); reduced motion shows the final state immediately.
 const TYPE_SEQUENCE = [
   "Engineer",
@@ -109,7 +109,7 @@ export function Hero() {
   const current = experience[0];
 
   return (
-    <BackdropSection id="top" backdrop="hero" className="pt-28 md:pt-32">
+    <BackdropSection id="top" backdrop="none" className="pt-28 md:pt-32">
       <noscript>
         <style>{`.hero-fade{opacity:1 !important;transform:none !important}`}</style>
       </noscript>
@@ -185,21 +185,11 @@ export function Hero() {
           </div>
         </div>
         <div className="hero-fade lg:col-span-5" style={hidden}>
-          <div className="relative mx-auto max-w-sm pt-10">
-            <div className="relative">
-              <div
-                aria-hidden
-                className="border-accent/40 absolute inset-0 translate-x-4 translate-y-4 rounded-[var(--radius-panel)] border"
-              />
-              <PhotoStack />
-              <p
-                aria-hidden
-                className="accent-serif text-muted pointer-events-none absolute -top-9 -left-2 z-10 -rotate-6 text-lg"
-              >
-                drag me &#10022;
-              </p>
+          <div className="relative mx-auto max-w-md pb-8">
+            <div className="aspect-[5/4] w-full">
+              <HeroSignal />
             </div>
-            <div className="glass border-line absolute -bottom-6 -left-4 z-10 rounded-2xl border px-5 py-4 shadow-sm sm:-left-8">
+            <div className="glass absolute bottom-0 left-2 z-10 rounded-2xl px-5 py-4 shadow-sm sm:-left-4">
               <p className="text-strong text-xl leading-tight font-semibold tracking-tight">
                 {current.org}
               </p>

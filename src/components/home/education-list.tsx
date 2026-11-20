@@ -1,8 +1,8 @@
 import { education } from "@/content/experience";
 import { cn } from "@/lib/cn";
 
-// Quiet ledger: hairline-ruled rows inside one glass panel (the panel keeps
-// the small mono text readable over the halftone print). Each row is
+// Quiet ledger: hairline-ruled rows set open on the page (the section halo
+// keeps the small mono text readable over the halftone print). Each row is
 // three columns on wide screens: period and place in mono on the left, the
 // school, degree, optional description and focus line in the middle, scores
 // set large in the accent serif on the right edge. The first entry (the
@@ -11,13 +11,13 @@ import { cn } from "@/lib/cn";
 
 export function EducationList() {
   return (
-    <ol className="glass border-line rounded-[var(--radius-panel)] border px-6 md:px-10">
+    <ol className="border-line border-b">
       {education.map((s, i) => {
         const lead = i === 0;
         return (
           <li
             key={s.school}
-            className="border-line grid gap-x-10 gap-y-5 border-t py-8 first:border-t-0 md:grid-cols-[11rem_1fr_auto] md:py-10"
+            className="border-line grid gap-x-10 gap-y-5 border-t py-8 md:grid-cols-[11rem_1fr_auto] md:py-10"
           >
             <p className="text-muted font-mono text-xs leading-relaxed tabular-nums">
               {s.period}

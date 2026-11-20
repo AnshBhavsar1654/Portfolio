@@ -16,6 +16,7 @@
 :root {
   --radius-pill: 999px;
   --radius-panel: 28px;
+  --radius-leaf: 28px 10px 28px 10px; /* asymmetric corners: previews, big panels */
   --nav-offset: 0.875rem;
   --contrib-cell: 0.625rem; /* contribution graph day-cell size */
   --contrib-gap: 0.125rem; /* gap between contribution graph day-cells */

@@ -102,10 +102,10 @@ export function ExperienceList() {
               tabIndex={selected ? 0 : -1}
               onClick={() => setActive(i)}
               className={cn(
-                "glass shrink-0 rounded-[var(--radius-card)] border px-4 py-3 text-left transition-[border-color,background-color,transform] duration-(--dur-base) ease-(--ease-out-soft) active:scale-[0.98] max-lg:min-w-44 lg:px-5 lg:py-4",
+                "shrink-0 px-4 py-3 text-left transition-[border-color,background-color,transform] duration-(--dur-base) ease-(--ease-out-soft) active:scale-[0.98] max-lg:min-w-44 max-lg:rounded-2xl lg:rounded-r-2xl lg:border-l-2 lg:px-5 lg:py-4",
                 selected
-                  ? "border-accent/50 bg-accent-wash"
-                  : "border-line hover:border-accent/40"
+                  ? "border-accent bg-accent-wash"
+                  : "hover:bg-accent-wash/50 border-transparent"
               )}
             >
               <span
@@ -141,7 +141,7 @@ export function ExperienceList() {
               aria-labelledby={`exp-tab-${i}`}
               inert={!selected}
               className={cn(
-                "glass border-line col-start-1 row-start-1 rounded-[var(--radius-panel)] border p-6 transition-[opacity,translate,visibility] duration-(--dur-base) ease-(--ease-out-soft) md:p-10",
+                "panel-soft col-start-1 row-start-1 rounded-(--radius-leaf) p-6 transition-[opacity,translate,visibility] duration-(--dur-base) ease-(--ease-out-soft) md:p-10",
                 selected
                   ? "visible translate-y-0 opacity-100"
                   : "invisible translate-y-1 opacity-0"

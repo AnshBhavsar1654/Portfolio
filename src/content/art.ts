@@ -17,30 +17,38 @@ export type Art = {
 };
 
 export const art = {
-  hero: {
-    src: "/img/ahmedabad-aerial.jpg",
-    align: "right",
-    focusX: 0.4,
-    focusY: 0.9,
-    zoom: 1.2,
-  },
+  // The hero has no photo print: its backdrop is the live dot signal
+  // (HeroSignal), so the first screen stays clean and the prints begin at
+  // About. Every new photo below is from Pexels (Pexels license, free to use);
+  // the Pexels photo id is noted so it can be found again.
   about: {
-    src: "/img/ahmedabad-skyline.jpg",
+    // Batter raising the bat to the sky (Pexels #10987827), mirrored so he
+    // stands on the right, clear of the fade toward the text.
+    src: "/img/cricketer-bat.jpg",
     align: "right",
-    focusX: 0.6,
-    focusY: 0.4,
-  },
-  experience: {
-    src: "/img/atal-bridge.jpg",
+    focusX: 0.5,
     focusY: 0.3,
   },
+  experience: {
+    // Rocket lifting off its pad: building from zero (Pexels #586043).
+    src: "/img/rocket-launch.jpg",
+    focusX: 0.55,
+    focusY: 0.35,
+    zoom: 1.3,
+  },
   education: {
+    // Nirma University campus: kept as is.
     src: "/img/nirma-campus.jpg",
     focusY: 0.45,
   },
   work: {
-    src: "/img/ahmedabad-metro.jpg",
-    focusY: 0.5,
+    // White robot over a glowing network, a dark photo: the bright parts
+    // print (Pexels #8566472).
+    src: "/img/robot-bot.jpg",
+    brightInk: true,
+    focusX: 0.5,
+    focusY: 0.45,
+    zoom: 1.25,
   },
   skills: {
     // Dark code-editor close-up (Pexels #256502, Pexels license): terminal
@@ -74,8 +82,10 @@ export const art = {
     mobile: { zoom: 1 },
   },
   contact: {
-    src: "/img/narendra-modi-stadium.jpg",
-    focusY: 0.5,
+    // Arms up on a summit at sunrise: "what's next" (Pexels #15712479).
+    src: "/img/summit-sunrise.jpg",
+    focusX: 0.4,
+    focusY: 0.6,
   },
 } satisfies Record<string, Art>;
 

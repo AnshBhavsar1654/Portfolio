@@ -5,7 +5,9 @@ import { cn } from "@/lib/cn";
 // A full-height section that sits in front of the BackdropStage. It may mark
 // which print the stage should show (data-backdrop); the stage does the
 // drawing and the crossfades between sections. Text directly on the print
-// gets a page-coloured halo (see .halo) so it reads in either theme.
+// gets a page-coloured halo (see .halo) so it reads in either theme. Each
+// section also carries a soft accent wash (see .section-wash) that swings
+// from side to side down the page, so the tone shifts instead of repeating.
 export function BackdropSection({
   id,
   backdrop,
@@ -13,12 +15,16 @@ export function BackdropSection({
   children,
 }: {
   id?: string;
-  backdrop?: ArtKey;
+  backdrop?: ArtKey | "none";
   className?: string;
   children: ReactNode;
 }) {
   return (
-    <section id={id} data-backdrop={backdrop} className="relative scroll-mt-16">
+    <section
+      id={id}
+      data-backdrop={backdrop}
+      className="section-wash relative scroll-mt-16"
+    >
       <div
         className={cn(
           "halo relative z-10 mx-auto flex min-h-svh w-full max-w-[1200px] flex-col justify-center px-4 py-24 md:py-32",

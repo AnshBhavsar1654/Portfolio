@@ -15,7 +15,7 @@ export default function Icon() {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        background: "#0b0b0c",
+        background: "#0d0c0b",
         borderRadius: 14,
       }}
     >
@@ -24,7 +24,7 @@ export default function Icon() {
           fontSize: 30,
           fontWeight: 800,
           fontFamily: "Arial, Helvetica, sans-serif",
-          color: "#f4f1ea",
+          color: "#f4efe6",
           lineHeight: 1,
           letterSpacing: -1,
         }}
