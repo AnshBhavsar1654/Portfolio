@@ -19,12 +19,7 @@ export default function Home() {
       <Hero />
 
       <BackdropSection id="about" backdrop="about">
-        <SectionHeading
-          index="01"
-          label="About"
-          title="A little"
-          accent="about me."
-        />
+        <SectionHeading label="About" title="A little" accent="about me." />
         <div className="mt-12">
           <About />
         </div>
@@ -32,7 +27,6 @@ export default function Home() {
 
       <BackdropSection id="experience" backdrop="experience">
         <SectionHeading
-          index="02"
           label="Experience"
           title="Where I have"
           accent="worked."
@@ -44,12 +38,7 @@ export default function Home() {
       </BackdropSection>
 
       <BackdropSection id="education" backdrop="education">
-        <SectionHeading
-          index="03"
-          label="Education"
-          title="Where I"
-          accent="studied."
-        />
+        <SectionHeading label="Education" title="Where I" accent="studied." />
         <div className="mt-12">
           <EducationList />
         </div>
@@ -57,7 +46,6 @@ export default function Home() {
 
       <BackdropSection id="work" backdrop="work">
         <SectionHeading
-          index="04"
           label="Projects"
           title="What I have"
           accent="built."
@@ -83,12 +71,7 @@ export default function Home() {
       </BackdropSection>
 
       <BackdropSection id="skills" backdrop="skills">
-        <SectionHeading
-          index="05"
-          label="Skills"
-          title="Tools I"
-          accent="reach for."
-        />
+        <SectionHeading label="Skills" title="Tools I" accent="reach for." />
         <div className="mt-12">
           <Skills />
         </div>
@@ -116,7 +99,6 @@ export default function Home() {
 
       <BackdropSection id="contact" backdrop="contact">
         <SectionHeading
-          index="06"
           label="Contact"
           title="Have a project?"
           accent="Or a role?"

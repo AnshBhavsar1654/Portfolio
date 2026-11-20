@@ -33,28 +33,25 @@ export function Section({
 }
 
 // Eyebrow reads like a scorecard header, set open on the page (no pill):
-// "01 ── About". Accent word is set in
+// "── About". Accent word is set in
 // the display serif italic, one per heading, with a slow colour sweep.
 export function SectionHeading({
   title,
   accent,
   body,
-  index,
   label,
 }: {
   title: string;
   accent?: string;
   body?: string;
-  index?: string;
   label?: string;
 }) {
   return (
     <div>
-      {index || label ? (
+      {label ? (
         <p className="text-body mb-6 inline-flex items-center gap-3 font-mono text-xs tracking-(--tracking-eyebrow) uppercase">
-          {index ? <span className="text-accent">{index}</span> : null}
           <span aria-hidden className="bg-accent/60 h-px w-12" />
-          {label ? <span>{label}</span> : null}
+          <span>{label}</span>
         </p>
       ) : null}
       <h2 className="text-strong max-w-[20ch] text-4xl leading-[1.02] font-semibold tracking-tighter text-balance md:text-6xl">

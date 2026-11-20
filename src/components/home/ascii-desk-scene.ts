@@ -4,6 +4,9 @@
 // and screen glow, the clock hand, the pointer stir). Edit the layout by
 // editing coordinates here. Colours are the --desk-* tokens.
 
+// Ticks per second of the canvas loop (keep equal to FPS in ascii-desk.tsx).
+export const TICKS_PER_SECOND = 8;
+
 export const W = 144;
 export const H = 72;
 
@@ -423,7 +426,7 @@ export function buildDynamic(
     P.blue
   );
 
-  // Monitor: header, sparkline, live bars
+  // Monitor: a music player. Track, beat-driven equalizer, progress, controls.
   const mw: Wipe = [
     MONITOR.x0 + 2,
     MONITOR.y0 + 2,
@@ -431,28 +434,61 @@ export function buildDynamic(
     MONITOR.y1 - 3,
   ];
   wipes.push(mw);
-  put(g, mw[0] + 1, mw[1], "o", P.pink);
-  put(g, mw[0] + 3, mw[1], "o", P.glow);
-  put(g, mw[0] + 5, mw[1], "o", P.green);
-  put(g, mw[0] + 10, mw[1], "metrics", P.dim);
+  const [mx0, my0, mx1, my1] = mw;
+  put(g, mx0 + 1, my0, "o", P.pink);
+  put(g, mx0 + 3, my0, "o", P.glow);
+  put(g, mx0 + 5, my0, "o", P.green);
+  put(g, mx0 + 10, my0, "music", P.dim);
   put(
     g,
-    mw[2] - 6,
-    mw[1],
-    Math.floor(t / 4) % 2 ? "* live" : "  live",
+    mx1 - 8,
+    my0,
+    ["~ )", "~ ))", "~ )))"][Math.floor(t / 3) % 3],
     P.green
   );
-  for (let i = 0; i < 50; i++) {
-    const y = mw[1] + 3 + Math.round(1.4 * Math.sin(i * 0.28 + t * 0.2));
-    put(g, mw[0] + 1 + i, y, i % 7 === 0 ? "*" : "~", P.blue);
+
+  put(g, mx0 + 2, my0 + 2, "NOW PLAYING", P.dim);
+  put(g, mx0 + 2, my0 + 3, "late night shipping", P.glow);
+  put(g, mx0 + 2, my0 + 4, "lofi beats to build to", P.dim);
+
+  // Equalizer: a kick every 9 ticks swells the low bars, sines move the rest.
+  const BARS = 24;
+  const base = my1 - 2;
+  const pulse = Math.max(0, 1 - ((t % 9) / 9) * 1.6);
+  for (let i = 0; i < BARS; i++) {
+    const v =
+      0.35 +
+      0.25 * Math.sin(t * 0.55 + i * 0.8) +
+      0.2 * Math.sin(t * 0.31 + i * 1.7) +
+      0.45 * pulse * (1 - i / BARS);
+    const h = Math.max(1, Math.round(Math.min(1, Math.max(0.08, v)) * 7));
+    for (let y = 0; y < h; y++) {
+      const color = y >= 5 ? P.glow : y >= 3 ? P.blue : P.green;
+      put(g, mx0 + 2 + i * 2, base - y, "#", color);
+    }
   }
-  for (let i = 0; i < 14; i++) {
-    const h = 1 + Math.round(3.5 * (1 + Math.sin(t * 0.18 + i * 0.9)));
-    const color = h > 6 ? P.glow : h > 3 ? P.blue : P.green;
-    for (let y = 0; y < h; y++)
-      put(g, mw[0] + 2 + i * 3, mw[3] - 1 - y, "##", color);
-  }
-  put(g, mw[0] + 1, mw[3], "-".repeat(mw[2] - mw[0] - 1), P.dim);
+
+  // Progress: elapsed time counts up in real seconds (8 ticks per second).
+  const TRACK = 225;
+  const elapsed = (Math.floor(t / TICKS_PER_SECOND) + 72) % TRACK;
+  const clock = (n: number) =>
+    `${Math.floor(n / 60)}:${String(n % 60).padStart(2, "0")}`;
+  const barW = 36;
+  const fill = Math.round((elapsed / TRACK) * barW);
+  put(g, mx0 + 2, my1 - 1, clock(elapsed).padStart(4, " "), P.dim);
+  put(
+    g,
+    mx0 + 7,
+    my1 - 1,
+    "[" + "=".repeat(fill) + ">" + "-".repeat(barW - fill) + "]",
+    P.line
+  );
+  put(g, mx0 + 7 + barW + 3, my1 - 1, clock(TRACK), P.dim);
+
+  // Controls
+  put(g, mx0 + 2, my1, "<3", P.pink);
+  put(g, mx0 + 19, my1, "|<<    ||    >>|", P.line);
+  put(g, mx1 - 9, my1, "vol )))", P.dim);
 
   // Steam
   const s = Math.floor(t / 2);

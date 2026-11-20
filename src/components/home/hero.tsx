@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr/ArrowRight";
+import { MapPinIcon } from "@phosphor-icons/react/dist/ssr/MapPin";
 import { animate, useReducedMotion } from "motion/react";
 import Link from "next/link";
 import { useEffect } from "react";
@@ -12,7 +13,6 @@ import {
   ENTER_SECONDS,
   ENTER_STAGGER_SECONDS,
 } from "@/components/site/motion-tokens";
-import { LocalTime } from "@/components/site/local-time";
 import { ResumeTrigger } from "@/components/site/resume-dialog";
 import { profile } from "@/content/profile";
 
@@ -48,24 +48,27 @@ export function Hero() {
       </noscript>
       <div className="grid items-center gap-14 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-7">
-          <p
-            className="hero-fade glass border-line text-body inline-flex flex-wrap items-center gap-x-3 gap-y-1 rounded-full border px-3 py-1.5 font-mono text-xs tracking-(--tracking-eyebrow) uppercase"
-            style={hidden}
-          >
-            <span aria-hidden className="bg-signal size-2 rounded-full" />
-            <span>{profile.location}</span>
-            <span aria-hidden>/</span>
-            <LocalTime timeZone={profile.timezone} />
-          </p>
           <h1
-            className="hero-fade text-strong mt-8 text-6xl leading-(--leading-display) font-semibold tracking-(--tracking-display) text-balance sm:text-7xl lg:text-8xl xl:text-9xl"
+            className="hero-fade text-strong text-6xl leading-(--leading-display) font-semibold tracking-(--tracking-display) text-balance sm:text-7xl lg:text-8xl xl:text-9xl"
             style={hidden}
           >
             <span className="heading-fade">{firstName}</span> <br />
             <span className="accent-serif accent-shine">{surname}</span>
           </h1>
           <p
-            className="hero-fade text-strong mt-10 text-2xl leading-(--leading-tight) font-semibold tracking-(--tracking-tight) sm:text-3xl xl:text-4xl"
+            className="hero-fade text-muted mt-8 inline-flex items-center gap-2 font-mono text-xs tracking-(--tracking-eyebrow) uppercase"
+            style={hidden}
+          >
+            <MapPinIcon
+              aria-hidden
+              size={16}
+              weight="fill"
+              className="text-accent"
+            />
+            {profile.location}
+          </p>
+          <p
+            className="hero-fade text-strong mt-6 text-2xl leading-(--leading-tight) font-semibold tracking-(--tracking-tight) sm:text-3xl xl:text-4xl"
             style={hidden}
           >
             <span className="text-muted">I&rsquo;m an </span>
