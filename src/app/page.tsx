@@ -10,7 +10,6 @@ import { Skills } from "@/components/home/skills";
 import { WorkList } from "@/components/home/work-list";
 import { BackdropSection } from "@/components/site/backdrop-section";
 import { BackdropStage } from "@/components/site/backdrop-stage";
-import { Reveal } from "@/components/site/reveal";
 import { SectionHeading } from "@/components/site/section";
 
 export default function Home() {
@@ -20,59 +19,51 @@ export default function Home() {
       <Hero />
 
       <BackdropSection id="about" backdrop="about">
-        <Reveal>
-          <SectionHeading
-            index="01"
-            label="About"
-            title="A little"
-            accent="about me."
-          />
-        </Reveal>
-        <Reveal className="mt-12">
+        <SectionHeading
+          index="01"
+          label="About"
+          title="A little"
+          accent="about me."
+        />
+        <div className="mt-12">
           <About />
-        </Reveal>
+        </div>
       </BackdropSection>
 
       <BackdropSection id="experience" backdrop="experience">
-        <Reveal>
-          <SectionHeading
-            index="02"
-            label="Experience"
-            title="Where I have"
-            accent="worked."
-            body="Production work at startups."
-          />
-        </Reveal>
-        <Reveal className="mt-12">
+        <SectionHeading
+          index="02"
+          label="Experience"
+          title="Where I have"
+          accent="worked."
+          body="Production work at startups."
+        />
+        <div className="mt-12">
           <ExperienceList />
-        </Reveal>
+        </div>
       </BackdropSection>
 
       <BackdropSection id="education" backdrop="education">
-        <Reveal>
-          <SectionHeading
-            index="03"
-            label="Education"
-            title="Where I"
-            accent="studied."
-          />
-        </Reveal>
-        <Reveal className="mt-12">
+        <SectionHeading
+          index="03"
+          label="Education"
+          title="Where I"
+          accent="studied."
+        />
+        <div className="mt-12">
           <EducationList />
-        </Reveal>
+        </div>
       </BackdropSection>
 
       <BackdropSection id="work" backdrop="work">
-        <Reveal>
-          <SectionHeading
-            index="04"
-            label="Projects"
-            title="What I have"
-            accent="built."
-            body="Systems with live demos and public code."
-          />
-        </Reveal>
-        <Reveal className="mt-12">
+        <SectionHeading
+          index="04"
+          label="Projects"
+          title="What I have"
+          accent="built."
+          body="Systems with live demos and public code."
+        />
+        <div className="mt-12">
           <WorkList limit={4} />
           <div className="mt-8 flex justify-end">
             <Link
@@ -88,21 +79,19 @@ export default function Home() {
               />
             </Link>
           </div>
-        </Reveal>
+        </div>
       </BackdropSection>
 
       <BackdropSection id="skills" backdrop="skills">
-        <Reveal>
-          <SectionHeading
-            index="05"
-            label="Skills"
-            title="Tools I"
-            accent="reach for."
-          />
-        </Reveal>
-        <Reveal className="mt-12">
+        <SectionHeading
+          index="05"
+          label="Skills"
+          title="Tools I"
+          accent="reach for."
+        />
+        <div className="mt-12">
           <Skills />
-        </Reveal>
+        </div>
       </BackdropSection>
 
       <BackdropSection id="quote" className="lg:py-40">
@@ -122,24 +111,20 @@ export default function Home() {
           data-backdrop="quoteMessi"
           className="absolute inset-0 hidden lg:block"
         />
-        <Reveal>
-          <QuoteBlock />
-        </Reveal>
+        <QuoteBlock />
       </BackdropSection>
 
       <BackdropSection id="contact" backdrop="contact">
-        <Reveal>
-          <SectionHeading
-            index="06"
-            label="Contact"
-            title="Have a project?"
-            accent="Or a role?"
-            body="I take on full-stack builds, AI agents and data apps, and I'm also open to full-time roles. Replies within two days."
-          />
-        </Reveal>
-        <Reveal className="mt-12">
+        <SectionHeading
+          index="06"
+          label="Contact"
+          title="Have a project?"
+          accent="Or a role?"
+          body="I take on full-stack builds, AI agents and data apps, and I'm also open to full-time roles. Replies within two days."
+        />
+        <div className="mt-12">
           <ContactBlock />
-        </Reveal>
+        </div>
       </BackdropSection>
     </>
   );

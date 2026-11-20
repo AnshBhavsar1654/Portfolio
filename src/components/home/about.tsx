@@ -1,4 +1,3 @@
-import { CountUp } from "@/components/site/count-up";
 import { experience } from "@/content/experience";
 import { profile } from "@/content/profile";
 import { projects } from "@/content/projects";
@@ -25,8 +24,8 @@ export function About() {
       <dl className="mt-12 grid grid-cols-3 gap-6">
         {STATS.map((s) => (
           <div key={s.label} className="border-line border-t pt-4">
-            <dd className="accent-serif text-strong text-5xl leading-none md:text-7xl">
-              <CountUp to={s.value} decimals={s.decimals} suffix="" />
+            <dd className="accent-serif text-strong text-5xl leading-none tabular-nums md:text-7xl">
+              {s.value.toFixed(s.decimals)}
             </dd>
             <dt className="text-muted mt-3 font-mono text-xs uppercase">
               {s.label}

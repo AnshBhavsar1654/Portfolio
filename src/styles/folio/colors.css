@@ -9,16 +9,16 @@
   --surface-2: #e7e4db;
   --text-strong: #0f1b2e;
   --text-body: #2b3a52;
-  --text-muted: #5f6b80; /* AA on --bg */
+  --text-muted: #56627a; /* AA on --bg and --surface-2 */
   --line: rgba(15, 27, 46, 0.15);
-  --accent: #bd3f0a; /* burnt orange; AA for text on --bg */
-  --accent-hover: #992f05;
-  --accent-wash: rgba(189, 63, 10, 0.07);
+  --accent: #b13a08; /* burnt orange; AA for text on --bg and --surface-2 */
+  --accent-hover: #8f2c05;
+  --accent-wash: rgba(177, 58, 8, 0.07);
   --shadow-lift: 0 14px 36px -18px rgba(15, 27, 46, 0.3);
   --heading-from: #0f1b2e;
-  --heading-to: #5f6b80;
+  --heading-to: #56627a;
   --on-accent: #ffffff;
-  --signal-positive: #1f8a50;
+  --signal-positive: #18723f; /* AA as text on --bg */
   --brand-github: #24292f;
   --brand-linkedin: #0a66c2;
   --brand-instagram: #c13584;
@@ -71,7 +71,7 @@
   --ht-strength: 1; /* scales dot size */
   --ht-veil: 62%; /* page colour laid over the print so text stays legible */
   /* Shimmer sweep on heading accent words: burnt orange through orange to navy-ink (orange through apricot to mist in dark). Large display text only (3:1 large-text floor on --bg). */
-  --shine-a: #bd3f0a;
+  --shine-a: #b13a08;
   --shine-b: #e0661a;
   --shine-c: #1d3557;
 }

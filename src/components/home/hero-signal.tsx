@@ -1,20 +1,44 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import {
+  ENTER_SECONDS,
+  ENTER_STAGGER_SECONDS,
+  HERO_VISUAL_INDEX,
+} from "@/components/site/motion-tokens";
 import { cn } from "@/lib/cn";
 
-// Hero art: a voice-like signal drawn in dots. It uses the same dot pitch
-// (--ht-cell) and ink as the halftone backdrops, so the first screen and the
-// prints behind the later sections read as one language. Mirrored columns of
-// dots rise and fall like speech; the pointer lifts the columns near it with
-// a soft lag. Entrance grows the columns left to right from a resting dotted
-// line. Paints only while on screen and in a visible tab; under reduced
-// motion it draws one still frame and repaints on theme change. Decorative:
-// always aria-hidden. Colour and pitch are read from tokens, never literals.
+// Hero art: a still dot matrix with a speech-like signal drawn into it. It
+// uses the halftone pitch (--ht-cell) and the accent ink, so the first screen
+// and the prints behind later sections read as one language. Nothing moves on
+// its own: the matrix only reacts to the pointer. Dots within reach swell,
+// brighten and lean away from it, with a soft lag; when the pointer leaves it
+// settles and the frame loop stops. The intro grows the signal from a resting
+// dotted line, timed to land with the hero's last entrance step. Reduced
+// motion draws one still frame. Decorative: always aria-hidden. Colour and
+// pitch are read from tokens, never literals.
 
 const smooth = (x: number) => {
   const t = Math.min(1, Math.max(0, x));
   return t * t * (3 - 2 * t);
+};
+
+const INTRO_DELAY_MS = HERO_VISUAL_INDEX * ENTER_STAGGER_SECONDS * 1000;
+const INTRO_MS = ENTER_SECONDS * 1000;
+const REACH = 0.28; // pointer reach, as a share of the shorter side
+const LEAN = 0.9; // how far (in cells) a dot leans away at full strength
+const SWELL = 1.2; // extra radius at full strength
+const FOLLOW = 0.18; // pointer position lag (per frame)
+const FADE = 0.1; // pointer strength lag (per frame)
+
+// Signal envelope along 0..1. Fixed phases, so the frame is a still image.
+const envelope = (k: number) => {
+  const speech =
+    0.3 +
+    0.7 * Math.abs(Math.sin(k * 8.5 + 1.2) * Math.sin(k * 3.2 - 0.7)) +
+    0.18 * Math.pow(Math.sin(k * 21 + 0.5), 2);
+  const bell = 0.5 + 0.5 * Math.exp(-Math.pow((k - 0.5) * 2.4, 2));
+  return Math.min(speech * bell, 1.25);
 };
 
 export function HeroSignal({ className }: { className?: string }) {
@@ -35,11 +59,13 @@ export function HeroSignal({ className }: { className?: string }) {
     let dpr = 1;
     let cols = 0;
     let rows = 0;
-    let onScreen = true;
+    let amps: number[] = [];
     let frame = 0;
-    // Pointer position along the signal (0..1) and how strongly it is felt.
-    let px = 0.5;
-    let tx = 0.5;
+    // Pointer position (canvas px) and how strongly it is felt, with targets.
+    let px = 0;
+    let py = 0;
+    let tx = 0;
+    let ty = 0;
     let near = 0;
     let tNear = 0;
 
@@ -59,28 +85,25 @@ export function HeroSignal({ className }: { className?: string }) {
       canvas.height = Math.round(h * dpr);
       cols = Math.max(1, Math.floor(w / cell));
       rows = Math.max(1, Math.floor(h / cell));
+      const mid = (rows - 1) / 2;
+      amps = Array.from(
+        { length: cols },
+        (_, i) => envelope(i / (cols - 1 || 1)) * mid * 0.92
+      );
     };
 
-    const paint = (t: number, intro: number) => {
+    const paint = (intro: number) => {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, w, h);
       ctx.fillStyle = color;
       const ox = (w - cols * cell) / 2;
       const oy = (h - rows * cell) / 2;
       const mid = (rows - 1) / 2;
+      const reach = Math.max(1, Math.min(w, h) * REACH);
       for (let i = 0; i < cols; i += 1) {
         const k = i / (cols - 1 || 1);
-        const speech =
-          0.3 +
-          0.7 *
-            Math.abs(
-              Math.sin(k * 8.5 + t * 1.5) * Math.sin(k * 3.2 - t * 0.9)
-            ) +
-          0.18 * Math.pow(Math.sin(k * 21 + t * 3.1), 2);
-        const bell = 0.5 + 0.5 * Math.exp(-Math.pow((k - 0.5) * 2.4, 2));
-        const lift = 1 + near * 1.1 * Math.exp(-Math.pow((k - px) / 0.13, 2));
         const grow = smooth(intro * 1.6 - k * 0.6);
-        const amp = Math.min(speech * bell * lift, 1.25) * grow * mid * 0.92;
+        const amp = amps[i] * grow;
         for (let j = 0; j < rows; j += 1) {
           const d = Math.abs(j - mid);
           let a: number;
@@ -93,79 +116,91 @@ export function HeroSignal({ className }: { className?: string }) {
             a = 0.16;
             r = cell * 0.12;
           }
+          let x = ox + i * cell + cell / 2;
+          let y = oy + j * cell + cell / 2;
+          if (near > 0.002) {
+            const dx = x - px;
+            const dy = y - py;
+            const dist = Math.hypot(dx, dy) || 1;
+            const f = near * Math.exp(-Math.pow(dist / reach, 2));
+            if (f > 0.004) {
+              x += (dx / dist) * f * cell * LEAN;
+              y += (dy / dist) * f * cell * LEAN;
+              r *= 1 + f * SWELL;
+              a = Math.min(1, a + f * 0.5);
+            }
+          }
           ctx.globalAlpha = a;
           ctx.beginPath();
-          ctx.arc(
-            ox + i * cell + cell / 2,
-            oy + j * cell + cell / 2,
-            r,
-            0,
-            6.2832
-          );
+          ctx.arc(x, y, r, 0, 6.2832);
           ctx.fill();
         }
       }
       ctx.globalAlpha = 1;
     };
 
+    // The loop runs only while something is changing: the intro, or the
+    // pointer field easing in or out.
     const tick = (now: number) => {
       frame = 0;
-      near += (tNear - near) * 0.08;
-      px += (tx - px) * 0.12;
-      const intro = smooth((now - start) / 1100);
-      paint((now - start) / 1000, intro);
-      if (onScreen && !document.hidden && !motion.matches) {
-        frame = requestAnimationFrame(tick);
-      }
+      near += (tNear - near) * FADE;
+      px += (tx - px) * FOLLOW;
+      py += (ty - py) * FOLLOW;
+      const raw = (now - start - INTRO_DELAY_MS) / INTRO_MS;
+      paint(smooth(raw));
+      const settling = Math.abs(tNear - near) > 0.002 || near > 0.002;
+      if (raw < 1 || settling) frame = requestAnimationFrame(tick);
     };
     const run = () => {
       if (!frame) frame = requestAnimationFrame(tick);
     };
 
-    const still = () => {
-      readTokens();
-      resize();
-      paint(1.2, 1);
+    const redraw = () => {
+      if (motion.matches) paint(1);
+      else run();
     };
 
     readTokens();
     resize();
-    if (motion.matches) paint(1.2, 1);
+    if (motion.matches) paint(1);
     else run();
 
     const ro = new ResizeObserver(() => {
       resize();
-      if (motion.matches) paint(1.2, 1);
-      else run();
+      redraw();
     });
     ro.observe(canvas);
-
-    const io = new IntersectionObserver(([e]) => {
-      onScreen = e.isIntersecting;
-      if (onScreen) run();
-    });
-    io.observe(canvas);
 
     // Theme swaps rewrite data-theme on <html>: re-read the ink and repaint.
     const mo = new MutationObserver(() => {
       readTokens();
-      if (motion.matches) paint(1.2, 1);
-      else run();
+      redraw();
     });
     mo.observe(root, { attributes: true, attributeFilter: ["data-theme"] });
 
-    const onVisible = () => {
-      if (!document.hidden) run();
+    const onMotionChange = () => {
+      readTokens();
+      resize();
+      if (motion.matches) {
+        near = 0;
+        tNear = 0;
+      }
+      redraw();
     };
-    document.addEventListener("visibilitychange", onVisible);
-    motion.addEventListener("change", still);
+    motion.addEventListener("change", onMotionChange);
 
-    // Mouse and pen only: touch has no hover, so the signal just plays.
+    // Mouse and pen only: touch has no hover, so the matrix just sits.
     const host = canvas.parentElement ?? canvas;
     const onMove = (e: PointerEvent) => {
       if (e.pointerType === "touch" || motion.matches) return;
       const r = canvas.getBoundingClientRect();
-      tx = (e.clientX - r.left) / r.width;
+      tx = e.clientX - r.left;
+      ty = e.clientY - r.top;
+      if (tNear === 0) {
+        // First contact: start the field at the pointer, no sweep from (0,0).
+        px = tx;
+        py = ty;
+      }
       tNear = 1;
       run();
     };
@@ -179,10 +214,8 @@ export function HeroSignal({ className }: { className?: string }) {
     return () => {
       cancelAnimationFrame(frame);
       ro.disconnect();
-      io.disconnect();
       mo.disconnect();
-      document.removeEventListener("visibilitychange", onVisible);
-      motion.removeEventListener("change", still);
+      motion.removeEventListener("change", onMotionChange);
       host.removeEventListener("pointermove", onMove);
       host.removeEventListener("pointerleave", onLeave);
     };

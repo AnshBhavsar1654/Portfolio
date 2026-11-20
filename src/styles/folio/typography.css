@@ -12,3 +12,14 @@
   --leading-display: 1.05;
   --leading-body: 1.65;
 }
+
+/* Data and tracking. Dates, metrics, counts and stat rows must use
+   --numeric-features so digits do not jitter as values change. */
+:root {
+  --numeric-features: "tnum" 1, "lnum" 1;
+  --text-caption-s: 0.6875rem; /* mono micro-labels only; never body copy */
+  --tracking-display: -0.04em; /* large serif display */
+  --tracking-tight: -0.01em;
+  --leading-tight: 1.25; /* titles */
+  --measure-body: 68ch; /* max line length for prose */
+}
