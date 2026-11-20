@@ -35,7 +35,6 @@
   --color-brand-vercel: var(--brand-vercel);
   --color-brand-python: var(--brand-python);
   --color-brand-pytorch: var(--brand-pytorch);
-  --color-brand-tensorflow: var(--brand-tensorflow);
   --color-brand-scikitlearn: var(--brand-scikitlearn);
   --color-brand-huggingface: var(--brand-huggingface);
   --color-brand-huggingface-link: var(--brand-huggingface-link);
@@ -43,6 +42,10 @@
   --color-brand-redis: var(--brand-redis);
   --color-brand-numpy: var(--brand-numpy);
   --color-brand-pandas: var(--brand-pandas);
+  --color-brand-cplusplus: var(--brand-cplusplus);
+  --color-brand-postgresql: var(--brand-postgresql);
+  --color-brand-langchain: var(--brand-langchain);
+  --color-brand-langgraph: var(--brand-langgraph);
   --color-contrib-0: var(--contrib-0);
   --color-contrib-1: var(--contrib-1);
   --color-contrib-2: var(--contrib-2);

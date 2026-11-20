@@ -39,13 +39,16 @@
   --brand-vercel: #000000;
   --brand-python: #3776ab;
   --brand-pytorch: #ee4c2c;
-  --brand-tensorflow: #ff6f00;
   --brand-scikitlearn: #f7931e;
   --brand-huggingface: #ffd21e;
   --brand-opencv: #5c3ee8;
   --brand-redis: #ff4438;
   --brand-numpy: #013243;
   --brand-pandas: #150458;
+  --brand-cplusplus: #00599c;
+  --brand-postgresql: #4169e1;
+  --brand-langchain: #1a6fa8;
+  --brand-langgraph: #1a6fa8;
   --ball-fill: #c42b22;
   --ball-stroke: #8e1d17;
   --ball-seam: #f4d9d4;
@@ -102,6 +105,10 @@
   --brand-vercel: #ffffff;
   --brand-numpy: #4dabcf;
   --brand-pandas: #7f6df0;
+  --brand-cplusplus: #4aa3e0;
+  --brand-postgresql: #6f8cf0;
+  --brand-langchain: #7fc8ff;
+  --brand-langgraph: #7fc8ff;
   --ball-fill: #f6f4ee;
   --ball-stroke: #cfcbc0;
   --ball-seam: #b9b5a8;
