@@ -115,7 +115,8 @@ export function AsciiDesk() {
         palette,
         stat,
         reduce ? null : pointer,
-        clockNow()
+        clockNow(),
+        !!reduce
       );
       ctx.fillStyle = palette.bg;
       for (const [x0, y0, x1, y1] of frame.wipes)

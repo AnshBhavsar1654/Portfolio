@@ -43,3 +43,8 @@
   --space-8: 4rem;
   --hit-min: 2.75rem; /* minimum touch target (44px) */
 }
+
+:root {
+  --z-cursor: 9999;
+  --cursor-size: var(--space-5);
+}

@@ -38,3 +38,9 @@ h3 {
 body {
   overflow-x: clip;
 }
+
+/* SmoothCursor draws the pointer itself on fine-pointer devices. */
+[data-smooth-cursor],
+[data-smooth-cursor] * {
+  cursor: none !important;
+}

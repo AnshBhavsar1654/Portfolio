@@ -4,6 +4,10 @@
 // and screen glow, the clock hand, the pointer stir). Edit the layout by
 // editing coordinates here. Colours are the --desk-* tokens.
 
+import { profile } from "@/content/profile";
+import { projects } from "@/content/projects";
+import { skillGroups } from "@/content/skills";
+
 // Ticks per second of the canvas loop (keep equal to FPS in ascii-desk.tsx).
 export const TICKS_PER_SECOND = 8;
 
@@ -204,10 +208,10 @@ export function buildStatic(P: Palette): Grid {
     const y = Math.round(CLOCK.cy - Math.cos(a) * CLOCK.ry);
     put(g, x, y, k % 5 === 0 ? "O" : ".", k % 5 === 0 ? P.line : P.dim);
   }
-  put(g, CLOCK.cx - 1, CLOCK.cy - CLOCK.ry + 1, "12", P.dim);
-  put(g, CLOCK.cx - 1, CLOCK.cy + CLOCK.ry - 1, "6", P.dim);
-  put(g, CLOCK.cx + CLOCK.rx - 3, CLOCK.cy, "3", P.dim);
-  put(g, CLOCK.cx - CLOCK.rx + 3, CLOCK.cy, "9", P.dim);
+  put(g, CLOCK.cx - 1, CLOCK.cy - CLOCK.ry + 1, "12", P.line);
+  put(g, CLOCK.cx - 1, CLOCK.cy + CLOCK.ry - 1, "6", P.line);
+  put(g, CLOCK.cx + CLOCK.rx - 3, CLOCK.cy, "3", P.line);
+  put(g, CLOCK.cx - CLOCK.rx + 3, CLOCK.cy, "9", P.line);
 
   // Shelf: plant and books
   put(g, 116, 27, "=".repeat(26), P.wood);
@@ -273,43 +277,56 @@ export function buildStatic(P: Palette): Grid {
 
 // Dynamic --------------------------------------------------------------------
 
-const CODE = [
-  "import desk",
-  "",
-  "def build_desk():",
-  "    setup = Laptop()",
-  "    setup.attach(monitor)",
-  "    for idea in backlog:",
-  "        ship(idea)",
-  "    return setup",
-  "",
-  "while coffee.is_warm():",
-  "    focus(deep=True)",
-  "    commit('small, often')",
-  "",
-  "# one more feature",
-  "def iterate(version):",
-  "    test(version)",
-  "    return version + 1",
+// The laptop prints a terminal session built from src/content: who, what,
+// then the featured projects and stack. Lines type or print one after another,
+// the view scrolls once it is full, then the session holds and restarts.
+type TermLine = {
+  text: string;
+  tone: "line" | "green" | "blue" | "dim";
+  typed: boolean;
+  start: number;
+};
+
+const TERM_SPEC: Omit<TermLine, "start">[] = [
+  { text: "> whoami", tone: "line", typed: true },
+  { text: `✔ ${profile.name}`, tone: "green", typed: false },
+  { text: `✔ ${profile.role}`, tone: "green", typed: false },
+  {
+    text: `✔ ${profile.positioning}, ${profile.location}`,
+    tone: "green",
+    typed: false,
+  },
+  { text: "> ls projects/", tone: "line", typed: true },
+  ...projects
+    .filter((p) => p.featured)
+    .map((p) => ({
+      text: `✔ ${p.slug}`,
+      tone: "green" as const,
+      typed: false,
+    })),
+  {
+    text: `ℹ Stack: ${skillGroups[0].skills.join(", ")}`,
+    tone: "blue",
+    typed: false,
+  },
+  { text: "Success! Everything is deployed.", tone: "dim", typed: true },
+  { text: "Scroll down to see the work.", tone: "dim", typed: true },
 ];
 
-function codeLine(
-  g: Grid,
-  x: number,
-  y: number,
-  line: string,
-  max: number,
-  P: Palette
-) {
-  const text = line.slice(0, max);
-  const comment = text.trimStart().startsWith("#");
-  put(g, x, y, text, comment ? P.dim : P.line);
-  if (comment) return;
-  const re = /\b(def|for|while|return|in|True|import)\b|'[^']*'|\b\w+(?=\()/g;
-  for (const m of text.matchAll(re)) {
-    const c = m[1] ? P.pink : m[0].startsWith("'") ? P.green : P.blue;
-    put(g, x + (m.index ?? 0), y, m[0], c);
+const TYPE_CPT = 2; // typed characters per tick
+const PRINT_GAP = 5; // ticks between printed lines
+const HOLD = 40; // ticks the finished session stays on screen
+const TERM_LINES: TermLine[] = [];
+let TERM_TOTAL = 0;
+{
+  let cursor = 4;
+  for (const l of TERM_SPEC) {
+    TERM_LINES.push({ ...l, start: cursor });
+    cursor += l.typed
+      ? Math.ceil(l.text.length / TYPE_CPT) + PRINT_GAP
+      : PRINT_GAP;
   }
+  TERM_TOTAL = cursor + HOLD;
 }
 
 function glowChar(i: number) {
@@ -347,7 +364,8 @@ export function buildDynamic(
   P: Palette,
   stat: Grid,
   pointer: { x: number; y: number } | null,
-  now: { h: number; m: number; s: number }
+  now: { h: number; m: number; s: number },
+  still = false
 ): Frame {
   const g = newGrid(P.line);
   const wipes: Wipe[] = [];
@@ -375,15 +393,24 @@ export function buildDynamic(
     }
   });
 
-  // Clock hands from the real time: hour, minute and a thin second hand
-  const hand = (angle: number, len: number, color: string, glyph?: string) => {
+  // Clock hands from the real time: a thick hour hand, a long minute hand and
+  // a thin second hand, each in its own colour so they read apart. Mostly
+  // vertical hands are drawn two cells wide to match their length.
+  const hand = (
+    angle: number,
+    len: number,
+    color: string,
+    thick: boolean,
+    glyph?: string
+  ) => {
     const steps = Math.round(CLOCK.rx * len);
+    const dx = Math.sin(angle);
+    const dy = -Math.cos(angle);
+    const wide = thick && Math.abs(dx) < 0.8;
     for (let k = 1; k <= steps; k++) {
       const f = (k / steps) * len;
-      const x = Math.round(CLOCK.cx + Math.sin(angle) * CLOCK.rx * f);
-      const y = Math.round(CLOCK.cy - Math.cos(angle) * CLOCK.ry * f);
-      const dx = Math.sin(angle);
-      const dy = -Math.cos(angle);
+      const x = Math.round(CLOCK.cx + dx * CLOCK.rx * f);
+      const y = Math.round(CLOCK.cy + dy * CLOCK.ry * f);
       const ch =
         glyph ??
         (Math.abs(dx) < 0.38
@@ -393,40 +420,55 @@ export function buildDynamic(
             : dx * dy > 0
               ? "/"
               : "\\");
-      wipes.push([x, y, x, y]);
-      put(g, x, y, ch, color);
+      const cells = wide ? [x, x + 1] : [x];
+      for (const cx of cells) {
+        wipes.push([cx, y, cx, y]);
+        put(g, cx, y, ch, color);
+      }
     }
   };
   const sec = now.s;
   const min = now.m + sec / 60;
   const hr = (now.h % 12) + min / 60;
-  hand((hr / 12) * Math.PI * 2, 0.5, P.pink);
-  hand((min / 60) * Math.PI * 2, 0.8, P.glow);
-  hand((sec / 60) * Math.PI * 2, 0.88, P.green, "'");
-  put(g, CLOCK.cx, CLOCK.cy, "@", P.line);
+  hand((hr / 12) * Math.PI * 2, 0.5, P.line, true, "#");
+  hand((min / 60) * Math.PI * 2, 0.82, P.glow, true, "@");
+  hand((sec / 60) * Math.PI * 2, 0.9, P.pink, false, "'");
+  wipes.push([CLOCK.cx - 1, CLOCK.cy, CLOCK.cx + 1, CLOCK.cy]);
+  put(g, CLOCK.cx - 1, CLOCK.cy, "(@)", P.line);
 
-  // Laptop: scrolling code with line numbers, cursor, status bar
+  // Laptop: a terminal that prints itself, with a status bar
   const lw: Wipe = [LAPTOP.x0 + 2, LAPTOP.y0 + 2, LAPTOP.x1 - 2, LAPTOP.y1 - 2];
   wipes.push(lw);
   const rows = lw[3] - lw[1];
-  const top = Math.floor(t / 5) % CODE.length;
-  for (let r = 0; r < rows; r++) {
-    const n = (top + r) % CODE.length;
-    put(g, lw[0] + 1, lw[1] + r, String(n + 1).padStart(2, " "), P.dim);
-    codeLine(g, lw[0] + 5, lw[1] + r, CODE[n], lw[2] - lw[0] - 6, P);
+  const width = lw[2] - lw[0] - 1;
+  const u = still ? TERM_TOTAL : t % TERM_TOTAL;
+  const shown: { text: string; tone: TermLine["tone"] }[] = [];
+  let busy = false;
+  for (const l of TERM_LINES) {
+    if (u < l.start) break;
+    const n = l.typed
+      ? Math.min(l.text.length, (u - l.start + 1) * TYPE_CPT)
+      : l.text.length;
+    if (n < l.text.length) busy = true;
+    shown.push({ text: l.text.slice(0, n), tone: l.tone });
   }
-  const last = CODE[(top + rows - 1) % CODE.length];
-  if (Math.floor(t / 4) % 2)
-    put(g, lw[0] + 5 + last.length, lw[1] + rows - 1, "_", P.glow);
+  const view = shown.slice(-rows);
+  view.forEach((l, r) =>
+    put(g, lw[0] + 1, lw[1] + r, l.text.slice(0, width), P[l.tone])
+  );
+  const tail = view[view.length - 1];
+  if (tail && (busy || Math.floor(t / 4) % 2))
+    put(g, lw[0] + 1 + tail.text.length, lw[1] + view.length - 1, "_", P.glow);
   put(
     g,
     lw[0] + 1,
     lw[3],
-    " main* | python | utf-8 ".padEnd(lw[2] - lw[0] - 1),
+    " zsh | portfolio | utf-8 ".padEnd(lw[2] - lw[0] - 1),
     P.blue
   );
 
-  // Monitor: a music player. Track, beat-driven equalizer, progress, controls.
+  // Monitor: a Spotify-style player. Tabs, album art, track, waveform,
+  // queue, progress, transport controls.
   const mw: Wipe = [
     MONITOR.x0 + 2,
     MONITOR.y0 + 2,
@@ -434,61 +476,84 @@ export function buildDynamic(
     MONITOR.y1 - 3,
   ];
   wipes.push(mw);
-  const [mx0, my0, mx1, my1] = mw;
-  put(g, mx0 + 1, my0, "o", P.pink);
-  put(g, mx0 + 3, my0, "o", P.glow);
-  put(g, mx0 + 5, my0, "o", P.green);
-  put(g, mx0 + 10, my0, "music", P.dim);
-  put(
-    g,
-    mx1 - 8,
-    my0,
-    ["~ )", "~ ))", "~ )))"][Math.floor(t / 3) % 3],
-    P.green
-  );
+  const [mx0, my0, mx1] = mw;
+  const right = mx1 - 1;
 
-  put(g, mx0 + 2, my0 + 2, "NOW PLAYING", P.dim);
-  put(g, mx0 + 2, my0 + 3, "late night shipping", P.glow);
-  put(g, mx0 + 2, my0 + 4, "lofi beats to build to", P.dim);
+  // Top bar: logo, tabs
+  put(g, mx0 + 1, my0, "(o)", P.green);
+  put(g, mx0 + 5, my0, "Spotify", P.line);
+  put(g, mx1 - 22, my0, "Home", P.dim);
+  put(g, mx1 - 16, my0, "Search", P.dim);
+  put(g, mx1 - 8, my0, "Library", P.glow);
 
-  // Equalizer: a kick every 9 ticks swells the low bars, sines move the rest.
-  const BARS = 24;
-  const base = my1 - 2;
-  const pulse = Math.max(0, 1 - ((t % 9) / 9) * 1.6);
-  for (let i = 0; i < BARS; i++) {
-    const v =
-      0.35 +
-      0.25 * Math.sin(t * 0.55 + i * 0.8) +
-      0.2 * Math.sin(t * 0.31 + i * 1.7) +
-      0.45 * pulse * (1 - i / BARS);
-    const h = Math.max(1, Math.round(Math.min(1, Math.max(0.08, v)) * 7));
-    for (let y = 0; y < h; y++) {
-      const color = y >= 5 ? P.glow : y >= 3 ? P.blue : P.green;
-      put(g, mx0 + 2 + i * 2, base - y, "#", color);
+  // Album art: a slow dithered plasma, 12 x 6 cells (roughly square)
+  const ART = { x: mx0 + 1, y: my0 + 2, w: 12, h: 6 };
+  const ramp = " .:-=+*#%@";
+  for (let y = 0; y < ART.h; y++)
+    for (let x = 0; x < ART.w; x++) {
+      const v =
+        0.5 +
+        0.5 *
+          Math.sin(x * 0.55 + y * 0.9 + t * 0.07) *
+          Math.cos(y * 0.6 - t * 0.04);
+      const i = Math.min(9, Math.max(1, Math.round(v * 9)));
+      put(
+        g,
+        ART.x + x,
+        ART.y + y,
+        ramp[i],
+        i > 6 ? P.glow : i > 3 ? P.pink : P.green
+      );
     }
+
+  // Track info
+  const tx = mx0 + 15;
+  put(g, tx, my0 + 2, "late night shipping", P.line);
+  put(g, tx, my0 + 3, "lofi beats to build to", P.dim);
+
+  // Waveform: sines plus a kick every 9 ticks
+  const pulse = Math.max(0, 1 - ((t % 9) / 9) * 1.6);
+  const wave = " .:|!";
+  for (let i = 0; i < 36; i++) {
+    const v =
+      0.4 +
+      0.25 * Math.sin(t * 0.5 + i * 0.7) +
+      0.2 * Math.sin(t * 0.3 + i * 1.6) +
+      0.35 * pulse * (1 - i / 36);
+    const k = Math.min(4, Math.max(1, Math.round(v * 4)));
+    put(g, tx + i, my0 + 4, wave[k], k > 3 ? P.glow : P.green);
   }
 
-  // Progress: elapsed time counts up in real seconds (8 ticks per second).
+  // Up next
+  put(g, tx, my0 + 5, "UP NEXT", P.dim);
+  [
+    ["1  ship it friday", "3:12"],
+    ["2  midnight merge", "2:48"],
+  ].forEach(([name, len], i) => {
+    put(g, tx, my0 + 6 + i, name, P.line);
+    put(g, right - len.length - 1, my0 + 6 + i, len, P.dim);
+  });
+
+  // Progress: elapsed counts up in real seconds (8 ticks per second).
   const TRACK = 225;
   const elapsed = (Math.floor(t / TICKS_PER_SECOND) + 72) % TRACK;
-  const clock = (n: number) =>
+  const mmss = (n: number) =>
     `${Math.floor(n / 60)}:${String(n % 60).padStart(2, "0")}`;
   const barW = 36;
   const fill = Math.round((elapsed / TRACK) * barW);
-  put(g, mx0 + 2, my1 - 1, clock(elapsed).padStart(4, " "), P.dim);
-  put(
-    g,
-    mx0 + 7,
-    my1 - 1,
-    "[" + "=".repeat(fill) + ">" + "-".repeat(barW - fill) + "]",
-    P.line
-  );
-  put(g, mx0 + 7 + barW + 3, my1 - 1, clock(TRACK), P.dim);
+  put(g, mx0 + 1, my0 + 9, mmss(elapsed).padStart(4, " "), P.dim);
+  put(g, mx0 + 6, my0 + 9, "=".repeat(fill) + "o", P.green);
+  put(g, mx0 + 7 + fill, my0 + 9, "-".repeat(barW - fill), P.dim);
+  put(g, mx0 + 6 + barW + 3, my0 + 9, mmss(TRACK), P.dim);
 
-  // Controls
-  put(g, mx0 + 2, my1, "<3", P.pink);
-  put(g, mx0 + 19, my1, "|<<    ||    >>|", P.line);
-  put(g, mx1 - 9, my1, "vol )))", P.dim);
+  // Transport: shuffle, previous, play, next, repeat; like and volume
+  put(g, mx0 + 13, my0 + 11, "x", P.green);
+  put(g, mx0 + 18, my0 + 11, "|<<", P.line);
+  put(g, mx0 + 24, my0 + 11, "(||)", P.glow);
+  put(g, mx0 + 31, my0 + 11, ">>|", P.line);
+  put(g, mx0 + 37, my0 + 11, "o", P.dim);
+  put(g, mx0 + 1, my0 + 11, "<3", P.pink);
+  put(g, mx1 - 8, my0 + 11, "vol )))", P.dim);
 
   // Steam
   const s = Math.floor(t / 2);

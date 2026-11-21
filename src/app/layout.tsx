@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ScrollProgress } from "@/components/site/scroll-progress";
+import { SmoothCursor } from "@/components/site/smooth-cursor";
 import { ResumeProvider } from "@/components/site/resume-dialog";
 import { SiteFooter } from "@/components/site/site-footer";
 import { SiteNav } from "@/components/site/site-nav";
@@ -69,6 +70,7 @@ export default function RootLayout({
           Skip to content
         </a>
         <ScrollProgress />
+        <SmoothCursor />
         <ResumeProvider>
           <SiteNav />
           <main id="main">{children}</main>
