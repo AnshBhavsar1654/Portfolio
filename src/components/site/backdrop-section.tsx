@@ -2,20 +2,20 @@ import type { ReactNode } from "react";
 import type { ArtKey } from "@/content/art";
 import { cn } from "@/lib/cn";
 
-// A full-height section that sits in front of the BackdropStage. It may mark
-// which print the stage should show (data-backdrop); the stage does the
-// drawing and the crossfades between sections. Text directly on the print
-// gets a page-coloured halo (see .halo) so it reads in either theme. Each
-// section also carries a soft accent wash (see .section-wash) that swings
-// from side to side down the page, so the tone shifts instead of repeating.
+// A full-height section on the plain ink ground; whitespace alone separates
+// sections. Only the quote section carries halftone prints: it passes `print`,
+// which marks the stage's print (data-backdrop) and adds a page-coloured halo
+// (see .halo) so text directly on the print still reads.
 export function BackdropSection({
   id,
   backdrop,
+  print,
   className,
   children,
 }: {
   id?: string;
   backdrop?: ArtKey | "none";
+  print?: boolean;
   className?: string;
   children: ReactNode;
 }) {
@@ -23,11 +23,12 @@ export function BackdropSection({
     <section
       id={id}
       data-backdrop={backdrop}
-      className="section-wash relative scroll-mt-16"
+      className="relative scroll-mt-16 px-4"
     >
       <div
         className={cn(
-          "halo relative z-10 mx-auto flex min-h-svh w-full max-w-[1200px] flex-col justify-center px-4 py-24 md:py-32",
+          "relative z-10 mx-auto flex min-h-svh w-full max-w-[1200px] flex-col justify-center py-24 md:py-32",
+          print && "halo",
           className
         )}
       >

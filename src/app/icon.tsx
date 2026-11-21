@@ -3,8 +3,7 @@ import { ImageResponse } from "next/og";
 export const size = { width: 64, height: 64 };
 export const contentType = "image/png";
 
-// AB monogram. Colours mirror the dark folio tokens (--bg, --text-strong,
-// --accent) so the tab icon reads on light and dark browser chrome.
+// AB monogram. Colours mirror the folio tokens (--bg, --text-strong, --accent).
 export default function Icon() {
   return new ImageResponse(
     <div
@@ -15,8 +14,7 @@ export default function Icon() {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        background: "#0d0c0b",
-        borderRadius: 14,
+        background: "#131011",
       }}
     >
       <div
@@ -24,7 +22,7 @@ export default function Icon() {
           fontSize: 30,
           fontWeight: 800,
           fontFamily: "Arial, Helvetica, sans-serif",
-          color: "#f4efe6",
+          color: "#f1ebdd",
           lineHeight: 1,
           letterSpacing: -1,
         }}
@@ -35,8 +33,7 @@ export default function Icon() {
         style={{
           width: 24,
           height: 4,
-          borderRadius: 2,
-          background: "#ec5a50",
+          background: "#e5584f",
           marginTop: 5,
         }}
       />

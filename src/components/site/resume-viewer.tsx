@@ -187,7 +187,7 @@ export function ResumeViewer() {
               href={profile.resume}
               target="_blank"
               rel="noopener noreferrer"
-              className="border-line text-strong hover:bg-surface-2 inline-flex items-center gap-2 rounded-full border px-4 py-2 font-mono text-xs uppercase transition-colors"
+              className="border-line text-strong hover:bg-surface-2 inline-flex items-center gap-2 border px-4 py-2 font-mono text-xs uppercase transition-colors"
             >
               <ArrowSquareOut aria-hidden size={16} />
               Open PDF
@@ -195,7 +195,7 @@ export function ResumeViewer() {
             <a
               href={profile.resume}
               download
-              className="bg-strong text-bg inline-flex items-center gap-2 rounded-full px-4 py-2 font-mono text-xs uppercase transition-opacity hover:opacity-85"
+              className="bg-strong text-bg inline-flex items-center gap-2 px-4 py-2 font-mono text-xs uppercase transition-opacity hover:opacity-85"
             >
               <DownloadSimple aria-hidden size={16} />
               Download

@@ -102,7 +102,7 @@ export function ExperienceList() {
               tabIndex={selected ? 0 : -1}
               onClick={() => setActive(i)}
               className={cn(
-                "shrink-0 px-4 py-3 text-left transition-[border-color,background-color,transform] duration-(--dur-base) ease-(--ease-out-soft) active:scale-[0.98] max-lg:min-w-44 max-lg:rounded-2xl lg:rounded-r-2xl lg:border-l-2 lg:px-5 lg:py-4",
+                "shrink-0 px-4 py-3 text-left transition-[border-color,background-color,transform] duration-(--dur-base) ease-(--ease-out-soft) active:scale-[0.98] max-lg:min-w-44 lg:border-l-2 lg:px-5 lg:py-4",
                 selected
                   ? "border-accent bg-accent-wash"
                   : "hover:bg-accent-wash/50 border-transparent"
@@ -118,7 +118,7 @@ export function ExperienceList() {
                 {current ? (
                   <span
                     aria-label="current role"
-                    className="bg-accent ring-accent-wash h-1.5 w-1.5 rounded-full ring-4"
+                    className="bg-accent ring-accent-wash h-1.5 w-1.5 ring-4"
                   />
                 ) : null}
               </span>
@@ -141,7 +141,7 @@ export function ExperienceList() {
               aria-labelledby={`exp-tab-${i}`}
               inert={!selected}
               className={cn(
-                "panel-soft col-start-1 row-start-1 rounded-(--radius-leaf) p-6 transition-[opacity,translate,visibility] duration-(--dur-base) ease-(--ease-out-soft) md:p-10",
+                "panel-soft col-start-1 row-start-1 p-6 transition-[opacity,translate,visibility] duration-(--dur-base) ease-(--ease-out-soft) md:p-10",
                 selected
                   ? "visible translate-y-0 opacity-100"
                   : "invisible translate-y-1 opacity-0"

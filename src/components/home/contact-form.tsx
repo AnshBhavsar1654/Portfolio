@@ -51,7 +51,7 @@ export function ContactForm() {
     return (
       <p
         role="status"
-        className="border-line bg-surface text-body rounded-xl border p-6 text-sm leading-relaxed md:p-8"
+        className="border-line bg-surface text-body border p-6 text-sm leading-relaxed md:p-8"
       >
         Message sent. I will reply within two days.
       </p>
@@ -59,12 +59,12 @@ export function ContactForm() {
   }
 
   const input =
-    "rounded-lg border border-line bg-surface px-3 py-2.5 text-sm text-strong placeholder:text-muted focus:border-accent focus:ring-2 focus:ring-accent/20 focus:outline-none";
+    " border border-line bg-surface px-3 py-2.5 text-sm text-strong placeholder:text-muted focus:border-accent focus:ring-2 focus:ring-accent/20 focus:outline-none";
 
   return (
     <form
       onSubmit={onSubmit}
-      className="border-line bg-surface rounded-xl border p-6 md:p-8"
+      className="border-line bg-surface border p-6 md:p-8"
     >
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="flex flex-col gap-2">
@@ -157,7 +157,7 @@ export function ContactForm() {
         suppressHydrationWarning
         type="submit"
         disabled={status === "sending"}
-        className="bg-accent text-on-accent hover:bg-accent-hover mt-2 rounded-full px-6 py-3 text-sm font-medium whitespace-nowrap transition-colors disabled:opacity-60"
+        className="bg-accent text-on-accent hover:bg-accent-hover mt-2 px-6 py-3 text-sm font-medium whitespace-nowrap transition-colors disabled:opacity-60"
       >
         {status === "sending" ? "Sending…" : "Send Message"}
       </button>

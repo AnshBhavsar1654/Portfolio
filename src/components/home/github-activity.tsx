@@ -12,7 +12,7 @@ export async function GitHubActivity() {
 
   if (!data) {
     return (
-      <div className="glass border-line rounded-[var(--radius-panel)] border p-8 md:p-10">
+      <div className="glass border-line border p-8 md:p-10">
         <h3 className="text-strong text-xl font-semibold tracking-tight">
           GitHub Activity
         </h3>

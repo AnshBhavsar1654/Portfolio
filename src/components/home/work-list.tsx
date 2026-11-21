@@ -13,14 +13,14 @@ import { projects, type Project } from "@/content/projects";
 // detail page through a stretched title link; the pills sit above it.
 
 const pill =
-  "border-line text-body hover:border-accent/50 hover:text-strong hover:bg-accent-wash relative z-10 inline-flex min-h-(--hit-min) items-center gap-1.5 rounded-full border px-4 text-sm font-medium whitespace-nowrap transition-[transform,background-color,border-color,color] duration-(--dur-fast) ease-(--ease-out) active:scale-(--press-scale) md:min-h-0 md:py-1.5";
+  "border-rule text-strong hover:bg-accent hover:text-on-accent hover:border-accent relative z-10 inline-flex min-h-(--hit-min) items-center gap-1.5 border-[1.5px] px-4 font-mono text-xs whitespace-nowrap transition-[transform,background-color,border-color,color] duration-(--dur-fast) ease-(--ease-out) active:scale-(--press-scale) md:min-h-0 md:py-1.5";
 
 function ProjectCard({ p }: { p: Project }) {
   const previewHref = p.demo ?? p.site;
   const meta = p.metrics.map((m) => `${m.value} ${m.label}`).join(" · ");
 
   return (
-    <article className="group bg-surface border-line relative flex h-full flex-col overflow-hidden rounded-(--radius-panel) border transition-[transform,box-shadow] duration-(--dur-base) ease-(--ease-out) hover:-translate-y-1 hover:shadow-(--shadow-lift) active:scale-(--press-scale-card)">
+    <article className="group bg-surface border-rule relative flex h-full flex-col overflow-hidden border-(length:--rule-w) transition-[transform,box-shadow] duration-(--dur-base) ease-(--ease-out) hover:-translate-y-1 hover:shadow-(--shadow-lift) active:scale-(--press-scale-card)">
       <div className="bg-surface-2 @container relative aspect-[16/10] overflow-hidden">
         {previewHref ? (
           <a

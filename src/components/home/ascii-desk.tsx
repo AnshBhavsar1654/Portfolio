@@ -134,11 +134,6 @@ export function AsciiDesk() {
 
     const ro = new ResizeObserver(rebuild);
     ro.observe(canvas);
-    const mo = new MutationObserver(rebuild);
-    mo.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["data-theme", "class"],
-    });
     const io = new IntersectionObserver(([e]) => {
       visible = e.isIntersecting;
     });
@@ -171,7 +166,6 @@ export function AsciiDesk() {
     return () => {
       window.clearInterval(id);
       ro.disconnect();
-      mo.disconnect();
       io.disconnect();
       canvas.removeEventListener("pointermove", move);
       canvas.removeEventListener("pointerleave", leave);
@@ -183,7 +177,7 @@ export function AsciiDesk() {
       ref={ref}
       role="img"
       aria-label="Animated ASCII illustration of a dream desk: a laptop with scrolling code, a side monitor with live bars, three framed posters, a night window, a shelf, a lamp and a steaming mug. Move the pointer over it to stir the characters."
-      className="border-line block w-full rounded-(--radius-panel) border font-mono"
+      className="border-rule block w-full border-(length:--rule-w) font-mono shadow-(--shadow-offset)"
       style={{ aspectRatio: `${W} / ${H * 2}`, background: "var(--desk-bg)" }}
     />
   );

@@ -14,6 +14,7 @@
   --color-body: var(--text-body);
   --color-muted: var(--text-muted);
   --color-line: var(--line);
+  --color-rule: var(--rule);
   --color-accent: var(--accent);
   --color-signal: var(--signal-positive);
   --color-accent-hover: var(--accent-hover);
@@ -74,41 +75,6 @@ body {
   color: var(--on-accent);
 }
 
-/* Theme switch. Where view transitions exist, the toggle crossfades a
-   snapshot of the old page into the live new one, so gradients, SVGs, images
-   and the halftone prints all change together instead of some snapping. The
-   toggle itself is lifted out of the fade so its ball rolls live on top. */
-:root.theme-vt::view-transition-old(root),
-:root.theme-vt::view-transition-new(root) {
-  animation-duration: var(--theme-fade);
-  animation-timing-function: var(--ease-theme);
-}
-
-.theme-toggle {
-  view-transition-name: theme-toggle;
-}
-
-:root.theme-vt::view-transition-group(theme-toggle),
-:root.theme-vt::view-transition-new(theme-toggle) {
-  animation: none;
-}
-
-:root.theme-vt::view-transition-old(theme-toggle) {
-  display: none;
-}
-
-/* Fallback without view transitions: fade colours, only while switching.
-   :where() keeps this at zero specificity so it never overrides a
-   component's own transition (hover lifts, the ball's roll). */
-:where(html.theme-switching, html.theme-switching *) {
-  transition:
-    background-color var(--theme-fade) var(--ease-theme),
-    color var(--theme-fade) var(--ease-theme),
-    border-color var(--theme-fade) var(--ease-theme),
-    fill var(--theme-fade) var(--ease-theme),
-    stroke var(--theme-fade) var(--ease-theme);
-}
-
 /* Disclosure height animation: grid-rows trick, transform-free but cheap. */
 .disclosure {
   display: grid;
@@ -128,41 +94,6 @@ body {
   .disclosure {
     transition: none;
   }
-}
-
-/* Quiet film grain, fixed, never intercepts input. Breaks digital flatness. */
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 60;
-  pointer-events: none;
-  opacity: 0.035;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-}
-
-/* Cursor spotlight: pointer position is written to --mx/--my by JS. */
-.spotlight {
-  position: relative;
-}
-
-.spotlight::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity var(--dur-base) var(--ease-standard);
-  background: radial-gradient(
-    28rem circle at var(--mx, 50%) var(--my, 50%),
-    var(--accent-wash),
-    transparent 60%
-  );
-}
-
-.spotlight:hover::before {
-  opacity: 1;
 }
 
 /* Stacked cards (jobs, projects). Each card pins under the nav a step lower
@@ -192,97 +123,17 @@ body::after {
   letter-spacing: -0.01em;
 }
 
-/* Ball toggle: the outer span travels across the track, the tilt span parks
-   the resting seam ~30° off north-south, the stitch rows crawl along that
-   stationary seam band (slow at rest, boosted through each slide; the crawl
-   lives in the component so pace changes never pop the dash pattern), and
-   the hop span squashes on landing. The hop only plays after first paint. */
-.ball-travel {
-  transition: transform var(--dur-roll) var(--ease-roll);
-}
-
-.ball-tilt {
-  transform: rotate(var(--seam-tilt));
-}
-
-.group:hover .ball-roll {
-  filter: drop-shadow(0 1px 2px var(--line));
-}
-
-@keyframes ball-hop {
-  0% {
-    transform: translateY(0) scale(1, 1);
-  }
-  28% {
-    transform: translateY(-6px) scale(0.96, 1.06);
-  }
-  58% {
-    transform: translateY(0) scale(1.18, 0.82);
-  }
-  76% {
-    transform: translateY(-1.5px) scale(0.98, 1.03);
-  }
-  100% {
-    transform: translateY(0) scale(1, 1);
-  }
-}
-
-.theme-ready .ball-hop {
-  transform-origin: 50% 100%;
-  animation: ball-hop var(--dur-roll) var(--ease-standard);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .theme-ready .ball-hop {
-    animation: none;
-  }
-}
-
-/* Frosted card that sits in front of a halftone backdrop. */
-.glass {
-  background: color-mix(in srgb, var(--surface) 86%, transparent);
-  backdrop-filter: blur(16px) saturate(1.2);
-  -webkit-backdrop-filter: blur(16px) saturate(1.2);
-}
-
-/* Borderless panel: a soft two-tone sheet with a lit top edge instead of an
-   outline, so content groups without reading as boxes. */
+/* Solid ink surfaces. .glass and .panel-soft keep their names (many
+   components use them) but are now flat printed panels: no blur, no sheen. */
+.glass,
 .panel-soft {
-  background: linear-gradient(
-    150deg,
-    color-mix(in srgb, var(--surface) 90%, transparent),
-    color-mix(in srgb, var(--surface-2) 72%, transparent)
-  );
-  backdrop-filter: blur(16px) saturate(1.2);
-  -webkit-backdrop-filter: blur(16px) saturate(1.2);
-  box-shadow: inset 0 1px 0
-    color-mix(in srgb, var(--text-strong) 7%, transparent);
+  background: var(--surface);
+  border: 1px solid var(--line);
 }
 
-/* Section tone: a soft accent wash that swings side to side down the page and
-   pools at the opposite corner of the section, so each screen has its own
-   light. Sits between the fixed print (z-0) and the content (z-10). */
-.section-wash::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  background:
-    radial-gradient(
-      55% 50% at var(--wash-x, 88%) 6%,
-      var(--accent-wash),
-      transparent 72%
-    ),
-    radial-gradient(
-      45% 40% at calc(100% - var(--wash-x, 88%)) 100%,
-      color-mix(in srgb, var(--accent-wash) 55%, transparent),
-      transparent 72%
-    );
-}
-
-.section-wash:nth-of-type(even) {
-  --wash-x: 12%;
+/* Feature panels carry the hard bone rule, like a printed plate. */
+.panel-soft {
+  border: var(--rule-w) solid var(--rule);
 }
 
 /* Fade a one-sided backdrop out toward the content side (wide screens only). */
@@ -309,60 +160,21 @@ body::after {
   text-shadow: none;
 }
 
-/* Page-coloured veil over a halftone print; strength is per theme. */
+/* Page-coloured veil over a halftone print. */
 .ht-veil {
   background: color-mix(in srgb, var(--bg) var(--ht-veil), transparent);
 }
 
-/* Hero heading: left to right fade on the text itself, never a background.
-   Shadow must go, or the halo would show through the clipped glyphs. */
-.heading-fade {
-  background-image: linear-gradient(
-    to right,
-    var(--heading-from),
-    var(--heading-to)
-  );
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  text-shadow: none;
-}
-
 /* ---------------------------------------------------------------------------
-   Motion kit: shimmer accent, ticker, link sweep, fills.
+   Motion kit: ticker, link sweep, fills.
    All timing comes from folio/motion.css; loops are switched off under
    reduced motion at the bottom of this block.
    ------------------------------------------------------------------------ */
 
-/* Accent word with a slow colour sweep running through the glyphs. The
-   halo shadow would show through clipped glyphs, so it goes. Small inline
-   padding keeps the italic overhang from being clipped. */
-@keyframes shine-x {
-  0%,
-  100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-}
-
+/* Accent word: solid cardinal serif italic, one per heading. */
 .accent-shine {
-  background-image: linear-gradient(
-    100deg,
-    var(--shine-a) 0%,
-    var(--shine-b) 40%,
-    var(--shine-c) 70%,
-    var(--shine-a) 100%
-  );
-  background-size: 200% 200%;
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  text-shadow: none;
+  color: var(--accent);
   padding-inline: 0.04em 0.14em;
-  padding-bottom: 0.08em;
-  animation: shine-x var(--dur-shine) ease-in-out infinite;
 }
 
 /* Infinite ticker. The track holds the list twice, so sliding it by half
@@ -398,20 +210,7 @@ body::after {
   animation-play-state: paused;
 }
 
-/* Progressive blur under the floating nav: the page softens as it slides
-   beneath, strongest at the very top. */
-.nav-veil {
-  background: linear-gradient(
-    to bottom,
-    color-mix(in srgb, var(--bg) 70%, transparent),
-    transparent
-  );
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  mask-image: linear-gradient(to bottom, #000 45%, transparent);
-}
-
-/* Link underline that sweeps in from the left, ink fading into accent.
+/* Link underline that sweeps in from the left in cardinal.
    A faint resting line keeps it reading as a link. */
 .link-sweep {
   position: relative;
@@ -431,7 +230,7 @@ body::after {
 }
 
 .link-sweep::after {
-  background: linear-gradient(to right, currentColor, var(--accent));
+  background: var(--accent);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform var(--dur-slow) var(--ease-base);
@@ -483,7 +282,6 @@ body::after {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .accent-shine,
   .marquee-track {
     animation: none;
   }

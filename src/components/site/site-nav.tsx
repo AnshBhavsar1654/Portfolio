@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { EASE_BASE } from "@/components/site/motion-tokens";
 import { ResumeTrigger } from "@/components/site/resume-dialog";
-import { ThemeToggle } from "@/components/site/theme-toggle";
 import { useActiveSection } from "@/components/site/use-active-section";
 import { profile } from "@/content/profile";
 import { cn } from "@/lib/cn";
@@ -78,27 +77,20 @@ export function SiteNav() {
   }, [open]);
 
   return (
-    <header className="pointer-events-none fixed inset-x-0 top-(--nav-offset) z-40 px-4">
-      {/* Progressive blur: content softens as it slides under the nav. */}
-      <div
-        aria-hidden
-        className="nav-veil fixed inset-x-0 top-0 h-(--nav-veil-h)"
-      />
+    <header className="pointer-events-none fixed inset-x-0 top-0 z-40 px-4">
       <nav
         aria-label="Primary"
         className={cn(
-          "pointer-events-auto relative z-10 mx-auto flex h-14 w-full max-w-[1200px] items-center justify-between rounded-full border pr-2 pl-5 transition-[background-color,border-color,box-shadow] duration-(--dur-base)",
-          scrolled
-            ? "border-line bg-bg/75 shadow-sm backdrop-blur-xl"
-            : "border-transparent bg-transparent"
+          "border-rule pointer-events-auto relative z-10 mx-auto flex h-14 w-full max-w-[1200px] items-center justify-between border-b-(length:--rule-w) pr-2 pl-0 transition-[background-color] duration-(--dur-base)",
+          scrolled ? "bg-bg/95" : "bg-bg/0"
         )}
       >
         <Link
           href="/#top"
           aria-label={profile.name}
-          className="text-strong flex items-center gap-2 text-sm font-semibold tracking-tight"
+          className="text-strong flex items-center gap-2 font-serif text-xl tracking-tight"
         >
-          <span aria-hidden className="bg-accent h-2.5 w-2.5 rounded-full" />
+          <span aria-hidden className="bg-accent h-2.5 w-2.5" />
           {INITIALS}
         </Link>
         <div className="hidden items-center gap-0.5 lg:flex">
@@ -108,7 +100,7 @@ export function SiteNav() {
               href={l.href}
               aria-current={active === l.id ? "true" : undefined}
               className={cn(
-                "relative rounded-full px-3.5 py-2 text-sm transition-colors",
+                "relative px-3.5 py-2 font-mono text-xs tracking-wider uppercase transition-colors",
                 active === l.id ? "text-strong" : "text-muted hover:text-strong"
               )}
             >
@@ -116,7 +108,7 @@ export function SiteNav() {
                 <motion.span
                   layoutId="nav-pill"
                   aria-hidden
-                  className="bg-surface-2 absolute inset-0 -z-10 rounded-full"
+                  className="bg-accent absolute inset-x-3.5 -bottom-px h-0.5"
                   transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }}
                 />
               ) : null}
@@ -125,10 +117,9 @@ export function SiteNav() {
           ))}
         </div>
         <div className="flex items-center gap-1">
-          <ResumeTrigger className="bg-strong text-bg hidden rounded-full px-4 py-2 font-mono text-xs uppercase transition-opacity hover:opacity-85 sm:inline-block">
+          <ResumeTrigger className="bg-strong text-bg hidden px-4 py-2 font-mono text-xs uppercase transition-opacity hover:opacity-85 sm:inline-block">
             Resume
           </ResumeTrigger>
-          <ThemeToggle />
           <button
             suppressHydrationWarning
             ref={buttonRef}
@@ -137,24 +128,24 @@ export function SiteNav() {
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? "Close menu" : "Open menu"}
-            className="text-strong hover:bg-surface-2 flex h-11 w-11 items-center justify-center rounded-full transition-colors active:scale-95 lg:hidden"
+            className="text-strong hover:bg-surface-2 flex h-11 w-11 items-center justify-center transition-colors active:scale-95 lg:hidden"
           >
             <span aria-hidden className="relative block h-3.5 w-5">
               <span
                 className={cn(
-                  "bg-strong absolute inset-x-0 top-0 h-0.5 rounded-full transition-transform duration-(--dur-slow) ease-(--ease-base)",
+                  "bg-strong absolute inset-x-0 top-0 h-0.5 transition-transform duration-(--dur-slow) ease-(--ease-base)",
                   open && "translate-y-[6px] rotate-45"
                 )}
               />
               <span
                 className={cn(
-                  "bg-strong absolute inset-x-0 top-[6px] h-0.5 rounded-full transition-opacity duration-(--dur-base) ease-(--ease-base)",
+                  "bg-strong absolute inset-x-0 top-[6px] h-0.5 transition-opacity duration-(--dur-base) ease-(--ease-base)",
                   open && "opacity-0"
                 )}
               />
               <span
                 className={cn(
-                  "bg-strong absolute inset-x-0 bottom-0 h-0.5 rounded-full transition-transform duration-(--dur-slow) ease-(--ease-base)",
+                  "bg-strong absolute inset-x-0 bottom-0 h-0.5 transition-transform duration-(--dur-slow) ease-(--ease-base)",
                   open && "-translate-y-[6px] -rotate-45"
                 )}
               />

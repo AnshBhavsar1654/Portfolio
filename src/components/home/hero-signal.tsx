@@ -171,13 +171,6 @@ export function HeroSignal({ className }: { className?: string }) {
     });
     ro.observe(canvas);
 
-    // Theme swaps rewrite data-theme on <html>: re-read the ink and repaint.
-    const mo = new MutationObserver(() => {
-      readTokens();
-      redraw();
-    });
-    mo.observe(root, { attributes: true, attributeFilter: ["data-theme"] });
-
     const onMotionChange = () => {
       readTokens();
       resize();
@@ -214,7 +207,6 @@ export function HeroSignal({ className }: { className?: string }) {
     return () => {
       cancelAnimationFrame(frame);
       ro.disconnect();
-      mo.disconnect();
       motion.removeEventListener("change", onMotionChange);
       host.removeEventListener("pointermove", onMove);
       host.removeEventListener("pointerleave", onLeave);

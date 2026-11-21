@@ -1,29 +1,26 @@
-import {
-  Bricolage_Grotesque,
-  Geist_Mono,
-  Instrument_Serif,
-} from "next/font/google";
+import { Hanken_Grotesk, IBM_Plex_Mono, Newsreader } from "next/font/google";
 
-// Body and headings. The optical-size axis gives display sizes tighter,
-// more characterful shapes while small text stays open and readable.
-export const sans = Bricolage_Grotesque({
+// Body copy and UI. Hanken Grotesk: calm, slightly humanist, reads well small
+// against the ink ground.
+export const sans = Hanken_Grotesk({
   subsets: ["latin"],
-  axes: ["opsz"],
   variable: "--font-sans",
   display: "swap",
 });
 
-export const mono = Geist_Mono({
+// Data: eyebrows, dates, tags, metrics. Plex Mono keeps the printed-ledger feel.
+export const mono = IBM_Plex_Mono({
   subsets: ["latin"],
+  weight: ["400", "500"],
   variable: "--font-mono",
   display: "swap",
 });
 
-// Display serif: used for one emphasised (italic) word per heading and for
-// big numerals. Never for body copy.
-export const serif = Instrument_Serif({
+// Display serif: headings, set roman, with one italic accent word per heading.
+// The optical-size axis tightens the shapes at display sizes. Never for body.
+export const serif = Newsreader({
   subsets: ["latin"],
-  weight: "400",
+  axes: ["opsz"],
   style: ["normal", "italic"],
   variable: "--font-serif",
   display: "swap",

@@ -18,14 +18,14 @@ export default function Home() {
       <BackdropStage />
       <Hero />
 
-      <BackdropSection id="about" backdrop="about">
+      <BackdropSection id="about">
         <SectionHeading label="About" title="A little" accent="about me." />
         <div className="mt-12">
           <About />
         </div>
       </BackdropSection>
 
-      <BackdropSection id="experience" backdrop="experience">
+      <BackdropSection id="experience">
         <SectionHeading
           label="Experience"
           title="Where I have"
@@ -37,14 +37,14 @@ export default function Home() {
         </div>
       </BackdropSection>
 
-      <BackdropSection id="education" backdrop="education">
+      <BackdropSection id="education">
         <SectionHeading label="Education" title="Where I" accent="studied." />
         <div className="mt-12">
           <EducationList />
         </div>
       </BackdropSection>
 
-      <BackdropSection id="work" backdrop="work">
+      <BackdropSection id="work">
         <SectionHeading
           label="Projects"
           title="What I have"
@@ -70,14 +70,14 @@ export default function Home() {
         </div>
       </BackdropSection>
 
-      <BackdropSection id="skills" backdrop="skills">
+      <BackdropSection id="skills">
         <SectionHeading label="Skills" title="Tools I" accent="reach for." />
         <div className="mt-12">
           <Skills />
         </div>
       </BackdropSection>
 
-      <BackdropSection id="quote" className="lg:py-40">
+      <BackdropSection id="quote" print className="lg:py-40">
         {/* Two wide-screen pins drive the split-half prints (Dhoni left,
             Messi right) with the whole section's dissolve timing. They are
             hidden below lg, where each quote's own wrapper pin (see
@@ -97,7 +97,7 @@ export default function Home() {
         <QuoteBlock />
       </BackdropSection>
 
-      <BackdropSection id="contact" backdrop="contact">
+      <BackdropSection id="contact">
         <SectionHeading
           label="Contact"
           title="Have a project?"

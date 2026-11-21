@@ -4,7 +4,6 @@ import { ScrollProgress } from "@/components/site/scroll-progress";
 import { ResumeProvider } from "@/components/site/resume-dialog";
 import { SiteFooter } from "@/components/site/site-footer";
 import { SiteNav } from "@/components/site/site-nav";
-import { ThemeScript } from "@/components/site/theme-script";
 import { profile } from "@/content/profile";
 import { siteUrl } from "@/lib/site-url";
 import { mono, sans, serif } from "./fonts";
@@ -57,11 +56,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${sans.variable} ${mono.variable} ${serif.variable}`}
-      suppressHydrationWarning
     >
-      <head>
-        <ThemeScript />
-      </head>
       <body className="bg-bg text-body font-sans antialiased">
         <script
           type="application/ld+json"
@@ -69,7 +64,7 @@ export default function RootLayout({
         />
         <a
           href="#main"
-          className="focus:bg-accent focus:text-on-accent sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:rounded-full focus:px-4 focus:py-2"
+          className="focus:bg-accent focus:text-on-accent sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:px-4 focus:py-2"
         >
           Skip to content
         </a>

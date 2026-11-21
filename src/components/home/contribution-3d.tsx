@@ -185,7 +185,7 @@ export function Contribution3D({
     const extentX = midW * STEP + HALF;
     const extentZ = midD * STEP + HALF;
 
-    let palette = readPalette(canvas);
+    const palette = readPalette(canvas);
     let width = 0;
     let height = 0;
     let scale = 1;
@@ -422,16 +422,6 @@ export function Contribution3D({
     });
     ro.observe(canvas);
 
-    // Re-read token colours when the theme flips.
-    const mo = new MutationObserver(() => {
-      palette = readPalette(canvas);
-      invalidate();
-    });
-    mo.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["data-theme", "class"],
-    });
-
     let last: Point = [0, 0];
     let touch = false;
     const onDown = (e: PointerEvent) => {
@@ -545,7 +535,6 @@ export function Contribution3D({
       cancelAnimationFrame(frame);
       io.disconnect();
       ro.disconnect();
-      mo.disconnect();
       canvas.removeEventListener("pointerdown", onDown);
       canvas.removeEventListener("pointermove", onMove);
       canvas.removeEventListener("pointerup", onUp);
@@ -568,7 +557,7 @@ export function Contribution3D({
       {tip ? (
         <p
           aria-hidden
-          className="glass border-line text-strong pointer-events-none absolute z-10 -translate-x-1/2 -translate-y-[calc(100%+0.75rem)] rounded-(--radius-input) border px-2.5 py-1.5 font-mono text-[11px] whitespace-nowrap shadow-sm"
+          className="glass border-line text-strong pointer-events-none absolute z-10 -translate-x-1/2 -translate-y-[calc(100%+0.75rem)] border px-2.5 py-1.5 font-mono text-[11px] whitespace-nowrap shadow-sm"
           style={{ left: tip.x, top: tip.y }}
         >
           {tip.text}

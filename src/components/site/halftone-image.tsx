@@ -215,16 +215,10 @@ export function HalftoneImage({
     };
     const ro = new ResizeObserver(reset);
     ro.observe(box);
-    const themes = new MutationObserver(paint);
-    themes.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["data-theme"],
-    });
 
     return () => {
       paintRef.current = () => {};
       ro.disconnect();
-      themes.disconnect();
     };
   }, [src, focusX, focusY, zoom, brightInk]);
 

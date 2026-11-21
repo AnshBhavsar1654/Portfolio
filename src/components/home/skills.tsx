@@ -94,7 +94,7 @@ export function Skills() {
     <ul className="grid grid-cols-[repeat(auto-fill,minmax(6.25rem,1fr))] gap-3">
       {all.map((s) => (
         <li key={s}>
-          <div className="group/tile panel-soft text-muted hover:text-strong hover:bg-accent-wash flex h-full min-h-24 flex-col items-center justify-center gap-3 rounded-2xl px-2 py-4 text-center transition-[transform,background-color,color] duration-(--dur-base) ease-(--ease-out-soft) active:scale-[0.97] [@media(hover:hover)]:hover:-translate-y-0.5">
+          <div className="group/tile panel-soft text-muted hover:text-strong hover:bg-accent-wash flex h-full min-h-24 flex-col items-center justify-center gap-3 px-2 py-4 text-center transition-[transform,background-color,color] duration-(--dur-base) ease-(--ease-out-soft) active:scale-[0.97] [@media(hover:hover)]:hover:-translate-y-0.5">
             <SkillMark name={s} />
             <span className="font-mono text-[11px] leading-tight">{s}</span>
           </div>

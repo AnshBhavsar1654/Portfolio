@@ -34,7 +34,7 @@ export function Section({
 
 // Eyebrow reads like a scorecard header, set open on the page (no pill):
 // "── About". Accent word is set in
-// the display serif italic, one per heading, with a slow colour sweep.
+// the display serif italic, one per heading, in solid cardinal.
 export function SectionHeading({
   title,
   accent,
@@ -50,7 +50,9 @@ export function SectionHeading({
     <div>
       {label ? (
         <p className="text-body mb-6 inline-flex items-center gap-3 font-mono text-xs tracking-(--tracking-eyebrow) uppercase">
-          <span aria-hidden className="bg-accent/60 h-px w-12" />
+          <span aria-hidden className="text-accent">
+            &mdash;
+          </span>
           <span>{label}</span>
         </p>
       ) : null}
