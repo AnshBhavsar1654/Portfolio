@@ -16,7 +16,8 @@
   --dur-instant: 100ms; /* :active press, toggles */
   --dur-fast: 150ms; /* hover, focus, colour shifts */
   --dur-base: 240ms; /* popovers, small enters/exits */
-  --dur-slow: 500ms; /* only for large, deliberate moves */
+  --dur-slow: 500ms;
+  --dur-ambient: 9s; /* background breathing loops only; never UI feedback */ /* only for large, deliberate moves */
 }
 
 /* Page-load choreography: items enter one after another; the whole sequence
