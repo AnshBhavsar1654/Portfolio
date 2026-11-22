@@ -203,7 +203,7 @@ export function ContributionGraph({
                   year: "numeric",
                   timeZone: "UTC",
                 })}`}
-                className={`contrib-cell rounded-xs ${LEVEL_BG[day.level]}`}
+                className={`contrib-cell ${LEVEL_BG[day.level]}`}
                 style={
                   {
                     gridColumn: wi + 1,
@@ -234,11 +234,7 @@ export function ContributionGraph({
       <p className="text-muted flex items-center gap-1 font-mono text-xs">
         Less
         {LEVEL_BG.map((bg) => (
-          <span
-            key={bg}
-            aria-hidden
-            className={`h-2.5 w-2.5 rounded-xs ${bg}`}
-          />
+          <span key={bg} aria-hidden className={`h-2.5 w-2.5 ${bg}`} />
         ))}
         More
       </p>
@@ -246,7 +242,7 @@ export function ContributionGraph({
   );
 
   return (
-    <figure className="glass border-line rounded-[var(--radius-panel)] border p-8 md:p-10">
+    <figure className="glass border-line border p-8 md:p-10">
       <ActivityViews
         header={header}
         grid={grid}

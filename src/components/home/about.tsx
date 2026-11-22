@@ -17,7 +17,7 @@ const STATS = [
 // left, in front of it.
 export function About() {
   return (
-    <div className="panel-soft rounded-(--radius-leaf) p-8 md:p-10 lg:max-w-3xl">
+    <div className="panel-soft p-8 md:p-10 lg:max-w-3xl">
       <p className="text-strong text-xl leading-snug tracking-tight text-pretty md:text-3xl">
         {profile.about}
       </p>

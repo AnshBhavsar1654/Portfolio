@@ -52,7 +52,7 @@ export function Hero() {
             className="hero-fade text-strong text-6xl leading-(--leading-display) font-semibold tracking-(--tracking-display) text-balance sm:text-7xl lg:text-8xl xl:text-9xl"
             style={hidden}
           >
-            <span className="heading-fade">{firstName}</span> <br />
+            {firstName} <br />
             <span className="accent-serif accent-shine">{surname}</span>
           </h1>
           <p
@@ -68,11 +68,11 @@ export function Hero() {
             {profile.location}
           </p>
           <p
-            className="hero-fade text-strong mt-6 text-2xl leading-(--leading-tight) font-semibold tracking-(--tracking-tight) sm:text-3xl xl:text-4xl"
+            className="hero-fade text-strong mt-6 font-serif text-2xl leading-(--leading-tight) font-normal tracking-(--tracking-tight) sm:text-3xl xl:text-4xl"
             style={hidden}
           >
             <span className="text-muted">I&rsquo;m an </span>
-            <span className="accent-serif accent-shine text-[1.12em]">
+            <span className="accent-serif accent-shine">
               {profile.positioning}
             </span>
           </p>
@@ -88,7 +88,7 @@ export function Hero() {
           >
             <Link
               href="#work"
-              className="bg-accent text-on-accent hover:bg-accent-hover group inline-flex items-center gap-2 rounded-full py-3.5 pr-5 pl-6 text-sm font-medium whitespace-nowrap transition-[background-color,transform] duration-(--dur-fast) ease-(--ease-out) active:scale-(--press-scale)"
+              className="bg-accent text-on-accent hover:bg-accent-hover group inline-flex items-center gap-2 py-3.5 pr-5 pl-6 text-sm font-medium whitespace-nowrap transition-[background-color,transform] duration-(--dur-fast) ease-(--ease-out) active:scale-(--press-scale)"
             >
               See my projects
               <ArrowRight
@@ -98,12 +98,9 @@ export function Hero() {
                 className="transition-transform duration-(--dur-fast) ease-(--ease-out) group-hover:translate-x-0.5"
               />
             </Link>
-            <ResumeTrigger className="btn-fill border-line text-strong inline-flex items-center gap-2.5 rounded-full border py-3.5 pr-6 pl-5 font-mono text-xs whitespace-nowrap uppercase transition-transform duration-(--dur-instant) ease-(--ease-out) active:scale-(--press-scale)">
-              <span
-                aria-hidden
-                className="btn-fill-dot bg-accent size-1.5 rounded-full"
-              />
-              [ Resume ]
+            <ResumeTrigger className="btn-fill border-rule text-strong inline-flex items-center gap-2.5 border-2 py-3.5 pr-6 pl-5 font-mono text-xs whitespace-nowrap uppercase transition-transform duration-(--dur-instant) ease-(--ease-out) active:scale-(--press-scale)">
+              <span aria-hidden className="btn-fill-dot bg-accent size-1.5" />[
+              Resume ]
             </ResumeTrigger>
           </div>
         </div>

@@ -16,7 +16,8 @@
   --dur-instant: 100ms; /* :active press, toggles */
   --dur-fast: 150ms; /* hover, focus, colour shifts */
   --dur-base: 240ms; /* popovers, small enters/exits */
-  --dur-slow: 500ms; /* only for large, deliberate moves */
+  --dur-slow: 500ms;
+  --dur-ambient: 9s; /* background breathing loops only; never UI feedback */ /* only for large, deliberate moves */
 }
 
 /* Page-load choreography: items enter one after another; the whole sequence
@@ -69,8 +70,6 @@
   --ease-standard: var(--ease-drawer);
   --ease-out-soft: var(--ease-out);
   --ease-base: var(--ease-out);
-  --theme-fade: 320ms; /* light/dark crossfade */
-  --ease-theme: var(--ease-in-out);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -82,34 +81,22 @@
     --dur-enter: 0ms;
     --stagger-enter: 0ms;
     --dur-spring: 0ms;
-    --theme-fade: 0ms;
     --press-scale: 1;
     --press-scale-card: 1;
     --hover-lift: 0px;
   }
 }
 
-/* Set-piece motion (ball toggle, reveals, ambient loops). These are the only
-   tokens allowed above 300ms. */
+/* Set-piece motion (reveals, ambient loops). These are the only tokens
+   allowed above 300ms. */
 :root {
-  --dur-roll: 680ms;
   --ease-roll: cubic-bezier(0.34, 1.35, 0.5, 1);
-  /* Ball: the seam band stays parked and its stitch rows crawl along it at a
-     pace of one loop per --dur-crawl; the component raises that --crawl-boost×
-     for --dur-roll whenever the toggle flips. */
-  --dur-crawl: 10s;
-  --crawl-boost: 15;
-  /* Seam parked 30° clockwise of north-south (the seam is drawn horizontal,
-     so tilt it the remaining 60° to reach 30° from vertical). */
-  --seam-tilt: -60deg;
   /* One-shot scroll reveal for whole sections or media only, never body text. */
   --dur-reveal: 600ms;
 }
 
 @media (prefers-reduced-motion: reduce) {
   :root {
-    --dur-roll: 0ms;
-    --dur-crawl: 0s;
     --dur-reveal: 0ms;
   }
 }
@@ -117,7 +104,6 @@
 /* Ambient loops and hover micro-motion. Loops stop entirely under reduced
    motion (see globals.css); these only set their pace. */
 :root {
-  --dur-shine: 6s; /* one there-and-back of the accent shimmer */
   --dur-marquee: 48s; /* one full pass of a skills ticker row */
 }
 

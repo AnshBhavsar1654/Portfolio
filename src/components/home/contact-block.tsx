@@ -45,7 +45,7 @@ const LINKS: { label: string; href: string; name: BrandName; tone: string }[] =
 export function ContactBlock() {
   return (
     <div className="grid gap-14 lg:grid-cols-12 lg:gap-16">
-      <div className="panel-soft rounded-(--radius-leaf) p-8 lg:col-span-6">
+      <div className="panel-soft p-8 lg:col-span-6">
         <CopyEmail />
         <ul className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-4">
           {LINKS.map(({ label, href, name, tone }) => (

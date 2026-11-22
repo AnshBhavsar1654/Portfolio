@@ -3,8 +3,8 @@
 :root {
   --layout-max: 1200px;
   --section-py: 6rem;
-  --radius-card: 12px;
-  --radius-input: 8px;
+  --radius-card: 0;
+  --radius-input: 2px;
 }
 
 @media (min-width: 768px) {
@@ -14,20 +14,21 @@
 }
 
 :root {
-  --radius-pill: 999px;
-  --radius-panel: 28px;
-  --radius-leaf: 28px 10px 28px 10px; /* asymmetric corners: previews, big panels */
-  --nav-offset: 0.875rem;
+  --radius-pill: 0; /* print look: square corners everywhere */
+  --radius-panel: 0;
+  --radius-leaf: 0;
+  --rule-w: 2px; /* hard editorial rule weight */
+  --radius-nav: 1rem; /* card nav: the one rounded surface (outer bar, panel) */
+  --radius-nav-inner: 0.625rem; /* card nav: CTA and cards nested inside it */
+  --nav-max: 50rem; /* card nav max width */
+  --nav-h: 4rem; /* card nav bar height */
+  --nav-card-min-h: 11rem; /* card nav: each card's minimum height */
   --contrib-cell: 0.625rem; /* contribution graph day-cell size */
   --contrib-gap: 0.125rem; /* gap between contribution graph day-cells */
 }
 
 :root {
   --ht-cell: 7px; /* halftone screen pitch */
-}
-
-:root {
-  --nav-veil-h: 6.5rem; /* progressive blur behind the floating nav */
 }
 
 :root {
@@ -46,4 +47,9 @@
   --space-7: 3rem;
   --space-8: 4rem;
   --hit-min: 2.75rem; /* minimum touch target (44px) */
+}
+
+:root {
+  --z-cursor: 9999;
+  --cursor-size: var(--space-5);
 }

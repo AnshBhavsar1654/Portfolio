@@ -16,14 +16,14 @@ export default function OpengraphImage() {
         flexDirection: "column",
         justifyContent: "center",
         padding: 96,
-        background: "#f5f3ee",
+        background: "#131011",
       }}
     >
       <div
         style={{
           width: 72,
           height: 6,
-          background: "#bd3f0a",
+          background: "#e5584f",
           marginBottom: 32,
         }}
       />
@@ -31,7 +31,7 @@ export default function OpengraphImage() {
         style={{
           fontSize: 96,
           fontFamily: "Georgia, serif",
-          color: "#0f1b2e",
+          color: "#f1ebdd",
           lineHeight: 1.05,
         }}
       >
@@ -42,7 +42,7 @@ export default function OpengraphImage() {
           marginTop: 24,
           fontSize: 32,
           fontFamily: "monospace",
-          color: "#2b3a52",
+          color: "#d3ccbe",
         }}
       >
         {profile.role}

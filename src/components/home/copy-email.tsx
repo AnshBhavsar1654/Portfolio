@@ -25,19 +25,19 @@ export function CopyEmail() {
         href={`mailto:${profile.email}`}
         // XL is small enough for the full email to sit on one line on every
         // phone; break-all stays as the safety valve for anything narrower.
-        className="text-strong hover:text-accent text-xl font-semibold tracking-tight break-all md:text-4xl"
+        className="text-strong hover:text-accent font-serif text-2xl font-normal tracking-tight break-all md:text-4xl"
       >
         {profile.email}
       </a>
       <p className="mt-4 flex items-center gap-3">
-        <ResumeTrigger className="border-line text-muted hover:text-strong rounded-full border px-4 py-2 font-mono text-xs transition-colors">
+        <ResumeTrigger className="border-line text-muted hover:text-strong border px-4 py-2 font-mono text-xs transition-colors">
           View resume
         </ResumeTrigger>
         <button
           suppressHydrationWarning
           type="button"
           onClick={copy}
-          className="border-line text-muted hover:text-strong rounded-full border px-4 py-2 font-mono text-xs transition-colors"
+          className="border-line text-muted hover:text-strong border px-4 py-2 font-mono text-xs transition-colors"
         >
           {copied ? "Copied" : "Copy email"}
         </button>

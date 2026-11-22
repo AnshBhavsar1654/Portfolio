@@ -24,7 +24,7 @@ export function WorkFilter() {
           onClick={() => setTag(null)}
           aria-pressed={tag === null}
           className={cn(
-            "rounded-full border px-3 py-1.5 font-mono text-xs transition-colors",
+            "border px-3 py-1.5 font-mono text-xs transition-colors",
             tag === null
               ? "border-accent bg-accent-wash text-accent"
               : "border-line text-muted hover:text-strong"
@@ -40,7 +40,7 @@ export function WorkFilter() {
             onClick={() => setTag(tag === t ? null : t)}
             aria-pressed={tag === t}
             className={cn(
-              "rounded-full border px-3 py-1.5 font-mono text-xs transition-colors",
+              "border px-3 py-1.5 font-mono text-xs transition-colors",
               tag === t
                 ? "border-accent bg-accent-wash text-accent"
                 : "border-line text-muted hover:text-strong"

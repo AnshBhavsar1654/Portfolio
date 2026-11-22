@@ -100,7 +100,7 @@ export function ActivityViews({
         <div
           role="group"
           aria-label="Chart view"
-          className="border-line bg-bg/40 flex items-center gap-0.5 rounded-full border p-0.5"
+          className="border-line bg-bg/40 flex items-center gap-0.5 border p-0.5"
         >
           {options.map(({ id, label: name, Icon }) => (
             <button
@@ -110,7 +110,7 @@ export function ActivityViews({
               aria-pressed={mode === id}
               onClick={() => setMode(id)}
               className={cn(
-                "relative grid size-8 place-items-center rounded-full transition-colors duration-(--dur-base)",
+                "relative grid size-8 place-items-center transition-colors duration-(--dur-base)",
                 mode === id ? "text-bg" : "text-muted hover:text-strong"
               )}
             >
@@ -118,7 +118,7 @@ export function ActivityViews({
                 <motion.span
                   layoutId={pillId}
                   aria-hidden
-                  className="bg-strong absolute inset-0 rounded-full"
+                  className="bg-strong absolute inset-0"
                   transition={swap}
                 />
               ) : null}

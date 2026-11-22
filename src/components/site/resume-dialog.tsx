@@ -233,7 +233,7 @@ function ResumeDialog({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 8 }}
             transition={{ duration, ease: EASE_BASE }}
-            className="bg-surface border-line flex h-full w-full flex-col overflow-hidden border pt-[env(safe-area-inset-top)] shadow-[var(--shadow-lift)] md:h-[min(86dvh,52rem)] md:w-[min(56rem,92vw)] md:rounded-[var(--radius-panel)] md:pt-0"
+            className="bg-surface border-line flex h-full w-full flex-col overflow-hidden border pt-[env(safe-area-inset-top)] shadow-[var(--shadow-lift)] md:h-[min(86dvh,52rem)] md:w-[min(56rem,92vw)] md:pt-0"
           >
             <header className="border-line flex items-center gap-3 border-b px-3 py-2.5 md:px-4">
               <div className="min-w-0 pl-1">
@@ -250,7 +250,7 @@ function ResumeDialog({
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Open resume in a new tab"
-                  className="border-line text-muted hover:text-strong hover:border-strong/40 inline-flex h-11 items-center gap-2 rounded-full border px-3.5 font-mono text-xs transition-colors"
+                  className="border-line text-muted hover:text-strong hover:border-strong/40 inline-flex h-11 items-center gap-2 border px-3.5 font-mono text-xs transition-colors"
                 >
                   <ArrowSquareOut aria-hidden size={16} />
                   <span className="hidden sm:inline">New tab</span>
@@ -259,7 +259,7 @@ function ResumeDialog({
                   href={profile.resume}
                   download
                   aria-label="Download resume"
-                  className="border-line text-muted hover:text-strong hover:border-strong/40 inline-flex h-11 items-center gap-2 rounded-full border px-3.5 font-mono text-xs transition-colors"
+                  className="border-line text-muted hover:text-strong hover:border-strong/40 inline-flex h-11 items-center gap-2 border px-3.5 font-mono text-xs transition-colors"
                 >
                   <DownloadSimple aria-hidden size={16} />
                   <span className="hidden sm:inline">Download</span>
@@ -269,7 +269,7 @@ function ResumeDialog({
                   type="button"
                   onClick={onClose}
                   aria-label="Close resume"
-                  className="border-line text-strong hover:bg-surface-2 flex size-11 items-center justify-center rounded-full border transition-colors active:scale-95"
+                  className="border-line text-strong hover:bg-surface-2 flex size-11 items-center justify-center border transition-colors active:scale-95"
                 >
                   <X aria-hidden size={18} />
                 </button>

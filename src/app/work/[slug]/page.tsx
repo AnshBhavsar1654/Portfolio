@@ -80,7 +80,7 @@ export default async function Page({
             {p.tags.map((t) => (
               <li
                 key={t}
-                className="bg-surface-2 text-muted rounded-md px-2.5 py-1 font-mono text-xs"
+                className="bg-surface-2 text-muted px-2.5 py-1 font-mono text-xs"
               >
                 {t}
               </li>

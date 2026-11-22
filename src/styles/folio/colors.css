@@ -1,155 +1,100 @@
-/* Folio colour tokens. Both themes, semantic names only.
-   Contrast: body ≥ 4.5:1, muted ≥ 4.5:1, accent-on-bg ≥ 4.5:1 in both themes.
+/* Folio colour tokens. ONE theme: warm ink + bone + cardinal ("Ink & Cardinal").
+   There is no light mode; do not add a second token set.
+   Contrast (WCAG AA, checked):
+   - text-strong on bg 15.9:1, text-body on bg 11.9:1, text-muted on bg 6.9:1
+   - text-muted on surface-2 5.8:1
+   - accent on bg 5.3:1, on surface 4.9:1
+   - accent on surface-2 is 4.4:1: use it there only for display-size text
+     (18px+) or fills, never for small labels
+   - on-accent on accent 5.4:1
    Adjust token values here, never component code. */
 
 :root {
-  color-scheme: light;
-  --bg: #f5f3ee;
-  --surface: #fcfbf8;
-  --surface-2: #e7e4db;
-  --text-strong: #0f1b2e;
-  --text-body: #2b3a52;
-  --text-muted: #56627a; /* AA on --bg and --surface-2 */
-  --line: rgba(15, 27, 46, 0.15);
-  --accent: #b13a08; /* burnt orange; AA for text on --bg and --surface-2 */
-  --accent-hover: #8f2c05;
-  --accent-wash: rgba(177, 58, 8, 0.07);
-  --shadow-lift: 0 14px 36px -18px rgba(15, 27, 46, 0.3);
-  --heading-from: #0f1b2e;
-  --heading-to: #56627a;
-  --on-accent: #ffffff;
-  --signal-positive: #18723f; /* AA as text on --bg */
-  --brand-github: #24292f;
-  --brand-linkedin: #0a66c2;
-  --brand-instagram: #c13584;
-  --brand-youtube: #ff0000;
-  --brand-gmail: #1a73e8;
-  --brand-leetcode: #b26a00;
-  --brand-huggingface-link: #9a7400;
-  --brand-x: #24292f;
-  /* Tech-tool brand colours (official marks, mono glyphs use currentColor).
-     Official hexes stay in light; dark-theme overrides below only rework
-     logos that would vanish on the dark page (see colors.css dark block). */
-  --brand-nextdotjs: #000000;
-  --brand-flask: #3babc3;
-  --brand-react: #61dafb;
-  --brand-leaflet: #199900;
-  --brand-javascript: #f7df1e;
-  --brand-streamlit: #ff4b4b;
-  --brand-vercel: #000000;
-  --brand-python: #3776ab;
-  --brand-pytorch: #ee4c2c;
-  --brand-scikitlearn: #f7931e;
-  --brand-huggingface: #ffd21e;
-  --brand-opencv: #5c3ee8;
-  --brand-redis: #ff4438;
-  --brand-numpy: #013243;
-  --brand-pandas: #150458;
-  --brand-tableau: #e97627;
-  --brand-docker: #2496ed;
-  --brand-mlflow: #0194e2;
-  --brand-cplusplus: #00599c;
-  --brand-postgresql: #4169e1;
-  --brand-langchain: #1a6fa8;
-  --brand-langgraph: #1a6fa8;
-  /* The ball is the one deliberate exception to the accent: a red leather
-     ball by day (Test cricket) and a white ball by night (floodlit white-ball
-     games), whatever the brand colour. */
-  --ball-fill: #c42b22;
-  --ball-stroke: #8e1d17;
-  --ball-seam: #f4d9d4;
-  /* Contribution graph: empty track plus four GitHub-green intensity steps. */
-  --contrib-0: #e3e0d6;
-  --contrib-1: #9be9a8;
-  --contrib-2: #40c463;
-  --contrib-3: #30a14e;
-  --contrib-4: #216e39;
-  /* Desk illustration (hero): drawn from the page's own palette so it sits on
-     the site background; only the cool mountain blue is its own. */
+  color-scheme: dark;
+  --bg: #131011;
+  --surface: #1b1718;
+  --surface-2: #262122;
+  --text-strong: #f1ebdd; /* bone */
+  --text-body: #d3ccbe;
+  --text-muted: #a39b8d;
+  --line: #3a3335; /* soft divider */
+  --rule: var(--text-strong); /* hard editorial rule: bone */
+  --accent: #e5584f; /* cardinal; the only accent */
+  --accent-hover: #f07a72;
+  --accent-wash: rgba(229, 88, 79, 0.1);
+  --on-accent: #1a0807;
+  /* Hard offset shadow (print-block look), never a soft glow. */
+  --shadow-lift: 6px 6px 0 var(--accent);
+  --shadow-offset: 8px 8px 0 var(--accent);
+  /* Card nav glass: translucent surface over a blur. Text on it is checked
+     against the opaque --surface worst case (text-strong 14.6:1). */
+  --surface-glass: rgba(27, 23, 24, 0.72);
+  /* Site light rays: bone beams with one faint cardinal beam, blurred and
+     masked into the ink. Text stays >= 4.5:1 on the brightest point. */
+  --ray-bone: rgba(241, 235, 221, 0.2);
+  --ray-accent: rgba(229, 88, 79, 0.22);
+  --signal-positive: #7be0a6; /* "live" dots only; AA as text on --bg */
+
+  /* Brand and tool marks are one flat bone-grey: the page has a single accent,
+     so logos must not bring their own colours. */
+  --brand-mark: var(--text-body);
+  --brand-github: var(--brand-mark);
+  --brand-linkedin: var(--brand-mark);
+  --brand-instagram: var(--brand-mark);
+  --brand-youtube: var(--brand-mark);
+  --brand-gmail: var(--brand-mark);
+  --brand-leetcode: var(--brand-mark);
+  --brand-huggingface-link: var(--brand-mark);
+  --brand-x: var(--brand-mark);
+  --brand-nextdotjs: var(--brand-mark);
+  --brand-flask: var(--brand-mark);
+  --brand-react: var(--brand-mark);
+  --brand-leaflet: var(--brand-mark);
+  --brand-javascript: var(--brand-mark);
+  --brand-streamlit: var(--brand-mark);
+  --brand-vercel: var(--brand-mark);
+  --brand-python: var(--brand-mark);
+  --brand-pytorch: var(--brand-mark);
+  --brand-scikitlearn: var(--brand-mark);
+  --brand-huggingface: var(--brand-mark);
+  --brand-opencv: var(--brand-mark);
+  --brand-redis: var(--brand-mark);
+  --brand-numpy: var(--brand-mark);
+  --brand-pandas: var(--brand-mark);
+  --brand-tableau: var(--brand-mark);
+  --brand-docker: var(--brand-mark);
+  --brand-mlflow: var(--brand-mark);
+  --brand-cplusplus: var(--brand-mark);
+  --brand-postgresql: var(--brand-mark);
+  --brand-langchain: var(--brand-mark);
+  --brand-langgraph: var(--brand-mark);
+
+  /* Contribution graph: empty track plus a cardinal intensity ramp. */
+  --contrib-0: #231e1f;
+  --contrib-1: #4a2522;
+  --contrib-2: #82342f;
+  --contrib-3: #c04740;
+  --contrib-4: #e5584f;
+
+  /* Desk illustration (hero): drawn from the page's own palette. */
   --desk-bg: var(--surface);
   --desk-dot: var(--surface-2);
   --desk-line: var(--text-body);
   --desk-dim: var(--text-muted);
   --desk-glow: var(--accent);
   --desk-green: var(--signal-positive);
-  --desk-blue: #3d5a7a;
-  --desk-pink: #b5502f;
-  --desk-plant: #4f7a3a;
-  --desk-wood: #8a5a2b;
-  --desk-moon: var(--accent);
-  /* Risograph halftone: two screens (ink + orange spot) printed on the page.
-     In light mode dots grow with darkness and multiply like ink on paper;
-     in dark mode they grow with brightness and screen like light. */
-  --ht-ink: #1d2e4a;
-  --ht-spot: #e08a4a;
-  --ht-invert: 0;
-  --ht-blend: multiply;
-  --ht-strength: 1; /* scales dot size */
-  --ht-veil: 62%; /* page colour laid over the print so text stays legible */
-  /* Shimmer sweep on heading accent words: burnt orange through orange to navy-ink (orange through apricot to mist in dark). Large display text only (3:1 large-text floor on --bg). */
-  --shine-a: #b13a08;
-  --shine-b: #e0661a;
-  --shine-c: #1d3557;
-}
-
-:root[data-theme="dark"] {
-  color-scheme: dark;
-  --bg: #0d0c0b;
-  --surface: #171411;
-  --surface-2: #221e1a;
-  --text-strong: #f4efe6;
-  --text-body: #d4cdc1;
-  --text-muted: #9e968a;
-  --line: rgba(244, 239, 230, 0.15);
-  --accent: #ff8a2b;
-  --accent-hover: #ffa459;
-  --accent-wash: rgba(255, 138, 43, 0.08);
-  --shadow-lift: 0 18px 44px -20px rgba(255, 138, 43, 0.24);
-  --heading-from: #f4efe6;
-  --heading-to: #9e968a;
-  --on-accent: #1f0e00;
-  --signal-positive: #7be0a6;
-  --brand-github: #ffffff;
-  --brand-linkedin: #4c9be8;
-  --brand-instagram: #e1306c;
-  --brand-youtube: #ff3333;
-  --brand-gmail: #8ab4f8;
-  --brand-leetcode: #ffa116;
-  --brand-huggingface-link: #ffd21e;
-  --brand-x: #ffffff;
-  /* Tool logos that would sink into the dark page: pure-black marks go
-     white; NumPy/Pandas lift to official lighter palette tints. */
-  --brand-nextdotjs: #ffffff;
-  --brand-vercel: #ffffff;
-  --brand-numpy: #4dabcf;
-  --brand-pandas: #7f6df0;
   --desk-blue: #8aa4c0;
   --desk-pink: #e0866a;
   --desk-plant: #86a36f;
   --desk-wood: #b5864f;
   --desk-moon: var(--text-strong);
-  --brand-tableau: #f08a45;
-  --brand-docker: #4fb0f5;
-  --brand-mlflow: #3aa9ec;
-  --brand-cplusplus: #4aa3e0;
-  --brand-postgresql: #6f8cf0;
-  --brand-langchain: #7fc8ff;
-  --brand-langgraph: #7fc8ff;
-  --ball-fill: #f6f4ee;
-  --ball-stroke: #cfcbc0;
-  --ball-seam: #b9b5a8;
-  --contrib-0: #1d1a17;
-  --contrib-1: #0e4429;
-  --contrib-2: #006d32;
-  --contrib-3: #26a641;
-  --contrib-4: #39d353;
-  --ht-ink: #bdb3a3;
-  --ht-spot: #7a4520;
+
+  /* Halftone prints (quote section only): bone dots grow with brightness and
+     screen like light on the ink ground, with a dim cardinal spot screen. */
+  --ht-ink: #cfc8b8;
+  --ht-spot: #8a342f;
   --ht-invert: 1;
   --ht-blend: screen;
-  --ht-strength: 0.8;
-  --ht-veil: 64%;
-  --shine-a: #ff8a2b;
-  --shine-b: #ffc37a;
-  --shine-c: #f4efe6;
+  --ht-strength: 0.8; /* scales dot size */
+  --ht-veil: 64%; /* page colour laid over the print so text stays legible */
 }
