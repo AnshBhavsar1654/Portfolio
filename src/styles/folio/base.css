@@ -1,6 +1,6 @@
 /* Folio base: landmarks, focus, selection. No component code here. */
 
-html {
+html:not(.lenis) {
   scroll-behavior: smooth;
 }
 

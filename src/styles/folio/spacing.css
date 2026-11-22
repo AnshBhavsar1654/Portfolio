@@ -18,6 +18,11 @@
   --radius-panel: 0;
   --radius-leaf: 0;
   --rule-w: 2px; /* hard editorial rule weight */
+  --radius-nav: 1rem; /* card nav: the one rounded surface (outer bar, panel) */
+  --radius-nav-inner: 0.625rem; /* card nav: CTA and cards nested inside it */
+  --nav-max: 50rem; /* card nav max width */
+  --nav-h: 4rem; /* card nav bar height */
+  --nav-card-min-h: 11rem; /* card nav: each card's minimum height */
   --contrib-cell: 0.625rem; /* contribution graph day-cell size */
   --contrib-gap: 0.125rem; /* gap between contribution graph day-cells */
 }

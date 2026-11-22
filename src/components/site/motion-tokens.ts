@@ -26,3 +26,23 @@ export const CURSOR_TURN_SPRING = {
 } as const;
 export const CURSOR_PRESS_SCALE = 0.9; // mirrors --press-scale
 export const CURSOR_TURN_MIN_SPEED = 4; // px moved before the arrow re-aims
+
+// Smooth scroll (components/site/smooth-scroll.tsx): the page eases toward the
+// wheel target the way the cursor follows the pointer.
+export const SCROLL_LERP = 0.09; // share of the remaining distance per frame
+export const SCROLL_WHEEL_MULTIPLIER = 0.9;
+
+// Card nav (components/site/site-nav.tsx): the menu panel drops in under the
+// bar, then its cards rise one after another.
+export const NAV_PANEL_SECONDS = 0.24; // mirrors --dur-base
+export const NAV_CARD_STAGGER_SECONDS = 0.12;
+export const NAV_CARD_RISE_PX = 16;
+// Cards land on a light bounce (--spring-bouncy-*, softened).
+export const NAV_CARD_SPRING = {
+  stiffness: 380,
+  damping: 22,
+  mass: 1,
+} as const;
+// One-shot intro: the bar drops in on first load.
+export const NAV_INTRO_SECONDS = 0.4;
+export const NAV_INTRO_DROP_PX = 12;

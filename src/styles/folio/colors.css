@@ -26,6 +26,9 @@
   /* Hard offset shadow (print-block look), never a soft glow. */
   --shadow-lift: 6px 6px 0 var(--accent);
   --shadow-offset: 8px 8px 0 var(--accent);
+  /* Card nav glass: translucent surface over a blur. Text on it is checked
+     against the opaque --surface worst case (text-strong 14.6:1). */
+  --surface-glass: rgba(27, 23, 24, 0.72);
   --signal-positive: #7be0a6; /* "live" dots only; AA as text on --bg */
 
   /* Brand and tool marks are one flat bone-grey: the page has a single accent,
