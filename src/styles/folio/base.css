@@ -44,3 +44,50 @@ body {
 [data-smooth-cursor] * {
   cursor: none !important;
 }
+
+/* Images occupy the same space and crossfade when an interest changes. */
+.about-ascii-frame {
+  position: relative;
+  aspect-ratio: 15 / 8;
+}
+.about-ascii-image {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: translateX(3%);
+  transition:
+    opacity var(--dur-slow) var(--ease-out),
+    transform var(--dur-slow) var(--ease-out);
+  pointer-events: none;
+}
+.about-ascii-image[data-active="true"] {
+  opacity: 1;
+  transform: translateX(0);
+}
+.about-interest-button {
+  border-bottom: var(--rule-w) solid transparent;
+  color: var(--text-muted);
+  padding: var(--space-2) var(--space-3);
+  transition:
+    color var(--dur-fast),
+    border-color var(--dur-fast);
+}
+.about-interest-button[aria-pressed="true"] {
+  border-color: var(--accent);
+  color: var(--text-strong);
+}
+.about-interest-button:focus-visible {
+  outline: var(--rule-w) solid var(--accent);
+  outline-offset: var(--space-1);
+}
+@media (hover: hover) {
+  .about-interest-button:hover {
+    color: var(--text-strong);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .about-ascii-image {
+    transition: none;
+    transform: none;
+  }
+}

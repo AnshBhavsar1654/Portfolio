@@ -1,3 +1,4 @@
+import { AboutInterests } from "@/components/home/about-interests";
 import { experience } from "@/content/experience";
 import { profile } from "@/content/profile";
 import { projects } from "@/content/projects";
@@ -17,22 +18,25 @@ const STATS = [
 // left, in front of it.
 export function About() {
   return (
-    <div className="panel-soft p-8 md:p-10 lg:max-w-3xl">
-      <p className="text-strong text-xl leading-snug tracking-tight text-pretty md:text-3xl">
-        {profile.about}
-      </p>
-      <dl className="mt-12 grid grid-cols-3 gap-6">
-        {STATS.map((s) => (
-          <div key={s.label} className="border-line border-t pt-4">
-            <dd className="accent-serif text-strong text-5xl leading-none tabular-nums md:text-7xl">
-              {s.value.toFixed(s.decimals)}
-            </dd>
-            <dt className="text-muted mt-3 font-mono text-xs uppercase">
-              {s.label}
-            </dt>
-          </div>
-        ))}
-      </dl>
+    <div className="grid gap-4 lg:grid-cols-2">
+      <div className="panel-soft p-8 md:p-10">
+        <p className="text-strong text-xl leading-snug tracking-tight text-pretty md:text-3xl">
+          {profile.about}
+        </p>
+        <dl className="mt-12 grid grid-cols-3 gap-6">
+          {STATS.map((s) => (
+            <div key={s.label} className="border-line border-t pt-4">
+              <dd className="accent-serif text-strong text-5xl leading-none tabular-nums md:text-7xl">
+                {s.value.toFixed(s.decimals)}
+              </dd>
+              <dt className="text-muted mt-3 font-mono text-xs uppercase">
+                {s.label}
+              </dt>
+            </div>
+          ))}
+        </dl>
+      </div>
+      <AboutInterests />
     </div>
   );
 }

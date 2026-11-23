@@ -46,3 +46,6 @@ export const NAV_CARD_SPRING = {
 // One-shot intro: the bar drops in on first load.
 export const NAV_INTRO_SECONDS = 0.4;
 export const NAV_INTRO_DROP_PX = 12;
+
+// Time each interest artwork remains visible before the next transition.
+export const INTEREST_HOLD_SECONDS = 9;
