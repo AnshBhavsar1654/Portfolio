@@ -1,37 +1,33 @@
 import { AboutInterests } from "@/components/home/about-interests";
+import { SectionHeading } from "@/components/site/section";
 import { experience } from "@/content/experience";
 import { profile } from "@/content/profile";
 import { projects } from "@/content/projects";
 
-// Stats derived from content arrays, never typed by hand.
 const STATS = [
-  {
-    value: Number.parseFloat(profile.cgpa),
-    decimals: 2,
-    label: "CGPA",
-  },
-  { value: experience.length, decimals: 0, label: "Roles held" },
-  { value: projects.length, decimals: 0, label: "Projects shipped" },
+  { value: profile.cgpa, label: "CGPA" },
+  { value: experience.length, label: "Roles held" },
+  { value: projects.length, label: "Projects shipped" },
 ];
 
-// The portrait is the section backdrop (right side); this panel sits on the
-// left, in front of it.
 export function About() {
+  const [intro, ...bio] = profile.about;
+
   return (
-    <div className="grid gap-4 lg:grid-cols-2">
-      <div className="panel-soft p-8 md:p-10">
-        <p className="text-strong text-xl leading-snug tracking-tight text-pretty md:text-3xl">
-          {profile.about}
-        </p>
-        <dl className="mt-12 grid grid-cols-3 gap-6">
-          {STATS.map((s) => (
-            <div key={s.label} className="border-line border-t pt-4">
-              <dd className="accent-serif text-strong text-5xl leading-none tabular-nums md:text-7xl">
-                {s.value.toFixed(s.decimals)}
-              </dd>
-              <dt className="text-muted mt-3 font-mono text-xs uppercase">
-                {s.label}
-              </dt>
+    <div className="about-layout">
+      <div>
+        <SectionHeading title="A little" accent="about me." />
+        <p className="about-intro">{intro}</p>
+        <div className="about-bio">
+          {bio.map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
+        </div>
+        <dl className="about-stats">
+          {STATS.map(({ label, value }) => (
+            <div key={label}>
+              <dt>{label}</dt>
+              <dd>{value}</dd>
             </div>
           ))}
         </dl>

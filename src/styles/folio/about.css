@@ -1,0 +1,182 @@
+.about-layout {
+  display: grid;
+  gap: var(--space-7);
+  align-items: center;
+}
+
+@media (min-width: 64rem) {
+  .about-layout {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: var(--space-8);
+  }
+}
+
+.about-intro {
+  margin-block-start: var(--space-5);
+  color: var(--text-strong);
+  font-size: var(--text-title-m);
+  line-height: var(--leading-tight);
+  text-wrap: pretty;
+}
+
+.about-bio {
+  display: grid;
+  gap: var(--space-3);
+  max-inline-size: 48ch;
+  margin-block-start: var(--space-4);
+  color: var(--text-body);
+  font-size: var(--text-body-l);
+  line-height: var(--leading-body);
+  text-wrap: pretty;
+}
+
+.about-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-3);
+  margin-block-start: var(--space-6);
+  border-block-start: var(--rule-w) solid var(--line);
+  padding-block-start: var(--space-4);
+}
+
+.about-stats > div {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  gap: var(--space-1);
+}
+
+.about-stats dt {
+  color: var(--text-muted);
+  font-size: var(--text-caption);
+}
+
+.about-stats dd {
+  color: var(--text-strong);
+  font-family: var(--font-mono);
+  font-size: var(--text-title-m);
+  font-variant-numeric: tabular-nums;
+}
+
+.about-interests {
+  min-inline-size: 0;
+}
+
+.about-interest-deck {
+  position: relative;
+  aspect-ratio: 15 / 11;
+  touch-action: pan-y;
+}
+
+.about-ascii-image {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  font-family: var(--font-mono);
+  pointer-events: none;
+}
+
+.about-interest-card {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: var(--rule-w) solid var(--line);
+  border-radius: var(--radius-panel);
+  background: var(--surface);
+  box-shadow: var(--shadow-lift);
+  transform-origin: center bottom;
+  transition:
+    transform var(--dur-base) var(--ease-in-out),
+    opacity var(--dur-fast) var(--ease-out),
+    filter var(--dur-fast) var(--ease-out);
+  will-change: transform;
+}
+
+.about-interest-card[data-top="true"] {
+  cursor: grab;
+}
+
+.about-interest-card[data-dragging="true"] {
+  cursor: grabbing;
+  transition: none;
+}
+
+.about-interest-media {
+  position: relative;
+  flex: 1;
+  min-block-size: 0;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+.about-interest-caption {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  min-block-size: var(--hit-min);
+  padding: var(--space-3) var(--space-4);
+  background: var(--text-strong);
+  color: var(--bg);
+  font-family: var(--font-mono);
+  font-size: var(--text-body-m);
+  font-weight: 600;
+}
+
+.about-interest-caption span:last-child {
+  color: var(--bg);
+  font-size: var(--text-caption);
+  font-weight: 500;
+  opacity: 0.7;
+}
+
+.about-deck-controls {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-block-start: var(--space-5);
+}
+
+.about-deck-button {
+  display: grid;
+  place-items: center;
+  inline-size: var(--hit-min);
+  block-size: var(--hit-min);
+  border: var(--rule-w) solid var(--line);
+  border-radius: var(--radius-pill);
+  color: var(--text-strong);
+  transition:
+    background var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out),
+    transform var(--dur-instant) var(--ease-out);
+}
+
+.about-deck-button:focus-visible {
+  outline-offset: var(--space-1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .about-deck-button:hover {
+    background: var(--text-strong);
+    color: var(--bg);
+  }
+}
+
+.about-deck-button:active {
+  transform: scale(var(--press-scale));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-interest-card {
+    transition: opacity var(--dur-fast) var(--ease-out);
+  }
+}
+
+@media (max-width: 24rem) {
+  .about-interest-caption {
+    font-size: var(--text-caption);
+  }
+}

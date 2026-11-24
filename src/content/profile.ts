@@ -12,8 +12,11 @@ export const profile = {
   university: "Nirma University",
   degree: "B.Tech Computer Science, Minor in Adaptive AI",
   cgpa: "9.07",
-  about:
-    "I like building things that people actually use. At Serin AI, where I'm a founding engineer, that turns into full-stack features, voice agents and automated evals for LLM systems. When I'm not working I'm usually still shipping, smaller projects on my own that end up deployed and open for anyone to use. The bar is simple, genuinely usable beats impressive.",
+  about: [
+    "I like building things that people actually use.",
+    "I'm a founding engineer at Serin AI, where I build full-stack features, voice agents and automated evals for LLM systems.",
+    "Outside work, I build and deploy smaller projects that anyone can use.",
+  ],
   socials: {
     github: "https://github.com/AnshBhavsar1654",
     leetcode: "https://leetcode.com/u/ansh164/",

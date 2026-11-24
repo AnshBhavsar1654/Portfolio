@@ -5,6 +5,7 @@
 @import "../styles/folio/typography.css";
 @import "../styles/folio/spacing.css";
 @import "../styles/folio/base.css";
+@import "../styles/folio/about.css";
 @import "../styles/folio/rays.css";
 
 @theme inline {

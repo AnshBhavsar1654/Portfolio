@@ -19,10 +19,7 @@ export default function Home() {
       <Hero />
 
       <BackdropSection id="about">
-        <SectionHeading label="About" title="A little" accent="about me." />
-        <div className="mt-12">
-          <About />
-        </div>
+        <About />
       </BackdropSection>
 
       <BackdropSection id="experience">

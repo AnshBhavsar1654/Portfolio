@@ -1,22 +1,26 @@
 export const interests = [
   {
-    label: "Coding",
-    image: "/img/clipboard-sync.jpg",
-    description: "ASCII rendering of a software project",
+    label: "I code",
+    image: "/img/interest-code.jpg",
+    description: "ASCII rendering of a coding workspace",
+    crop: "center",
   },
   {
-    label: "Mountains",
-    image: "/img/about-mountains.png",
-    description: "ASCII rendering of a mountain range",
+    label: "I travel",
+    image: "/img/interest-travel.jpg",
+    description: "ASCII rendering of an alpine mountain lake",
+    crop: "top",
   },
   {
-    label: "Cricket",
-    image: "/img/ms-dhoni.jpg",
-    description: "ASCII rendering of MS Dhoni",
+    label: "I play cricket",
+    image: "/img/interest-cricket.jpg",
+    description: "ASCII rendering of a cricket match",
+    crop: "center",
   },
   {
-    label: "Football",
-    image: "/img/lionel-messi.jpg",
-    description: "ASCII rendering of Lionel Messi",
+    label: "I follow football",
+    image: "/img/interest-football.jpg",
+    description: "ASCII rendering of a football match",
+    crop: "center",
   },
 ] as const;
