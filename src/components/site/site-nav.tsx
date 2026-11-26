@@ -14,6 +14,7 @@ import {
   NAV_PANEL_SECONDS,
 } from "@/components/site/motion-tokens";
 import { ResumeTrigger } from "@/components/site/resume-dialog";
+import { LogoMark } from "@/components/site/logo-mark";
 import { useActiveSection } from "@/components/site/use-active-section";
 import { profile } from "@/content/profile";
 import { projects } from "@/content/projects";
@@ -58,12 +59,6 @@ const CARDS: NavCard[] = [
 ];
 
 const IDS = CARDS.flatMap((c) => c.links.flatMap((l) => (l.id ? [l.id] : [])));
-
-const INITIALS = profile.name
-  .split(/\s+/)
-  .map((part) => part[0])
-  .join("")
-  .toUpperCase();
 
 const focusRing =
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--accent)";
@@ -170,8 +165,7 @@ export function SiteNav() {
               focusRing
             )}
           >
-            <span aria-hidden className="bg-accent size-2.5" />
-            {INITIALS}
+            <LogoMark />
           </Link>
 
           <ResumeTrigger

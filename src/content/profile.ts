@@ -1,5 +1,6 @@
 export const profile = {
   name: "Ansh Bhavsar",
+  tabTitle: "AI Engineer & Developer",
   role: "Founding Engineer & Full-Stack Developer",
   // Hero positioning line and short bio. The long form lives in `about`.
   positioning: "AI & Systems Engineer",

@@ -3,10 +3,12 @@
 import { useReducedMotion } from "motion/react";
 import { useEffect, useRef } from "react";
 import { profile } from "@/content/profile";
+import type { MatchCard } from "@/lib/barcelona-match";
 import {
   buildDynamic,
   buildStatic,
   H,
+  MONITOR_INNER,
   NAMES,
   W,
   type Grid,
@@ -38,6 +40,7 @@ function clockNow() {
 }
 const GLYPH_EM = 0.6; // monospace glyph width as a share of font size
 const FRAME_MS = 1000 / FPS;
+const MATCH_REFRESH_MS = 60_000;
 
 function readPalette(el: Element): Palette {
   const cs = getComputedStyle(el);
@@ -64,6 +67,48 @@ export function AsciiDesk() {
     let t = 0;
     let visible = true;
     let pointer: { x: number; y: number } | null = null;
+    let match: MatchCard | null = null;
+    let unavailable = false;
+    let disposed = false;
+    const logos = new Map<string, HTMLImageElement>();
+
+    const loadLogo = (url: string | null) => {
+      if (!url || logos.has(url)) return;
+      const image = new Image();
+      logos.set(url, image);
+      image.onload = () => {
+        if (!disposed) paint();
+      };
+      image.onerror = () => {
+        if (image.src.includes("/500-dark/")) {
+          image.src = image.src.replace("/500-dark/", "/500/");
+        }
+      };
+      image.src = url;
+    };
+
+    const refreshMatch = async () => {
+      try {
+        const response = await fetch("/api/barcelona-match", {
+          cache: "no-store",
+        });
+        if (!response.ok) throw new Error("Match unavailable");
+        const data = (await response.json()) as { match: MatchCard | null };
+        if (disposed) return;
+        match = data.match;
+        unavailable = !match;
+        if (match) {
+          loadLogo(match.competitionLogo);
+          loadLogo(match.home.logo);
+          loadLogo(match.away.logo);
+        }
+      } catch {
+        if (disposed) return;
+        // Preserve the last result if a later refresh fails, but mark it stale.
+        unavailable = true;
+      }
+      paint();
+    };
 
     const glyphs = (c: CanvasRenderingContext2D, g: Grid) => {
       c.font = font;
@@ -79,9 +124,15 @@ export function AsciiDesk() {
     };
 
     const layout = () => {
-      const dpr = window.devicePixelRatio || 1;
       const rect = canvas.getBoundingClientRect();
       if (rect.width === 0) return false;
+      // Pinch zoom enlarges the visual viewport without changing CSS dimensions
+      // or devicePixelRatio. Supersampling also keeps desktop zoom crisper.
+      const zoom = window.visualViewport?.scale || 1;
+      const dpr = Math.min(
+        (window.devicePixelRatio || 1) * Math.max(2, zoom),
+        4096 / rect.width
+      );
       cw = rect.width / W;
       ch = cw * 2;
       font = `${cw / GLYPH_EM}px ${getComputedStyle(canvas).fontFamily}`;
@@ -122,6 +173,106 @@ export function AsciiDesk() {
       for (const [x0, y0, x1, y1] of frame.wipes)
         ctx.fillRect(x0 * cw, y0 * ch, (x1 - x0 + 1) * cw, (y1 - y0 + 1) * ch);
       glyphs(ctx, frame.grid);
+      const { x, y, width, height } = MONITOR_INNER;
+      const left = x * cw;
+      const top = y * ch;
+      const screenWidth = width * cw;
+      const screenHeight = height * ch;
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(left, top, screenWidth, screenHeight);
+      ctx.clip();
+      ctx.fillStyle = palette.bg;
+      ctx.fillRect(left, top, screenWidth, screenHeight);
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      const text = (
+        value: string,
+        x: number,
+        y: number,
+        size: number,
+        maxWidth: number
+      ) => {
+        ctx.font = `bold ${size * ch}px ${getComputedStyle(canvas).fontFamily}`;
+        ctx.fillText(
+          value,
+          left + x * screenWidth,
+          top + y * screenHeight,
+          maxWidth * screenWidth
+        );
+      };
+      const logo = (url: string | null, x: number, y: number, size: number) => {
+        const image = url ? logos.get(url) : null;
+        if (image?.complete && image.naturalWidth) {
+          const h = size * screenHeight;
+          const w = (h * image.naturalWidth) / image.naturalHeight;
+          const drawWidth = Math.min(w, screenWidth * 0.2);
+          ctx.drawImage(
+            image,
+            left + x * screenWidth - drawWidth / 2,
+            top + y * screenHeight - h / 2,
+            drawWidth,
+            h
+          );
+        }
+      };
+      ctx.fillStyle = palette.line;
+      if (!match) {
+        text(
+          unavailable ? "SCORE UNAVAILABLE" : "LOADING SCORE",
+          0.5,
+          0.5,
+          0.8,
+          0.9
+        );
+      } else {
+        logo(match.competitionLogo, 0.5, 0.21, 0.27);
+        ctx.fillStyle = palette.line;
+        text(match.competition.toUpperCase(), 0.5, 0.42, 0.55, 0.9);
+        ctx.fillStyle = palette.blue;
+        text(
+          unavailable
+            ? "OFFLINE"
+            : match.incomplete
+              ? "PARTIAL FEED"
+              : match.live
+                ? match.status
+                : "FULL TIME",
+          0.5,
+          0.56,
+          0.65,
+          0.6
+        );
+        ctx.fillStyle = palette.dim;
+        const rows = Math.max(
+          match.home.scorers.length,
+          match.away.scorers.length,
+          1
+        );
+        const scorerHeight = 0.17;
+        const scorerSize = Math.min(0.48, (scorerHeight * height) / rows);
+        for (const [side, position] of [
+          [match.home, 0.25],
+          [match.away, 0.75],
+        ] as const) {
+          side.scorers.forEach((scorer, index) => {
+            text(
+              scorer,
+              position,
+              0.59 + ((index + 0.5) * scorerHeight) / rows,
+              scorerSize,
+              0.45
+            );
+          });
+        }
+        logo(match.home.logo, 0.1, 0.88, 0.2);
+        logo(match.away.logo, 0.9, 0.88, 0.2);
+        ctx.fillStyle = palette.line;
+        text(match.home.name, 0.26, 0.88, 0.75, 0.22);
+        text(`${match.home.score} : ${match.away.score}`, 0.5, 0.88, 1.1, 0.26);
+        text(match.away.name, 0.74, 0.88, 0.75, 0.22);
+      }
+      ctx.restore();
     };
 
     const rebuild = () => {
@@ -131,10 +282,17 @@ export function AsciiDesk() {
     };
 
     rebuild();
+    void refreshMatch();
+    const matchTimer = window.setInterval(() => {
+      if (visible && !document.hidden) void refreshMatch();
+    }, MATCH_REFRESH_MS);
     void document.fonts?.ready.then(rebuild);
 
     const ro = new ResizeObserver(rebuild);
     ro.observe(canvas);
+    // Browser zoom can change devicePixelRatio without changing the CSS width.
+    window.addEventListener("resize", rebuild);
+    window.visualViewport?.addEventListener("resize", rebuild);
     const io = new IntersectionObserver(([e]) => {
       visible = e.isIntersecting;
     });
@@ -165,8 +323,16 @@ export function AsciiDesk() {
     }
 
     return () => {
+      disposed = true;
+      window.clearInterval(matchTimer);
+      for (const image of logos.values()) {
+        image.onload = null;
+        image.onerror = null;
+      }
       window.clearInterval(id);
       ro.disconnect();
+      window.removeEventListener("resize", rebuild);
+      window.visualViewport?.removeEventListener("resize", rebuild);
       io.disconnect();
       canvas.removeEventListener("pointermove", move);
       canvas.removeEventListener("pointerleave", leave);
@@ -177,7 +343,7 @@ export function AsciiDesk() {
     <canvas
       ref={ref}
       role="img"
-      aria-label="Animated ASCII illustration of a dream desk: a laptop with scrolling code, a side monitor with live bars, three framed posters, a night window, a shelf, a lamp and a steaming mug. Move the pointer over it to stir the characters."
+      aria-label="Animated ASCII illustration of a dream desk: a laptop typing code and a side monitor showing a Barcelona football score, beneath a night window. Move the pointer over it to stir the characters."
       className="border-rule block w-full border-(length:--rule-w) font-mono shadow-(--shadow-offset)"
       style={{ aspectRatio: `${W} / ${H * 2}`, background: "var(--desk-bg)" }}
     />

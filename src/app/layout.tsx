@@ -14,7 +14,7 @@ import { mono, sans, serif } from "./fonts";
 export const metadata: Metadata = {
   metadataBase: siteUrl,
   title: {
-    default: "Ansh Bhavsar | Founding Engineer & Full-Stack Developer",
+    default: `${profile.name} | ${profile.tabTitle}`,
     template: "%s | Ansh Bhavsar",
   },
   description:

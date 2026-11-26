@@ -4,10 +4,6 @@
 // and screen glow, the clock hand, the pointer stir). Edit the layout by
 // editing coordinates here. Colours are the --desk-* tokens.
 
-import { profile } from "@/content/profile";
-import { projects } from "@/content/projects";
-import { skillGroups } from "@/content/skills";
-
 // Ticks per second of the canvas loop (keep equal to FPS in ascii-desk.tsx).
 export const TICKS_PER_SECOND = 8;
 
@@ -117,6 +113,7 @@ const CLOCK = { cx: 129, cy: 9, rx: 10, ry: 5 };
 
 const LAPTOP = { x0: 14, y0: 35, x1: 70, y1: 50 };
 const MONITOR = { x0: 84, y0: 33, x1: 140, y1: 50 };
+export const MONITOR_INNER = { x: 86, y: 35, width: 53, height: 13 };
 const DESK_Y = 54;
 
 const bump = (x: number, c: number, w: number, h: number) =>
@@ -277,9 +274,7 @@ export function buildStatic(P: Palette): Grid {
 
 // Dynamic --------------------------------------------------------------------
 
-// The laptop prints a terminal session built from src/content: who, what,
-// then the featured projects and stack. Lines type or print one after another,
-// the view scrolls once it is full, then the session holds and restarts.
+// A small AI workflow types itself into the editor, then holds and restarts.
 type TermLine = {
   text: string;
   tone: "line" | "green" | "blue" | "dim";
@@ -288,29 +283,17 @@ type TermLine = {
 };
 
 const TERM_SPEC: Omit<TermLine, "start">[] = [
-  { text: "> whoami", tone: "line", typed: true },
-  { text: `✔ ${profile.name}`, tone: "green", typed: false },
-  { text: `✔ ${profile.role}`, tone: "green", typed: false },
+  { text: "async def answer(question, knowledge):", tone: "blue", typed: true },
   {
-    text: `✔ ${profile.positioning}, ${profile.location}`,
-    tone: "green",
-    typed: false,
+    text: "    context = await knowledge.search(question)",
+    tone: "line",
+    typed: true,
   },
-  { text: "> ls projects/", tone: "line", typed: true },
-  ...projects
-    .filter((p) => p.featured)
-    .map((p) => ({
-      text: `✔ ${p.slug}`,
-      tone: "green" as const,
-      typed: false,
-    })),
-  {
-    text: `ℹ Stack: ${skillGroups[0].skills.join(", ")}`,
-    tone: "blue",
-    typed: false,
-  },
-  { text: "Success! Everything is deployed.", tone: "dim", typed: true },
-  { text: "Scroll down to see the work.", tone: "dim", typed: true },
+  { text: "    response = await agent.run(", tone: "line", typed: true },
+  { text: "        question=question,", tone: "green", typed: true },
+  { text: "        context=context,", tone: "green", typed: true },
+  { text: "    )", tone: "line", typed: true },
+  { text: "    return response", tone: "blue", typed: true },
 ];
 
 const TYPE_CPT = 2; // typed characters per tick
@@ -436,7 +419,7 @@ export function buildDynamic(
   wipes.push([CLOCK.cx - 1, CLOCK.cy, CLOCK.cx + 1, CLOCK.cy]);
   put(g, CLOCK.cx - 1, CLOCK.cy, "(@)", P.line);
 
-  // Laptop: a terminal that prints itself, with a status bar
+  // Laptop: an editor types a compact AI workflow, with a status bar
   const lw: Wipe = [LAPTOP.x0 + 2, LAPTOP.y0 + 2, LAPTOP.x1 - 2, LAPTOP.y1 - 2];
   wipes.push(lw);
   const rows = lw[3] - lw[1];
@@ -463,12 +446,11 @@ export function buildDynamic(
     g,
     lw[0] + 1,
     lw[3],
-    " zsh | portfolio | utf-8 ".padEnd(lw[2] - lw[0] - 1),
+    " agent.py | Python | utf-8 ".padEnd(lw[2] - lw[0] - 1),
     P.blue
   );
 
-  // Monitor: a Spotify-style player. Tabs, album art, track, waveform,
-  // queue, progress, transport controls.
+  // Monitor: an atmospheric football pre-match broadcast.
   const mw: Wipe = [
     MONITOR.x0 + 2,
     MONITOR.y0 + 2,
@@ -476,85 +458,6 @@ export function buildDynamic(
     MONITOR.y1 - 3,
   ];
   wipes.push(mw);
-  const [mx0, my0, mx1] = mw;
-  const right = mx1 - 1;
-
-  // Top bar: logo, tabs
-  put(g, mx0 + 1, my0, "(o)", P.green);
-  put(g, mx0 + 5, my0, "Spotify", P.line);
-  put(g, mx1 - 22, my0, "Home", P.dim);
-  put(g, mx1 - 16, my0, "Search", P.dim);
-  put(g, mx1 - 8, my0, "Library", P.glow);
-
-  // Album art: a slow dithered plasma, 12 x 6 cells (roughly square)
-  const ART = { x: mx0 + 1, y: my0 + 2, w: 12, h: 6 };
-  const ramp = " .:-=+*#%@";
-  for (let y = 0; y < ART.h; y++)
-    for (let x = 0; x < ART.w; x++) {
-      const v =
-        0.5 +
-        0.5 *
-          Math.sin(x * 0.55 + y * 0.9 + t * 0.07) *
-          Math.cos(y * 0.6 - t * 0.04);
-      const i = Math.min(9, Math.max(1, Math.round(v * 9)));
-      put(
-        g,
-        ART.x + x,
-        ART.y + y,
-        ramp[i],
-        i > 6 ? P.glow : i > 3 ? P.pink : P.green
-      );
-    }
-
-  // Track info
-  const tx = mx0 + 15;
-  put(g, tx, my0 + 2, "late night shipping", P.line);
-  put(g, tx, my0 + 3, "lofi beats to build to", P.dim);
-
-  // Waveform: sines plus a kick every 9 ticks
-  const pulse = Math.max(0, 1 - ((t % 9) / 9) * 1.6);
-  const wave = " .:|!";
-  for (let i = 0; i < 36; i++) {
-    const v =
-      0.4 +
-      0.25 * Math.sin(t * 0.5 + i * 0.7) +
-      0.2 * Math.sin(t * 0.3 + i * 1.6) +
-      0.35 * pulse * (1 - i / 36);
-    const k = Math.min(4, Math.max(1, Math.round(v * 4)));
-    put(g, tx + i, my0 + 4, wave[k], k > 3 ? P.glow : P.green);
-  }
-
-  // Up next
-  put(g, tx, my0 + 5, "UP NEXT", P.dim);
-  [
-    ["1  ship it friday", "3:12"],
-    ["2  midnight merge", "2:48"],
-  ].forEach(([name, len], i) => {
-    put(g, tx, my0 + 6 + i, name, P.line);
-    put(g, right - len.length - 1, my0 + 6 + i, len, P.dim);
-  });
-
-  // Progress: elapsed counts up in real seconds (8 ticks per second).
-  const TRACK = 225;
-  const elapsed = (Math.floor(t / TICKS_PER_SECOND) + 72) % TRACK;
-  const mmss = (n: number) =>
-    `${Math.floor(n / 60)}:${String(n % 60).padStart(2, "0")}`;
-  const barW = 36;
-  const fill = Math.round((elapsed / TRACK) * barW);
-  put(g, mx0 + 1, my0 + 9, mmss(elapsed).padStart(4, " "), P.dim);
-  put(g, mx0 + 6, my0 + 9, "=".repeat(fill) + "o", P.green);
-  put(g, mx0 + 7 + fill, my0 + 9, "-".repeat(barW - fill), P.dim);
-  put(g, mx0 + 6 + barW + 3, my0 + 9, mmss(TRACK), P.dim);
-
-  // Transport: shuffle, previous, play, next, repeat; like and volume
-  put(g, mx0 + 13, my0 + 11, "x", P.green);
-  put(g, mx0 + 18, my0 + 11, "|<<", P.line);
-  put(g, mx0 + 24, my0 + 11, "(||)", P.glow);
-  put(g, mx0 + 31, my0 + 11, ">>|", P.line);
-  put(g, mx0 + 37, my0 + 11, "o", P.dim);
-  put(g, mx0 + 1, my0 + 11, "<3", P.pink);
-  put(g, mx1 - 8, my0 + 11, "vol )))", P.dim);
-
   // Steam
   const s = Math.floor(t / 2);
   for (let k = 0; k < 3; k++) {
@@ -579,7 +482,7 @@ export function buildDynamic(
   }
   const breath = 0.85 + 0.15 * Math.sin(t * 0.25);
   halo(g, stat, LAPTOP, 12, P.blue, 0.9 * breath);
-  halo(g, stat, MONITOR, 14, P.green, 0.8 * breath);
+  halo(g, stat, MONITOR, 14, P.blue, 0.8 * breath);
   halo(g, stat, MOON, 9, P.moon, 0.9, SCENE);
 
   // Pointer stir: nearby characters flare and shuffle
