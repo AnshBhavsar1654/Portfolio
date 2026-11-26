@@ -155,7 +155,7 @@ function ResumeDialog({
       // Opened from the mobile sheet: that trigger is gone, so land back on
       // the menu button that revealed it.
       document
-        .querySelector<HTMLElement>('[aria-controls="mobile-menu"]')
+        .querySelector<HTMLElement>("[data-resume-return-focus]")
         ?.focus({ preventScroll: true });
       return;
     }
@@ -233,43 +233,44 @@ function ResumeDialog({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 8 }}
             transition={{ duration, ease: EASE_BASE }}
-            className="bg-surface border-line flex h-full w-full flex-col overflow-hidden border pt-[env(safe-area-inset-top)] shadow-[var(--shadow-lift)] md:h-[min(86dvh,52rem)] md:w-[min(56rem,92vw)] md:pt-0"
+            className="resume-dialog-shell bg-surface border-line flex h-full w-full flex-col overflow-hidden border shadow-(--shadow-lift)"
           >
-            <header className="border-line flex items-center gap-3 border-b px-3 py-2.5 md:px-4">
-              <div className="min-w-0 pl-1">
+            <header className="resume-dialog-header border-line flex items-center gap-(--space-2) border-b px-(--space-3) py-(--space-2) sm:gap-(--space-4) sm:px-(--space-5) sm:py-(--space-3)">
+              <div className="min-w-0 flex-1">
                 <p
                   id="resume-dialog-title"
-                  className="text-strong truncate text-sm font-semibold tracking-tight"
+                  className="text-strong truncate font-serif text-lg tracking-tight sm:text-xl"
                 >
-                  {profile.name} — Resume
+                  <span className="hidden sm:inline">{profile.name} — </span>
+                  Resume
                 </p>
               </div>
-              <div className="ml-auto flex shrink-0 items-center gap-2">
+              <div className="flex shrink-0 items-center gap-(--space-1) sm:gap-(--space-2)">
                 <a
                   href={profile.resume}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Open resume in a new tab"
-                  className="border-line text-muted hover:text-strong hover:border-strong/40 inline-flex h-11 items-center gap-2 border px-3.5 font-mono text-xs transition-colors"
+                  className="text-body hover:bg-surface-2 hover:text-strong focus-visible:outline-accent inline-flex min-h-(--hit-min) items-center justify-center gap-(--space-2) px-(--space-2) text-sm transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 sm:px-(--space-3)"
                 >
                   <ArrowSquareOut aria-hidden size={16} />
-                  <span className="hidden sm:inline">New tab</span>
+                  <span className="hidden sm:inline">Open PDF</span>
                 </a>
                 <a
                   href={profile.resume}
                   download
                   aria-label="Download resume"
-                  className="border-line text-muted hover:text-strong hover:border-strong/40 inline-flex h-11 items-center gap-2 border px-3.5 font-mono text-xs transition-colors"
+                  className="bg-strong text-bg focus-visible:outline-accent inline-flex min-h-(--hit-min) items-center justify-center gap-(--space-2) px-(--space-3) text-sm font-semibold transition-opacity hover:opacity-85 focus-visible:outline-2 focus-visible:outline-offset-2 sm:px-(--space-5)"
                 >
                   <DownloadSimple aria-hidden size={16} />
-                  <span className="hidden sm:inline">Download</span>
+                  <span>Download</span>
                 </a>
                 <button
                   ref={closeRef}
                   type="button"
                   onClick={onClose}
                   aria-label="Close resume"
-                  className="border-line text-strong hover:bg-surface-2 flex size-11 items-center justify-center border transition-colors active:scale-95"
+                  className="text-strong hover:bg-surface-2 focus-visible:outline-accent flex size-(--hit-min) items-center justify-center transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 active:scale-(--press-scale)"
                 >
                   <X aria-hidden size={18} />
                 </button>

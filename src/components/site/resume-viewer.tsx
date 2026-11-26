@@ -150,6 +150,7 @@ export function ResumeViewer() {
       <div
         role="region"
         aria-label="Resume pages"
+        data-lenis-prevent
         tabIndex={0}
         className="absolute inset-0 overflow-y-auto overscroll-contain p-3 md:p-5"
       >
@@ -178,8 +179,8 @@ export function ResumeViewer() {
               The preview couldn&rsquo;t load here
             </p>
             <p className="text-muted mt-1 max-w-sm text-sm">
-              Your browser blocked the PDF renderer. The resume itself is still
-              one tap away.
+              The document could not be displayed. You can still open or
+              download the PDF.
             </p>
           </div>
           <div className="flex flex-wrap items-center justify-center gap-3">

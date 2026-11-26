@@ -5,6 +5,19 @@
    colour mapped to the folio accent. Update them if PDF.js changes its
    text-layer contract. */
 
+.resume-dialog-shell {
+  padding-block-start: env(safe-area-inset-top);
+  padding-block-end: env(safe-area-inset-bottom);
+}
+
+@media (min-width: 768px) {
+  .resume-dialog-shell {
+    width: min(var(--resume-reader-width), 94vw);
+    height: min(var(--resume-reader-height), 92dvh);
+    padding-block: 0;
+  }
+}
+
 .resume-page {
   position: relative;
   flex: none;

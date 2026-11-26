@@ -47,6 +47,8 @@
   --space-7: 3rem;
   --space-8: 4rem;
   --hit-min: 2.75rem; /* minimum touch target (44px) */
+  --resume-reader-width: 72rem;
+  --resume-reader-height: 60rem;
 }
 
 :root {

@@ -113,6 +113,7 @@ export function SiteNav() {
             suppressHydrationWarning
             ref={buttonRef}
             type="button"
+            data-resume-return-focus
             onClick={() => setOpen((o) => !o)}
             aria-expanded={open}
             aria-controls={panelId}
