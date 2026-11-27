@@ -50,9 +50,6 @@ export function HalftoneImage({
     let tone: Tone | null = null;
     let loaded = false;
 
-    const token = (name: string) =>
-      getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-
     // Capped at 1.5x: these are soft backdrops and repaint while scrolling.
     const size = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
@@ -134,11 +131,11 @@ export function HalftoneImage({
       angle: number,
       offX: number,
       offY: number,
+      invert: boolean,
       curve: (t: number) => number
     ) => {
       if (!tone) return;
       const { lum, gw, gh, q } = tone;
-      const invert = brightInk || token("--ht-invert") === "1";
       const cos = Math.cos(angle);
       const sin = Math.sin(angle);
       const n = Math.ceil(Math.hypot(w, h) / (2 * d)) + 1;
@@ -168,6 +165,9 @@ export function HalftoneImage({
       if (!loaded) return;
       const { dpr, w, h } = size();
       if (!w || !h) return;
+      const palette = getComputedStyle(box);
+      const token = (name: string) => palette.getPropertyValue(name).trim();
+      const invert = brightInk || token("--ht-invert") === "1";
       const d = (Number.parseFloat(token("--ht-cell")) || 7) * dpr;
       if (canvas.width !== w || canvas.height !== h || !tone) {
         canvas.width = w;
@@ -191,12 +191,13 @@ export function HalftoneImage({
         SPOT_ANGLE,
         d * 0.22,
         -d * 0.16,
+        invert,
         (t) => t ** 1.4 * 0.8
       );
       ctx.globalCompositeOperation = (token("--ht-blend") ||
         "multiply") as GlobalCompositeOperation;
       ctx.fillStyle = token("--ht-ink");
-      screen(w, h, d, rMax, INK_ANGLE, 0, 0, (t) =>
+      screen(w, h, d, rMax, INK_ANGLE, 0, 0, invert, (t) =>
         Math.max(0, (t - 0.5) / 0.5)
       );
       ctx.globalCompositeOperation = "source-over";
@@ -215,10 +216,20 @@ export function HalftoneImage({
     };
     const ro = new ResizeObserver(reset);
     ro.observe(box);
+    const appearance = box.closest("[data-folio-appearance]");
+    const paletteObserver = new MutationObserver(paint);
+    if (appearance) {
+      paletteObserver.observe(appearance, {
+        attributes: true,
+        attributeFilter: ["data-folio-appearance"],
+      });
+    }
 
     return () => {
       paintRef.current = () => {};
+      img.onload = null;
       ro.disconnect();
+      paletteObserver.disconnect();
     };
   }, [src, focusX, focusY, zoom, brightInk]);
 

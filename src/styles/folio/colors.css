@@ -1,5 +1,4 @@
-/* Folio colour tokens. ONE theme: warm ink + bone + cardinal ("Ink & Cardinal").
-   There is no light mode; do not add a second token set.
+/* Folio colour tokens. Ink and cardinal is the default palette.
    Contrast (WCAG AA, checked):
    - text-strong on bg 15.9:1, text-body on bg 11.9:1, text-muted on bg 6.9:1
    - text-muted on surface-2 5.8:1
@@ -18,14 +17,10 @@
   --text-body: #d3ccbe;
   --text-muted: #a39b8d;
   --line: #3a3335; /* soft divider */
-  --rule: var(--text-strong); /* hard editorial rule: bone */
   --accent: #e5584f; /* cardinal; the only accent */
   --accent-hover: #f07a72;
   --accent-wash: rgba(229, 88, 79, 0.1);
   --on-accent: #1a0807;
-  /* Hard offset shadow (print-block look), never a soft glow. */
-  --shadow-lift: 6px 6px 0 var(--accent);
-  --shadow-offset: 8px 8px 0 var(--accent);
   /* Card nav glass: translucent surface over a blur. Text on it is checked
      against the opaque --surface worst case (text-strong 14.6:1). */
   --surface-glass: rgba(27, 23, 24, 0.72);
@@ -34,6 +29,46 @@
   --ray-bone: rgba(241, 235, 221, 0.2);
   --ray-accent: rgba(229, 88, 79, 0.22);
   --signal-positive: #7be0a6; /* "live" dots only; AA as text on --bg */
+
+  /* Contribution graph: empty track plus a cardinal intensity ramp. */
+  --contrib-0: #231e1f;
+  --contrib-1: #4a2522;
+  --contrib-2: #82342f;
+  --contrib-3: #c04740;
+  --contrib-4: #e5584f;
+
+  /* Desk illustration (hero): drawn from the page's own palette. */
+  --desk-bg: var(--surface);
+  --desk-dot: var(--surface-2);
+  --desk-line: var(--text-body);
+  --desk-dim: var(--text-muted);
+  --desk-glow: var(--accent);
+  --desk-green: var(--signal-positive);
+  --desk-blue: #8aa4c0;
+  --desk-pink: #e0866a;
+  --desk-plant: #86a36f;
+  --desk-wood: #b5864f;
+  --desk-moon: var(--text-strong);
+
+  /* Halftone prints (quote section only): bone dots grow with brightness and
+     screen like light on the ink ground, with a dim cardinal spot screen. */
+  --ht-ink: #cfc8b8;
+  --ht-spot: #8a342f;
+  --ht-invert: 1;
+  --ht-blend: screen;
+  --ht-strength: 0.8; /* scales dot size */
+  --ht-veil: 64%; /* page colour laid over the print so text stays legible */
+}
+
+/* Resolve aliases against the active palette, including nested paper sections. */
+:root,
+[data-folio-appearance="light"],
+main:has(> [data-folio-appearance="light"]) + footer {
+  --rule: var(
+    --text-strong
+  ); /* hard editorial rule weight resolves per palette */
+  --shadow-lift: 6px 6px 0 var(--accent);
+  --shadow-offset: 8px 8px 0 var(--accent);
 
   /* Brand and tool marks are one flat bone-grey: the page has a single accent,
      so logos must not bring their own colours. */
@@ -68,33 +103,4 @@
   --brand-postgresql: var(--brand-mark);
   --brand-langchain: var(--brand-mark);
   --brand-langgraph: var(--brand-mark);
-
-  /* Contribution graph: empty track plus a cardinal intensity ramp. */
-  --contrib-0: #231e1f;
-  --contrib-1: #4a2522;
-  --contrib-2: #82342f;
-  --contrib-3: #c04740;
-  --contrib-4: #e5584f;
-
-  /* Desk illustration (hero): drawn from the page's own palette. */
-  --desk-bg: var(--surface);
-  --desk-dot: var(--surface-2);
-  --desk-line: var(--text-body);
-  --desk-dim: var(--text-muted);
-  --desk-glow: var(--accent);
-  --desk-green: var(--signal-positive);
-  --desk-blue: #8aa4c0;
-  --desk-pink: #e0866a;
-  --desk-plant: #86a36f;
-  --desk-wood: #b5864f;
-  --desk-moon: var(--text-strong);
-
-  /* Halftone prints (quote section only): bone dots grow with brightness and
-     screen like light on the ink ground, with a dim cardinal spot screen. */
-  --ht-ink: #cfc8b8;
-  --ht-spot: #8a342f;
-  --ht-invert: 1;
-  --ht-blend: screen;
-  --ht-strength: 0.8; /* scales dot size */
-  --ht-veil: 64%; /* page colour laid over the print so text stays legible */
 }

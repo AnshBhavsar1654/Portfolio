@@ -1,0 +1,279 @@
+.stage {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  --scenery-reading-wash: var(--scenery-ink-wash);
+  --scenery-reading-edge: var(--scenery-ink-edge);
+}
+
+.stage[data-scenery-light] {
+  background: var(--folio-paper);
+  --scenery-reading-wash: var(--scenery-paper-wash);
+  --scenery-reading-edge: var(--scenery-paper-edge);
+}
+
+.landscape,
+.sharp,
+.reading,
+.landscape canvas,
+.scrim,
+.wash {
+  position: absolute;
+  inset: 0;
+}
+
+.landscape {
+  overflow: hidden;
+}
+
+.sharp {
+  background: var(--bg) url("/img/mountain-sunset.webp") 56% 28% / cover
+    no-repeat;
+}
+
+.landscape canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 56% 28%;
+}
+
+.stage:not([data-ready]) canvas,
+.stage:not([data-ready]) .reading {
+  visibility: hidden;
+}
+
+.landscape .clouds {
+  inset-inline-start: -4%;
+  width: 108%;
+  animation: drift var(--dur-scenery-drift) var(--ease-in-out) infinite
+    alternate;
+  animation-delay: calc(var(--dur-scenery-drift) / -3);
+}
+
+.reading {
+  opacity: var(--scenery-wash, 0);
+}
+
+.reading canvas {
+  animation: haze var(--dur-scenery-haze) var(--ease-in-out) infinite alternate;
+  animation-delay: calc(var(--dur-scenery-haze) / -3);
+}
+
+@keyframes drift {
+  to {
+    transform: translateX(3.5%);
+  }
+}
+
+@keyframes haze {
+  from {
+    transform: scale(1.04) translateX(-1%);
+  }
+  to {
+    transform: scale(1.04) translateX(1%);
+  }
+}
+
+.stage[data-paused] :is(.clouds, .reading canvas) {
+  animation-play-state: paused;
+}
+
+.stage[data-ready][data-blurred] .sharp {
+  display: none;
+}
+
+.scrim {
+  background:
+    linear-gradient(
+      90deg,
+      var(--scenery-ink-deep),
+      var(--scenery-ink-mid) 35%,
+      transparent 74%
+    ),
+    linear-gradient(0deg, var(--scenery-ink-mid), transparent 50%);
+}
+
+.wash {
+  background: linear-gradient(
+    90deg,
+    var(--scenery-reading-edge),
+    var(--scenery-reading-wash) 70%
+  );
+}
+
+.hero {
+  position: relative;
+}
+
+.tools {
+  position: absolute;
+  z-index: 20;
+  inset-inline: max(
+    var(--space-4),
+    calc((100% - var(--layout-max)) / 2 + var(--space-4))
+  );
+  inset-block-end: var(--space-5);
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: var(--space-2);
+  pointer-events: none;
+}
+
+.tools a,
+.controls {
+  pointer-events: auto;
+}
+
+.controls {
+  position: relative;
+}
+
+.explore,
+.controls summary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: var(--hit-min);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--scenery-control-border);
+  background: var(--scenery-control);
+  color: var(--text-strong);
+  font-size: var(--text-caption);
+  text-align: center;
+  cursor: pointer;
+}
+
+.explore svg,
+.controls summary svg {
+  width: var(--space-4);
+  height: var(--space-4);
+  flex: none;
+}
+
+.controls summary {
+  list-style: none;
+}
+
+.controls summary::-webkit-details-marker {
+  display: none;
+}
+
+.controls[open] summary {
+  border-color: var(--accent);
+}
+
+.panel {
+  position: absolute;
+  z-index: 1;
+  inset-inline-end: 0;
+  inset-block-end: calc(100% + var(--space-2));
+  width: min(var(--scenery-panel-width), calc(100vw - 2 * var(--space-4)));
+  padding: var(--space-4);
+  border: 1px solid var(--scenery-control-border);
+  border-radius: var(--radius-input);
+  background: var(--surface);
+  color: var(--text-strong);
+  font-size: var(--text-caption);
+}
+
+.controlRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.controlRow select {
+  min-height: var(--hit-min);
+  border: 1px solid var(--scenery-control-border);
+  padding-inline: var(--space-2);
+  background: var(--surface-2);
+  color: var(--text-strong);
+}
+
+.panel output {
+  color: var(--accent-hover);
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.panel input[type="range"] {
+  display: block;
+  width: 100%;
+  height: var(--hit-min);
+  accent-color: var(--accent-hover);
+  cursor: ew-resize;
+}
+
+.presets {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-1);
+  margin-block-end: var(--space-3);
+}
+
+.presets button {
+  min-height: var(--hit-min);
+  border: 1px solid var(--scenery-control-border);
+  padding-inline: var(--space-1);
+  cursor: pointer;
+}
+
+.presets button[aria-pressed="true"] {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.motionToggle {
+  width: 100%;
+  min-height: var(--hit-min);
+  margin-block-start: var(--space-2);
+  border: 1px solid var(--scenery-control-border);
+  cursor: pointer;
+}
+
+.motionToggle[aria-pressed="true"] {
+  border-color: var(--accent);
+  background: var(--accent-wash);
+}
+
+@media (hover: hover) {
+  .explore:hover,
+  .controls summary:hover,
+  .motionToggle:hover,
+  .presets button:hover {
+    border-color: var(--text-strong);
+  }
+}
+
+@media (width < 48rem) {
+  .sharp,
+  .landscape canvas {
+    background-position: 66% 28%;
+    object-position: 66% 28%;
+  }
+
+  .scrim {
+    background:
+      linear-gradient(90deg, var(--scenery-ink-dark), var(--scenery-ink-soft)),
+      linear-gradient(0deg, var(--scenery-ink-dark), transparent 63%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landscape .clouds,
+  .reading canvas {
+    animation: none;
+  }
+
+  .motionToggle {
+    display: none;
+  }
+}

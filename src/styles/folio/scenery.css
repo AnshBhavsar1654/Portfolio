@@ -1,0 +1,52 @@
+:root {
+  /* The scene keeps ink behind the hero. Its wash follows the reading palette. */
+  --folio-paper: #eee5d9;
+  --scenery-ink-deep: rgba(19, 16, 17, 0.92);
+  --scenery-ink-dark: rgba(19, 16, 17, 0.8);
+  --scenery-ink-mid: rgba(19, 16, 17, 0.59);
+  --scenery-ink-soft: rgba(19, 16, 17, 0.25);
+  --scenery-ink-edge: rgba(19, 16, 17, 0.76);
+  --scenery-ink-wash: rgba(27, 20, 30, 0.56);
+  --scenery-paper-edge: rgba(238, 229, 217, 0.67);
+  --scenery-paper-wash: rgba(238, 229, 217, 0.54);
+  --scenery-control: rgba(19, 16, 17, 0.95);
+  --scenery-control-border: rgba(241, 235, 221, 0.38);
+  --scenery-panel-width: 18rem;
+  --dur-scenery-drift: 34s;
+  --dur-scenery-haze: 48s;
+}
+
+/* The home footer sits on the same scenery as the reading sections. */
+main:has(> [data-folio-appearance]) + footer {
+  background-color: transparent;
+}
+
+[data-folio-appearance="light"],
+main:has(> [data-folio-appearance="light"]) + footer {
+  color-scheme: light;
+  color: var(--text-body);
+  --bg: var(--folio-paper);
+  --surface: #f8f0e5;
+  --surface-2: #e5d8ca;
+  --text-strong: #261c1b;
+  --text-body: #392b28;
+  --text-muted: #67524c;
+  --line: #c9b8ae;
+  --accent: #9a302b;
+  --accent-hover: #732521;
+  --accent-wash: rgba(154, 48, 43, 0.1);
+  --on-accent: #fff8ee;
+  --surface-glass: rgba(248, 240, 229, 0.88);
+  --signal-positive: #236340;
+  --contrib-0: #e1d3c7;
+  --contrib-1: #edc2b2;
+  --contrib-2: #d28f80;
+  --contrib-3: #b55147;
+  --contrib-4: #9a302b;
+  --ht-ink: #413431;
+  --ht-spot: #85332e;
+  --ht-invert: 0;
+  --ht-blend: multiply;
+  --ht-strength: 0.9;
+  --ht-veil: 30%;
+}

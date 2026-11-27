@@ -5,18 +5,19 @@ import { ContactBlock } from "@/components/home/contact-block";
 import { EducationList } from "@/components/home/education-list";
 import { ExperienceList } from "@/components/home/experience-list";
 import { Hero } from "@/components/home/hero";
+import { MountainScenery } from "@/components/home/mountain-scenery";
 import { QuoteBlock } from "@/components/home/quote-block";
 import { Skills } from "@/components/home/skills";
 import { WorkList } from "@/components/home/work-list";
 import { BackdropSection } from "@/components/site/backdrop-section";
 import { BackdropStage } from "@/components/site/backdrop-stage";
 import { SectionHeading } from "@/components/site/section";
+import "@/styles/folio/scenery.css";
 
 export default function Home() {
   return (
-    <>
+    <MountainScenery hero={<Hero />}>
       <BackdropStage />
-      <Hero />
 
       <BackdropSection id="about">
         <About />
@@ -105,6 +106,6 @@ export default function Home() {
           <ContactBlock />
         </div>
       </BackdropSection>
-    </>
+    </MountainScenery>
   );
 }

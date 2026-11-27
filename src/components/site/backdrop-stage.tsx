@@ -129,7 +129,12 @@ export function BackdropStage() {
           </div>
         );
       })}
-      <div className="ht-veil absolute inset-0" />
+      {layers.length > 0 && (
+        <div
+          className="ht-veil absolute inset-0"
+          style={{ opacity: Math.max(...layers.map(({ weight }) => weight)) }}
+        />
+      )}
     </div>
   );
 }
