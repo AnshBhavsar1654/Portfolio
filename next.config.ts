@@ -12,6 +12,9 @@ const pdfjsPackage = JSON.parse(
 ) as { version: string };
 
 const nextConfig: NextConfig = {
+  experimental: {
+    agentUpgrade: "security",
+  },
   env: {
     NEXT_PUBLIC_PDFJS_VERSION: pdfjsPackage.version,
   },
