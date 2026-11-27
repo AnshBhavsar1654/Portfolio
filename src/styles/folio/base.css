@@ -41,6 +41,12 @@ body {
 
 /* SmoothCursor draws the pointer itself on fine-pointer devices. */
 [data-smooth-cursor],
-[data-smooth-cursor] * {
+[data-smooth-cursor]
+  *:not(:where([popover]:popover-open, [popover]:popover-open *)) {
   cursor: none !important;
+}
+
+/* Open popovers sit above the custom cursor in the browser's top layer. */
+[data-smooth-cursor] [popover]:popover-open {
+  cursor: auto;
 }

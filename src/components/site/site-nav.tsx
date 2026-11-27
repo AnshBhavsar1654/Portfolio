@@ -14,7 +14,6 @@ import {
   NAV_PANEL_SECONDS,
 } from "@/components/site/motion-tokens";
 import { ResumeTrigger } from "@/components/site/resume-dialog";
-import { LogoMark } from "@/components/site/logo-mark";
 import { useActiveSection } from "@/components/site/use-active-section";
 import { profile } from "@/content/profile";
 import { projects } from "@/content/projects";
@@ -103,12 +102,15 @@ export function SiteNav() {
       <motion.nav
         ref={rootRef}
         aria-label="Primary"
-        initial={reduce ? false : { opacity: 0, y: -NAV_INTRO_DROP_PX }}
+        initial={{ opacity: 0, y: -NAV_INTRO_DROP_PX }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: NAV_INTRO_SECONDS, ease: EASE_BASE }}
+        transition={{
+          duration: reduce ? 0 : NAV_INTRO_SECONDS,
+          ease: EASE_BASE,
+        }}
         className="pointer-events-auto relative mx-auto w-full max-w-(--nav-max)"
       >
-        <div className="bg-surface-glass border-line grid h-(--nav-h) grid-cols-[1fr_auto_1fr] items-center rounded-(--radius-nav) border px-(--space-2) backdrop-blur-md">
+        <div className="bg-surface-glass border-line grid h-(--nav-h) grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center rounded-(--radius-nav) border px-(--space-2) backdrop-blur-md">
           <button
             suppressHydrationWarning
             ref={buttonRef}
@@ -158,25 +160,18 @@ export function SiteNav() {
             </span>
           </button>
 
-          <Link
-            href="/#top"
-            aria-label={profile.name}
-            className={cn(
-              "text-strong flex items-center gap-(--space-2) justify-self-center font-serif text-xl tracking-tight transition-transform duration-(--dur-instant) ease-(--ease-out) active:scale-(--press-scale)",
-              focusRing
-            )}
-          >
-            <LogoMark />
-          </Link>
+          <div id="scenery-nav-slot" className="justify-self-center" />
 
-          <ResumeTrigger
-            className={cn(
-              "bg-strong text-bg hidden h-(--hit-min) items-center justify-self-end rounded-(--radius-nav-inner) px-(--space-5) text-sm font-semibold transition-[opacity,transform] duration-(--dur-instant) ease-(--ease-out) hover:opacity-85 active:scale-(--press-scale) sm:inline-flex",
-              focusRing
-            )}
-          >
-            Resume
-          </ResumeTrigger>
+          <div className="justify-self-end">
+            <ResumeTrigger
+              className={cn(
+                "bg-strong text-bg hidden h-(--hit-min) items-center justify-self-end rounded-(--radius-nav-inner) px-(--space-5) text-sm font-semibold transition-[opacity,transform] duration-(--dur-instant) ease-(--ease-out) hover:opacity-85 active:scale-(--press-scale) sm:inline-flex",
+                focusRing
+              )}
+            >
+              Resume
+            </ResumeTrigger>
+          </div>
         </div>
 
         <AnimatePresence>
@@ -189,7 +184,7 @@ export function SiteNav() {
               exit={reduce ? undefined : { opacity: 0, y: -8, scaleY: 0.96 }}
               transition={{ duration: NAV_PANEL_SECONDS, ease: EASE_BASE }}
               style={{ transformOrigin: "top" }}
-              className="bg-surface-glass border-line mt-(--space-2) rounded-(--radius-nav) border p-(--space-2) backdrop-blur-md"
+              className="bg-surface-glass border-line mt-(--space-2) max-h-[calc(100svh-var(--nav-h)-var(--space-6))] overflow-y-auto overscroll-contain rounded-(--radius-nav) border p-(--space-2) backdrop-blur-md"
             >
               <div className="grid gap-(--space-2) md:grid-cols-3">
                 {CARDS.map((card, i) => (

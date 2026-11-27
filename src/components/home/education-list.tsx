@@ -52,7 +52,7 @@ export function EducationList() {
                 ))}
               </ul>
             </div>
-            <dl className="flex gap-x-8 md:justify-end md:text-right">
+            <dl className="flex flex-wrap gap-x-8 gap-y-3 md:justify-end md:text-right">
               {s.scores.map((sc) => (
                 <div key={sc.label}>
                   <dd

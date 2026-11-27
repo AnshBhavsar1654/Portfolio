@@ -7,6 +7,7 @@
 @import "../styles/folio/base.css";
 @import "../styles/folio/about.css";
 @import "../styles/folio/rays.css";
+@import "../styles/folio/scenery.css";
 
 @theme inline {
   --color-bg: var(--bg);

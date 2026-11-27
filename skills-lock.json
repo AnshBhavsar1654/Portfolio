@@ -13,6 +13,174 @@
       "sourceType": "github",
       "skillPath": "skills/landing-page-design/SKILL.md",
       "computedHash": "98fa8463d5fc56f969d52f24512366d66655271080cb67b43ca0790d8e951bc6"
+    },
+    "threejs-accessibility": {
+      "source": "cesartevisual/threejs-skills",
+      "commit": "84f9bcb4bea1f7a28d57fe7f0af78f7f9c3dc467",
+      "sourceType": "github",
+      "skillPath": "skills/threejs-accessibility/SKILL.md",
+      "computedHash": "d270b9c53905f197cb060a6ff92f0498176bc74980435ef8e2d0a8fe414174b1"
+    },
+    "threejs-animation": {
+      "source": "cesartevisual/threejs-skills",
+      "commit": "84f9bcb4bea1f7a28d57fe7f0af78f7f9c3dc467",
+      "sourceType": "github",
+      "skillPath": "skills/threejs-animation/SKILL.md",
+      "computedHash": "a63adaf1a3bfd618c7ed51c6e7701799746a752e5c027c93451cdf5ee1e2a6e4"
+    },
+    "threejs-assets": {
+      "source": "cesartevisual/threejs-skills",
+      "commit": "84f9bcb4bea1f7a28d57fe7f0af78f7f9c3dc467",
+      "sourceType": "github",
+      "skillPath": "skills/threejs-assets/SKILL.md",
+      "computedHash": "e9eff1ef877573695c2d6554a1f8dd693720382fb49f61524c31c38d6ade7e9d"
+    },
+    "threejs-audio": {
+      "source": "cesartevisual/threejs-skills",
+      "commit": "84f9bcb4bea1f7a28d57fe7f0af78f7f9c3dc467",
+      "sourceType": "github",
+      "skillPath": "skills/threejs-audio/SKILL.md",
+      "computedHash": "db3a51ca543fdcfb2049869019b2730c099e9c01ac3431ee5c869b6438147563"
+    },
+    "threejs-debugging": {
+      "source": "cesartevisual/threejs-skills",
+      "commit": "84f9bcb4bea1f7a28d57fe7f0af78f7f9c3dc467",
+      "sourceType": "github",
+      "skillPath": "skills/threejs-debugging/SKILL.md",
+      "computedHash": "29d5c05f028411a82c75a8d3f797efc00b1d7446833568741608ebdce6de521f"
+    },
+    "threejs-deployment": {
+      "source": "cesartevisual/threejs-skills",
+      "commit": "84f9bcb4bea1f7a28d57fe7f0af78f7f9c3dc467",
+      "sourceType": "github",
+      "skillPath": "skills/threejs-deployment/SKILL.md",
+      "computedHash": "5c5b6766da3766715023ff53cb8748ece18c291096aec4d3412090eebc8f741e"
+    },
+    "threejs-geometry": {
+      "source": "cesartevisual/threejs-skills",
+      "commit": "84f9bcb4bea1f7a28d57fe7f0af78f7f9c3dc467",
+      "sourceType": "github",
+      "skillPath": "skills/threejs-geometry/SKILL.md",
+      "computedHash": "49c69bdb238323f803fb6cc4ba6d45b8abf842d1a14aed5a1d47da4b689eb880"
+    },
+    "threejs-html": {
+      "source": "cesartevisual/threejs-skills",
+      "commit": "84f9bcb4bea1f7a28d57fe7f0af78f7f9c3dc467",
+      "sourceType": "github",
+      "skillPath": "skills/threejs-html/SKILL.md",
+      "computedHash": "e0fb9630d13b7b9e41be3ff75dc730bfad2292754716ef2522a4f9025576ef18"
+    },
+    "threejs-interaction": {
+      "source": "cesartevisual/threejs-skills",
+      "commit": "84f9bcb4bea1f7a28d57fe7f0af78f7f9c3dc467",
+      "sourceType": "github",
+      "skillPath": "skills/threejs-interaction/SKILL.md",
+      "computedHash": "c4e924b6e69390a9b43fc92aa6e9d025db4149f43f79c77795a434af8b10330d"
+    },
+    "threejs-lighting": {
+      "source": "cesartevisual/threejs-skills",
+      "commit": "84f9bcb4bea1f7a28d57fe7f0af78f7f9c3dc467",
+      "sourceType": "github",
+      "skillPath": "skills/threejs-lighting/SKILL.md",
+      "computedHash": "630b1d351bfa6b1c1cafb7fe27f57cc38934bf9fa9e971e186f6f2460694e4d8"
+    },
+    "threejs-materials": {
+      "source": "cesartevisual/threejs-skills",
+      "commit": "84f9bcb4bea1f7a28d57fe7f0af78f7f9c3dc467",
+      "sourceType": "github",
+      "skillPath": "skills/threejs-materials/SKILL.md",
+      "computedHash": "c6cc83f5d492c98bac444721b14561b4590084141c61ec5f64084570f01c7dbe"
+    },
+    "threejs-particles": {
+      "source": "cesartevisual/threejs-skills",
+      "commit": "84f9bcb4bea1f7a28d57fe7f0af78f7f9c3dc467",
+      "sourceType": "github",
+      "skillPath": "skills/threejs-particles/SKILL.md",
+      "computedHash": "011f4cc15a5ea7e04a1a998659cad52ddfe90795e10318ed7f5c9e4deffa3ec7"
+    },
+    "threejs-performance": {
+      "source": "cesartevisual/threejs-skills",
+      "commit": "84f9bcb4bea1f7a28d57fe7f0af78f7f9c3dc467",
+      "sourceType": "github",
+      "skillPath": "skills/threejs-performance/SKILL.md",
+      "computedHash": "063ea29b3ada42b145a2934562a028900cf97dcc08b1b98767561c85de0d6259"
+    },
+    "threejs-physics": {
+      "source": "cesartevisual/threejs-skills",
+      "commit": "84f9bcb4bea1f7a28d57fe7f0af78f7f9c3dc467",
+      "sourceType": "github",
+      "skillPath": "skills/threejs-physics/SKILL.md",
+      "computedHash": "79b096bbcf7b8a97cd5c238ae3f635737b92284f651d75faf9b8171dd50eff87"
+    },
+    "threejs-postprocessing": {
+      "source": "cesartevisual/threejs-skills",
+      "commit": "84f9bcb4bea1f7a28d57fe7f0af78f7f9c3dc467",
+      "sourceType": "github",
+      "skillPath": "skills/threejs-postprocessing/SKILL.md",
+      "computedHash": "f86de7badcbbc6e46c227e3805a5543805ae926064d4360da98620609e41f2b1"
+    },
+    "threejs-product-viewer": {
+      "source": "cesartevisual/threejs-skills",
+      "commit": "84f9bcb4bea1f7a28d57fe7f0af78f7f9c3dc467",
+      "sourceType": "github",
+      "skillPath": "skills/threejs-product-viewer/SKILL.md",
+      "computedHash": "ab43ff0cd69803b251f5a95c129a1bcbe586d68283979791f34f1528e48e83c4"
+    },
+    "threejs-r3f": {
+      "source": "cesartevisual/threejs-skills",
+      "commit": "84f9bcb4bea1f7a28d57fe7f0af78f7f9c3dc467",
+      "sourceType": "github",
+      "skillPath": "skills/threejs-r3f/SKILL.md",
+      "computedHash": "4eca6f00838a79b0ae6a836d189506bfc1ccef733d71cfd34dafea340fc81a95"
+    },
+    "threejs-scene": {
+      "source": "cesartevisual/threejs-skills",
+      "commit": "84f9bcb4bea1f7a28d57fe7f0af78f7f9c3dc467",
+      "sourceType": "github",
+      "skillPath": "skills/threejs-scene/SKILL.md",
+      "computedHash": "418dc951505bbce349556d2048860d47cb53ac6c84a14cba7235f18ea4b2c2d3"
+    },
+    "threejs-shaders": {
+      "source": "cesartevisual/threejs-skills",
+      "commit": "84f9bcb4bea1f7a28d57fe7f0af78f7f9c3dc467",
+      "sourceType": "github",
+      "skillPath": "skills/threejs-shaders/SKILL.md",
+      "computedHash": "0fbfc72b4ac3e5f23da14a375e1e3feec4825749bc914ea26c110ef5ea626b1a"
+    },
+    "threejs-spatial-data": {
+      "source": "cesartevisual/threejs-skills",
+      "commit": "84f9bcb4bea1f7a28d57fe7f0af78f7f9c3dc467",
+      "sourceType": "github",
+      "skillPath": "skills/threejs-spatial-data/SKILL.md",
+      "computedHash": "4669a36aadcdd345061216aea33e15bf6fc713efe9a0c938f6b679a1784664c6"
+    },
+    "threejs-testing": {
+      "source": "cesartevisual/threejs-skills",
+      "commit": "84f9bcb4bea1f7a28d57fe7f0af78f7f9c3dc467",
+      "sourceType": "github",
+      "skillPath": "skills/threejs-testing/SKILL.md",
+      "computedHash": "ff275c8acfe27bb109ebf10b8765c5cd7ba4c50d7db6ae91ec39a97f72bdafc0"
+    },
+    "threejs-web": {
+      "source": "cesartevisual/threejs-skills",
+      "commit": "84f9bcb4bea1f7a28d57fe7f0af78f7f9c3dc467",
+      "sourceType": "github",
+      "skillPath": "skills/threejs-web/SKILL.md",
+      "computedHash": "7ab2ca41ad3e2153904f5ded6761dca148f97b0f715f05737cef5f13d8c5fe86"
+    },
+    "threejs-webgpu": {
+      "source": "cesartevisual/threejs-skills",
+      "commit": "84f9bcb4bea1f7a28d57fe7f0af78f7f9c3dc467",
+      "sourceType": "github",
+      "skillPath": "skills/threejs-webgpu/SKILL.md",
+      "computedHash": "1bc309d39f48122e4cd791655a4555b9e79eca829a81ac4fc1fe42bdd765d1b0"
+    },
+    "threejs-xr": {
+      "source": "cesartevisual/threejs-skills",
+      "commit": "84f9bcb4bea1f7a28d57fe7f0af78f7f9c3dc467",
+      "sourceType": "github",
+      "skillPath": "skills/threejs-xr/SKILL.md",
+      "computedHash": "4b212796cc2386b9d487af0f95fef507c3cf4d1b0a702a92d8385877458e5b1b"
     }
   }
 }

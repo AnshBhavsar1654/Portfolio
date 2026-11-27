@@ -1,108 +1,78 @@
-.stage {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  overflow: hidden;
-  pointer-events: none;
-  --scenery-reading-wash: var(--scenery-ink-wash);
-  --scenery-reading-edge: var(--scenery-ink-edge);
-}
-
-.stage[data-scenery-light] {
-  background: var(--folio-paper);
-  --scenery-reading-wash: var(--scenery-paper-wash);
-  --scenery-reading-edge: var(--scenery-paper-edge);
-}
-
-.landscape,
-.sharp,
-.reading,
-.landscape canvas,
+.stage,
+.sceneCanvas,
+.sceneCanvas canvas,
+.fallback,
 .scrim,
 .wash {
   position: absolute;
   inset: 0;
 }
 
-.landscape {
+.stage {
+  position: fixed;
   overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
 }
 
-.sharp {
-  background: var(--bg) url("/img/mountain-sunset.webp") 56% 28% / cover
-    no-repeat;
+.sceneCanvas {
+  overflow: hidden;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    var(--dusk-fallback-sky),
+    var(--dusk-fallback-horizon) 57%,
+    var(--bg)
+  );
 }
 
-.landscape canvas {
+.sceneCanvas canvas,
+.fallback {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: 56% 28%;
 }
 
-.stage:not([data-ready]) canvas,
-.stage:not([data-ready]) .reading {
+.sceneCanvas canvas:not([data-ready]),
+.fallback {
   visibility: hidden;
 }
 
-.landscape .clouds {
-  inset-inline-start: -4%;
-  width: 108%;
-  animation: drift var(--dur-scenery-drift) var(--ease-in-out) infinite
-    alternate;
-  animation-delay: calc(var(--dur-scenery-drift) / -3);
+.sceneCanvas canvas[data-fallback] + .fallback {
+  visibility: visible;
 }
 
-.reading {
-  opacity: var(--scenery-wash, 0);
+.stage .sceneCanvas {
+  filter: blur(calc(var(--scenery-wash, 0) * var(--scenery-reading-blur)));
+  transform: scale(
+    calc(1 + var(--scenery-wash, 0) * var(--scenery-reading-overscan))
+  );
 }
 
-.reading canvas {
-  animation: haze var(--dur-scenery-haze) var(--ease-in-out) infinite alternate;
-  animation-delay: calc(var(--dur-scenery-haze) / -3);
+.farRidge {
+  fill: var(--dusk-fallback-peak);
 }
-
-@keyframes drift {
-  to {
-    transform: translateX(3.5%);
-  }
+.nearRidge {
+  fill: var(--dusk-fallback-ridge);
 }
-
-@keyframes haze {
-  from {
-    transform: scale(1.04) translateX(-1%);
-  }
-  to {
-    transform: scale(1.04) translateX(1%);
-  }
-}
-
-.stage[data-paused] :is(.clouds, .reading canvas) {
-  animation-play-state: paused;
-}
-
-.stage[data-ready][data-blurred] .sharp {
-  display: none;
+.frontRidge {
+  fill: var(--bg);
 }
 
 .scrim {
   background:
     linear-gradient(
       90deg,
-      var(--scenery-ink-deep),
-      var(--scenery-ink-mid) 35%,
-      transparent 74%
+      var(--scenery-ink-dark),
+      var(--scenery-ink-mid) 29%,
+      transparent 68%
     ),
-    linear-gradient(0deg, var(--scenery-ink-mid), transparent 50%);
+    linear-gradient(0deg, var(--scenery-ink-dark), transparent 39%);
 }
 
 .wash {
-  background: linear-gradient(
-    90deg,
-    var(--scenery-reading-edge),
-    var(--scenery-reading-wash) 70%
-  );
+  opacity: var(--scenery-wash, 0);
+  background: var(--scenery-reading-tint);
 }
 
 .hero {
@@ -112,168 +82,92 @@
 .tools {
   position: absolute;
   z-index: 20;
-  inset-inline: max(
+  inset-inline-start: max(
     var(--space-4),
     calc((100% - var(--layout-max)) / 2 + var(--space-4))
   );
   inset-block-end: var(--space-5);
-  display: flex;
-  justify-content: space-between;
-  align-items: end;
-  gap: var(--space-2);
-  pointer-events: none;
-}
-
-.tools a,
-.controls {
-  pointer-events: auto;
-}
-
-.controls {
-  position: relative;
 }
 
 .explore,
-.controls summary {
+.sceneryIcon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--space-2);
   min-height: var(--hit-min);
-  padding: var(--space-2) var(--space-3);
-  border: 1px solid var(--scenery-control-border);
-  background: var(--scenery-control);
   color: var(--text-strong);
+}
+
+.explore {
+  padding: var(--space-2) var(--space-3);
+  border: thin solid var(--scenery-control-border);
+  background: var(--scenery-control);
   font-size: var(--text-caption);
-  text-align: center;
-  cursor: pointer;
 }
 
 .explore svg,
-.controls summary svg {
+.sceneryIcon svg {
   width: var(--space-4);
   height: var(--space-4);
-  flex: none;
 }
 
-.controls summary {
-  list-style: none;
+.sceneryIcon {
+  width: var(--hit-min);
+  border-radius: var(--radius-nav-inner);
+  cursor: pointer;
 }
 
-.controls summary::-webkit-details-marker {
-  display: none;
-}
-
-.controls[open] summary {
-  border-color: var(--accent);
-}
-
-.panel {
-  position: absolute;
-  z-index: 1;
-  inset-inline-end: 0;
-  inset-block-end: calc(100% + var(--space-2));
-  width: min(var(--scenery-panel-width), calc(100vw - 2 * var(--space-4)));
-  padding: var(--space-4);
-  border: 1px solid var(--scenery-control-border);
-  border-radius: var(--radius-input);
-  background: var(--surface);
-  color: var(--text-strong);
-  font-size: var(--text-caption);
-}
-
-.controlRow {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-2);
-}
-
-.controlRow select {
-  min-height: var(--hit-min);
-  border: 1px solid var(--scenery-control-border);
-  padding-inline: var(--space-2);
+.sceneryIcon[aria-pressed="true"] {
   background: var(--surface-2);
-  color: var(--text-strong);
 }
 
-.panel output {
-  color: var(--accent-hover);
-  font-family: var(--font-mono);
-  font-variant-numeric: tabular-nums;
-}
-
-.panel input[type="range"] {
-  display: block;
-  width: 100%;
-  height: var(--hit-min);
-  accent-color: var(--accent-hover);
-  cursor: ew-resize;
-}
-
-.presets {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: var(--space-1);
-  margin-block-end: var(--space-3);
-}
-
-.presets button {
-  min-height: var(--hit-min);
-  border: 1px solid var(--scenery-control-border);
-  padding-inline: var(--space-1);
-  cursor: pointer;
-}
-
-.presets button[aria-pressed="true"] {
-  border-color: var(--accent);
-  background: var(--accent);
-  color: var(--on-accent);
-}
-
-.motionToggle {
-  width: 100%;
-  min-height: var(--hit-min);
-  margin-block-start: var(--space-2);
-  border: 1px solid var(--scenery-control-border);
-  cursor: pointer;
-}
-
-.motionToggle[aria-pressed="true"] {
-  border-color: var(--accent);
-  background: var(--accent-wash);
-}
-
-@media (hover: hover) {
-  .explore:hover,
-  .controls summary:hover,
-  .motionToggle:hover,
-  .presets button:hover {
+@media (hover: hover) and (pointer: fine) {
+  .sceneryIcon:hover {
+    background: var(--surface-2);
+  }
+  .explore:hover {
     border-color: var(--text-strong);
   }
 }
 
 @media (width < 48rem) {
-  .sharp,
-  .landscape canvas {
-    background-position: 66% 28%;
-    object-position: 66% 28%;
+  .hero {
+    padding-block-end: calc(var(--hit-min) + var(--space-6));
   }
-
+  .tools {
+    inset-block-end: var(--space-4);
+  }
   .scrim {
     background:
-      linear-gradient(90deg, var(--scenery-ink-dark), var(--scenery-ink-soft)),
-      linear-gradient(0deg, var(--scenery-ink-dark), transparent 63%);
+      linear-gradient(90deg, var(--scenery-ink-mid), var(--scenery-ink-soft)),
+      linear-gradient(0deg, var(--scenery-ink-dark), transparent 61%);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .landscape .clouds,
-  .reading canvas {
-    animation: none;
-  }
-
-  .motionToggle {
+  .sceneryIcon[data-motion-toggle] {
     display: none;
   }
+}
+
+.sceneryPopover {
+  position: fixed;
+  inset: calc(var(--space-3) + var(--nav-h) + var(--space-2)) 0 auto;
+  margin: 0 auto;
+  width: min(var(--scenery-popover-width), calc(100% - 2 * var(--space-4)));
+  max-height: calc(100dvh - var(--nav-h) - var(--space-7));
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: var(--space-4);
+  border: thin solid var(--line);
+  border-radius: var(--radius-nav);
+  background: var(--surface);
+  color: var(--text-strong);
+  font-size: var(--text-body-m);
+  box-shadow: var(--shadow-lift);
+}
+
+.sceneryPopover > * + * {
+  margin-block-start: var(--space-3);
 }

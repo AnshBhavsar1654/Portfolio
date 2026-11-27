@@ -12,7 +12,6 @@ import { WorkList } from "@/components/home/work-list";
 import { BackdropSection } from "@/components/site/backdrop-section";
 import { BackdropStage } from "@/components/site/backdrop-stage";
 import { SectionHeading } from "@/components/site/section";
-import "@/styles/folio/scenery.css";
 
 export default function Home() {
   return (
