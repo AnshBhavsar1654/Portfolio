@@ -43,10 +43,10 @@ main:has(> [data-folio-appearance="light"]) + footer {
   --contrib-2: #d28f80;
   --contrib-3: #b55147;
   --contrib-4: #9a302b;
-  --ht-ink: #413431;
-  --ht-spot: #85332e;
+  --ht-ink: #56544e;
   --ht-invert: 0;
-  --ht-blend: multiply;
-  --ht-strength: 0.9;
-  --ht-veil: 30%;
+  --ht-photo-filter: saturate(0.28) sepia(0.12) contrast(0.88) brightness(1.1);
+  --ht-photo-opacity: 0.53;
+  --ht-dot-opacity: 0.23;
+  --ht-veil: 62%;
 }

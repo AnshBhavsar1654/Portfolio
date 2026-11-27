@@ -1,8 +1,4 @@
-// Two quotes. On wide screens they stack in one column over the seam
-// between the two athlete prints (Dhoni left, Messi right); on phones each
-// quote gets its own screen-height block with only its own athlete printing
-// behind it. `art` names the print bound to each quote.
-import type { ArtKey } from "@/content/art";
+﻿import type { ArtKey } from "@/content/art";
 
 export type Quote = {
   text: string;

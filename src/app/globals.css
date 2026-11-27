@@ -139,17 +139,6 @@ body {
   border: var(--rule-w) solid var(--rule);
 }
 
-/* Fade a one-sided backdrop out toward the content side (wide screens only). */
-@media (min-width: 1024px) {
-  .backdrop-fade-r {
-    mask-image: linear-gradient(to right, #000 55%, transparent);
-  }
-
-  .backdrop-fade-l {
-    mask-image: linear-gradient(to left, #000 55%, transparent);
-  }
-}
-
 /* Soft page-coloured halo so text stays readable over a halftone backdrop. */
 .halo {
   text-shadow:
@@ -161,11 +150,6 @@ body {
 /* Cards, forms and filled buttons have their own background: no halo. */
 .halo :is(.glass, .panel-soft, article, form, button, .bg-accent, .bg-strong) {
   text-shadow: none;
-}
-
-/* Page-coloured veil over a halftone print. */
-.ht-veil {
-  background: color-mix(in srgb, var(--bg) var(--ht-veil), transparent);
 }
 
 /* ---------------------------------------------------------------------------

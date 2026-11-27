@@ -29,6 +29,7 @@
 
 :root {
   --ht-cell: 7px; /* halftone screen pitch */
+  --ht-photo-cell: 4px;
 }
 
 :root {

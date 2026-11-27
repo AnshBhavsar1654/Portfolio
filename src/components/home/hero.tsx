@@ -38,11 +38,7 @@ export function Hero() {
   }, [reduce]);
 
   return (
-    <BackdropSection
-      id="top"
-      backdrop="none"
-      className="pt-28 pb-28 md:pt-32 md:pb-28"
-    >
+    <BackdropSection id="top" className="pt-28 pb-28 md:pt-32 md:pb-28">
       <div ref={content} className="max-w-2xl">
         <h1 className="hero-fade text-strong text-6xl leading-(--leading-display) font-semibold tracking-(--tracking-display) text-balance sm:text-7xl lg:text-8xl xl:text-9xl">
           {firstName} <br />

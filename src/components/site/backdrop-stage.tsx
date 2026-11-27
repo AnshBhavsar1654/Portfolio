@@ -1,140 +1,69 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { HalftoneImage } from "@/components/site/halftone-image";
-import { art, type Art, type ArtKey } from "@/content/art";
-import { cn } from "@/lib/cn";
+import { art } from "@/content/art";
+import { quotes } from "@/content/quote";
+import styles from "./quote-backdrop.module.css";
 
-// One fixed stage behind the whole home page. Sections mark themselves with
-// data-backdrop="<art key>". Every scroll frame, each section gets a weight
-// from where its edges sit relative to the middle of the viewport: inside a
-// section it is 1; across a boundary the outgoing print's dots shrink while
-// the incoming print's dots grow, tied to the scroll position, so one image
-// dissolves continuously into the next (and back when scrolling up). Past the
-// last section the print dissolves into the page. Only sections with a
-// non-zero weight are mounted, so at most three or four canvases exist.
-
-type Layer = { key: ArtKey; weight: number };
-
-// Half the height of the blend zone around each boundary, as a share of the
-// viewport. Generous on purpose: the dissolve starts well before the next
-// section arrives and finishes well after, so one print eases into the next.
-const BLEND = 0.7;
-
-const smooth = (x: number) => {
-  const t = Math.min(1, Math.max(0, x));
-  // Smootherstep (C2): zero slope at both ends, so dots start and stop
-  // growing almost imperceptibly and the mid-point is a gentle climb.
+function smooth(value: number) {
+  const t = Math.min(1, Math.max(0, value));
   return t * t * t * (t * (t * 6 - 15) + 10);
-};
+}
 
 export function BackdropStage() {
-  const [layers, setLayers] = useState<Layer[]>([]);
-  // Phones crop to tall boxes, so art entries can carry tighter mobile
-  // focus/zoom values. 64rem is Tailwind's lg breakpoint, in rem so it tracks
-  // the root font size like the rest of the token system.
-  const [wide, setWide] = useState(true);
+  const [weight, setWeight] = useState(0);
 
   useEffect(() => {
-    const mq = window.matchMedia("(min-width: 64rem)");
-    const sync = () => setWide(mq.matches);
-    sync();
-    mq.addEventListener("change", sync);
-    return () => mq.removeEventListener("change", sync);
-  }, []);
-
-  useEffect(() => {
-    const sections = Array.from(
-      document.querySelectorAll<HTMLElement>("[data-backdrop]")
-    );
-    if (sections.length === 0) return;
-    // Warm the cache so an incoming print is ready before its blend starts.
-    for (const a of Object.values(art)) new window.Image().src = a.src;
+    const section = document.getElementById("quote");
+    if (!section) return;
 
     let frame = 0;
-    let last = "";
+    let last = -1;
     const update = () => {
       frame = 0;
-      const mid = window.innerHeight / 2;
-      const zone = window.innerHeight * BLEND * 2;
-      const next: Layer[] = [];
-      sections.forEach((s, k) => {
-        const r = s.getBoundingClientRect();
-        const enter = k === 0 ? 1 : smooth((mid - r.top) / zone + 0.5);
-        const leave = smooth((r.bottom - mid) / zone + 0.5);
-        const weight = Math.round(enter * leave * 100) / 100;
-        // "none" holds a section's place in the sequence without a print
-        // (the hero draws its own art), so the next print still dissolves in.
-        if (weight > 0 && s.dataset.backdrop !== "none") {
-          next.push({ key: s.dataset.backdrop as ArtKey, weight });
-        }
-      });
-      // Several pins may share one print (e.g. a quote's own wrapper and the
-      // wide-screen section pin). Dots double up when two canvases stack, so
-      // keep only the strongest weight per key.
-      const best = new Map<ArtKey, number>();
-      for (const { key, weight } of next) {
-        best.set(key, Math.max(best.get(key) ?? 0, weight));
-      }
-      const lit = [...best].map(([key, weight]) => ({ key, weight }));
-      const sig = lit.map((l) => `${l.key}:${l.weight}`).join("|");
-      if (sig !== last) {
-        last = sig;
-        setLayers(lit);
-      }
+      const { top, bottom } = section.getBoundingClientRect();
+      const height = window.innerHeight;
+      const center = height / 2;
+      const blend = height * 0.85;
+      const enter = smooth((center - top) / blend + 0.5);
+      const leave = smooth((bottom - center) / blend + 0.5);
+      const step = Math.round(enter * leave * 100);
+      if (step === last) return;
+      last = step;
+      setWeight(step / 100);
     };
     const schedule = () => {
       if (!frame) frame = requestAnimationFrame(update);
     };
+    const observer = new ResizeObserver(schedule);
+    observer.observe(section);
     update();
     window.addEventListener("scroll", schedule, { passive: true });
     window.addEventListener("resize", schedule);
     return () => {
       cancelAnimationFrame(frame);
+      observer.disconnect();
       window.removeEventListener("scroll", schedule);
       window.removeEventListener("resize", schedule);
     };
   }, []);
 
+  if (weight === 0) return null;
   return (
     <div
-      aria-hidden
-      className="pointer-events-none fixed inset-0 z-0 overflow-hidden"
+      aria-hidden="true"
+      className={styles.stage}
+      style={{ opacity: weight }}
     >
-      {layers.map(({ key, weight }) => {
-        const a: Art = art[key];
-        const align = a.align ?? "full";
-        const m = wide ? undefined : a.mobile;
+      {quotes.map((quote) => {
+        const { side, ...portrait } = art[quote.art];
         return (
-          <div
-            key={key}
-            className={cn(
-              "absolute inset-y-0",
-              align === "full" && "inset-x-0",
-              align === "left" && "backdrop-fade-r left-0 w-full lg:w-[62%]",
-              align === "right" && "backdrop-fade-l right-0 w-full lg:w-[62%]",
-              align === "half-left" && "backdrop-fade-r left-0 w-full lg:w-1/2",
-              align === "half-right" &&
-                "backdrop-fade-l right-0 w-full lg:w-1/2"
-            )}
-          >
-            <HalftoneImage
-              src={a.src}
-              amount={weight}
-              focusX={m?.focusX ?? a.focusX}
-              focusY={m?.focusY ?? a.focusY}
-              zoom={m?.zoom ?? a.zoom}
-              brightInk={a.brightInk}
-            />
+          <div key={quote.art} className={styles.portrait} data-side={side}>
+            <HalftoneImage {...portrait} />
           </div>
         );
       })}
-      {layers.length > 0 && (
-        <div
-          className="ht-veil absolute inset-0"
-          style={{ opacity: Math.max(...layers.map(({ weight }) => weight)) }}
-        />
-      )}
     </div>
   );
 }

@@ -50,14 +50,13 @@
   --desk-wood: #b5864f;
   --desk-moon: var(--text-strong);
 
-  /* Halftone prints (quote section only): bone dots grow with brightness and
-     screen like light on the ink ground, with a dim cardinal spot screen. */
-  --ht-ink: #cfc8b8;
-  --ht-spot: #8a342f;
+  /* A faint neutral dot screen over muted natural-color portraits. */
+  --ht-ink: #e4dfd6;
   --ht-invert: 1;
-  --ht-blend: screen;
-  --ht-strength: 0.8; /* scales dot size */
-  --ht-veil: 64%; /* page colour laid over the print so text stays legible */
+  --ht-photo-filter: saturate(0.31) sepia(0.14) contrast(0.9) brightness(1.06);
+  --ht-photo-opacity: 0.62;
+  --ht-dot-opacity: 0.28;
+  --ht-veil: 54%;
 }
 
 /* Resolve aliases against the active palette, including nested paper sections. */
