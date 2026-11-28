@@ -68,12 +68,14 @@ void main() {
   cloud = mix(cloud,mix(vec3(.28,.38,.55),vec3(.73,.78,.83),edge),daylight);
   cloud = mix(cloud,vec3(.012,.02,.044),night);
   sky = mix(sky,cloud,density*cloudDensity);
-  float disc = 1.-smoothstep(.008,.012,sunDistance);
-  sky += vec3(4.4,2.05,.83)*disc*visibleSun;
-  sky += vec3(1.8,.65,.18)*exp(-sunDistance*50.)*visibleSun;
-  float bearing = atan(toSun.y,toSun.x+.00001);
-  float rays = pow(abs(cos(bearing*3.+.4)),34.)*exp(-sunDistance*27.);
-  sky += vec3(.83,.34,.095)*rays*visibleSun*(1.-daylight);
+  float radius = .011;
+  float edgeWidth = max(fwidth(sunDistance),.001);
+  float disc = 1.-smoothstep(radius-edgeWidth,radius+edgeWidth,sunDistance);
+  float cloudCover = density*cloudDensity;
+  vec3 discColor = mix(vec3(3.7,1.65,.55),vec3(3.9,3.0,1.85),daylight);
+  sky += discColor*disc*visibleSun*(1.-cloudCover*.8);
+  float halo = exp(-sunDistance*34.);
+  sky += vec3(1.1,.43,.12)*halo*visibleSun*(1.-cloudCover*.45);
   gl_FragColor = vec4(finish(sky),1.);
 }
 `;

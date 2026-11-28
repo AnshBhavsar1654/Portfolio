@@ -90,43 +90,37 @@ export function MountainScenery({
       </div>
       {navSlot &&
         createPortal(
-          process.env.NODE_ENV === "development" ? (
-            <>
-              <button
-                type="button"
-                popoverTarget={panelId}
-                className={styles.sceneryIcon}
-                aria-label="Open landscape playground"
-                title="Open landscape playground"
-              >
-                <Mountains aria-hidden />
-              </button>
-              <div
-                id={panelId}
-                popover="auto"
-                className={styles.sceneryPopover}
-                role="region"
-                aria-label="Landscape settings"
-                data-lenis-prevent
-              >
-                <LandscapeControls
-                  {...{ time, setTime, distance, setDistance }}
-                />
-              </div>
-            </>
-          ) : (
+          <>
             <button
-              className={styles.sceneryIcon}
               type="button"
-              data-motion-toggle
-              aria-pressed={paused}
-              aria-label="Pause scenery motion"
-              title={paused ? "Resume scenery motion" : "Pause scenery motion"}
-              onClick={() => setPaused((value) => !value)}
+              popoverTarget={panelId}
+              className={styles.sceneryIcon}
+              aria-label="Open landscape playground"
+              title="Open landscape playground"
             >
               <Mountains aria-hidden />
             </button>
-          ),
+            <div
+              id={panelId}
+              popover="auto"
+              className={styles.sceneryPopover}
+              role="region"
+              aria-label="Landscape settings"
+              data-lenis-prevent
+            >
+              <LandscapeControls
+                {...{ time, setTime, distance, setDistance }}
+              />
+              <button
+                type="button"
+                className={styles.motionToggle}
+                aria-pressed={paused}
+                onClick={() => setPaused((value) => !value)}
+              >
+                Pause scenery motion
+              </button>
+            </div>
+          </>,
           navSlot
         )}
       <div data-folio-appearance="dark">{children}</div>

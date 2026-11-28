@@ -118,10 +118,6 @@
   cursor: pointer;
 }
 
-.sceneryIcon[aria-pressed="true"] {
-  background: var(--surface-2);
-}
-
 @media (hover: hover) and (pointer: fine) {
   .sceneryIcon:hover {
     background: var(--surface-2);
@@ -145,12 +141,6 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .sceneryIcon[data-motion-toggle] {
-    display: none;
-  }
-}
-
 .sceneryPopover {
   position: fixed;
   inset: calc(var(--space-3) + var(--nav-h) + var(--space-2)) 0 auto;
@@ -170,4 +160,23 @@
 
 .sceneryPopover > * + * {
   margin-block-start: var(--space-3);
+}
+
+.motionToggle {
+  min-height: var(--hit-min);
+  padding-inline: var(--space-3);
+  border: thin solid var(--line);
+  border-radius: var(--radius-nav-inner);
+  cursor: pointer;
+}
+
+.motionToggle[aria-pressed="true"] {
+  background: var(--surface-2);
+  border-color: var(--text-strong);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .motionToggle {
+    display: none;
+  }
 }
