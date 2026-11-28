@@ -24,10 +24,6 @@
   /* Card nav glass: translucent surface over a blur. Text on it is checked
      against the opaque --surface worst case (text-strong 14.6:1). */
   --surface-glass: rgba(27, 23, 24, 0.72);
-  /* Site light rays: bone beams with one faint cardinal beam, blurred and
-     masked into the ink. Text stays >= 4.5:1 on the brightest point. */
-  --ray-bone: rgba(241, 235, 221, 0.2);
-  --ray-accent: rgba(229, 88, 79, 0.22);
   --signal-positive: #7be0a6; /* "live" dots only; AA as text on --bg */
 
   /* Contribution graph: empty track plus a cardinal intensity ramp. */

@@ -1,4 +1,3 @@
-import type { ComponentType } from "react";
 import { ShapesIcon } from "@phosphor-icons/react/dist/ssr/Shapes";
 import {
   siCplusplus,
@@ -37,7 +36,6 @@ const TABLEAU_PATH =
   "M11.25 7h1.5v4.25H17v1.5h-4.25V17h-1.5v-4.25H7v-1.5h4.25ZM11.5 .5h1v2h2v1h-2v2h-1v-2h-2v-1h2ZM11.5 18.5h1v2h2v1h-2v2h-1v-2h-2v-1h2ZM.5 11.5h2v-2h1v2h2v1h-2v2h-1v-2h-2ZM18.5 11.5h2v-2h1v2h2v1h-2v2h-1v-2h-2Z";
 
 type Brand = { path: string; cls: string };
-type Glyph = ComponentType<{ className?: string }>;
 
 // Brand marks with their official-colour tokens. "Transformers" shares the
 // Hugging Face mark because the library is part of the HF ecosystem.
@@ -67,8 +65,6 @@ const BRAND: Record<string, Brand> = {
   Tableau: { path: TABLEAU_PATH, cls: "text-brand-tableau" },
 };
 
-const GLYPH: Record<string, Glyph> = {};
-
 function SkillMark({ name }: { name: string }) {
   const brand = BRAND[name];
   if (brand) {
@@ -82,10 +78,7 @@ function SkillMark({ name }: { name: string }) {
       </svg>
     );
   }
-  const Glyph = GLYPH[name] ?? ShapesIcon;
-  return (
-    <Glyph className="text-muted group-hover/tile:text-accent size-7 shrink-0 transition-colors duration-(--dur-base)" />
-  );
+  return <ShapesIcon aria-hidden className="text-muted size-7 shrink-0" />;
 }
 
 export function Skills() {
@@ -93,11 +86,12 @@ export function Skills() {
   return (
     <ul className="grid grid-cols-[repeat(auto-fill,minmax(6.25rem,1fr))] gap-3">
       {all.map((s) => (
-        <li key={s}>
-          <div className="group/tile panel-soft text-muted hover:text-strong hover:bg-accent-wash flex h-full min-h-24 flex-col items-center justify-center gap-3 px-2 py-4 text-center transition-[transform,background-color,color] duration-(--dur-base) ease-(--ease-out-soft) active:scale-[0.97] [@media(hover:hover)]:hover:-translate-y-0.5">
-            <SkillMark name={s} />
-            <span className="font-mono text-[11px] leading-tight">{s}</span>
-          </div>
+        <li
+          key={s}
+          className="border-line bg-surface text-body flex min-h-24 flex-col items-center justify-center gap-3 border px-2 py-4 text-center"
+        >
+          <SkillMark name={s} />
+          <span className="text-xs leading-tight">{s}</span>
         </li>
       ))}
     </ul>

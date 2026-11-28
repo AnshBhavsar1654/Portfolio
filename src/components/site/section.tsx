@@ -36,11 +36,13 @@ export function Section({
 // "── About". Accent word is set in
 // the display serif italic, one per heading, in solid cardinal.
 export function SectionHeading({
+  as: Heading = "h2",
   title,
   accent,
   body,
   label,
 }: {
+  as?: "h1" | "h2";
   title: string;
   accent?: string;
   body?: string;
@@ -56,7 +58,7 @@ export function SectionHeading({
           <span>{label}</span>
         </p>
       ) : null}
-      <h2 className="text-strong max-w-[20ch] text-4xl leading-[1.02] font-semibold tracking-tighter text-balance md:text-6xl">
+      <Heading className="text-strong max-w-[20ch] text-4xl leading-[1.02] font-semibold tracking-tighter text-balance md:text-6xl">
         {title}
         {accent ? (
           <span className="accent-serif accent-shine text-[1.12em]">
@@ -64,7 +66,7 @@ export function SectionHeading({
             {accent}
           </span>
         ) : null}
-      </h2>
+      </Heading>
       {body ? (
         <p className="text-body mt-5 max-w-[56ch] text-base leading-relaxed">
           {body}

@@ -8,9 +8,7 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* Headings are the display serif, set roman at medium weight; the one accent
-   word per heading is set italic (.accent-serif). Unlayered on purpose: it
-   wins over per-heading font utilities so the voice stays consistent. */
+/* The display serif unifies headings across the portfolio. */
 h1,
 h2,
 h3 {

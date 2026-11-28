@@ -6,8 +6,8 @@ import { projects } from "@/content/projects";
 
 const STATS = [
   { value: profile.cgpa, label: "CGPA" },
-  { value: experience.length, label: "Roles held" },
-  { value: projects.length, label: "Projects shipped" },
+  { value: experience.length, label: "Roles" },
+  { value: projects.length, label: "Projects" },
 ];
 
 export function About() {

@@ -53,7 +53,7 @@ export function ContactForm() {
         role="status"
         className="border-line bg-surface text-body border p-6 text-sm leading-relaxed md:p-8"
       >
-        Message sent. I will reply within two days.
+        Message sent. {profile.contact.reply}
       </p>
     );
   }
@@ -80,7 +80,6 @@ export function ContactForm() {
             name="name"
             required
             autoComplete="name"
-            placeholder="Jane Cooper"
             className={input}
           />
         </div>
@@ -98,7 +97,6 @@ export function ContactForm() {
             type="email"
             required
             autoComplete="email"
-            placeholder="jane@company.com"
             aria-invalid={errors.email ? true : undefined}
             aria-describedby={errors.email ? "contact-email-error" : undefined}
             className={input}
@@ -123,7 +121,7 @@ export function ContactForm() {
           name="message"
           required
           rows={5}
-          placeholder="Tell me about the role or the project, and the timeline if there is one."
+          placeholder="Role or project details, including timing"
           aria-invalid={errors.message ? true : undefined}
           aria-describedby={
             errors.message ? "contact-message-error" : undefined
@@ -159,7 +157,7 @@ export function ContactForm() {
         disabled={status === "sending"}
         className="bg-accent text-on-accent hover:bg-accent-hover mt-2 px-6 py-3 text-sm font-medium whitespace-nowrap transition-colors disabled:opacity-60"
       >
-        {status === "sending" ? "Sending…" : "Send Message"}
+        {status === "sending" ? "Sending…" : "Send message"}
       </button>
     </form>
   );

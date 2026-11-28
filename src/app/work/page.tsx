@@ -7,11 +7,7 @@ export const metadata: Metadata = { title: "Projects" };
 export default function WorkPage() {
   return (
     <Section first className="pt-32 md:pt-40">
-      <SectionHeading
-        title="Everything I have"
-        accent="shipped."
-        body="Systems with live demos and public code. Each page notes what it does and how it is measured."
-      />
+      <SectionHeading as="h1" title="Everything I have" accent="shipped." />
       <div className="mt-12">
         <WorkFilter />
       </div>

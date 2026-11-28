@@ -12,6 +12,7 @@ import { WorkList } from "@/components/home/work-list";
 import { BackdropSection } from "@/components/site/backdrop-section";
 import { BackdropStage } from "@/components/site/backdrop-stage";
 import { SectionHeading } from "@/components/site/section";
+import { profile } from "@/content/profile";
 
 export default function Home() {
   return (
@@ -27,7 +28,6 @@ export default function Home() {
           label="Experience"
           title="Where I have"
           accent="worked."
-          body="Production work at startups."
         />
         <div className="mt-12">
           <ExperienceList />
@@ -42,12 +42,7 @@ export default function Home() {
       </BackdropSection>
 
       <BackdropSection id="work">
-        <SectionHeading
-          label="Projects"
-          title="What I have"
-          accent="built."
-          body="Systems with live demos and public code."
-        />
+        <SectionHeading label="Projects" title="What I have" accent="built." />
         <div className="mt-12">
           <WorkList limit={3} />
           <div className="mt-8 flex justify-end">
@@ -55,7 +50,7 @@ export default function Home() {
               href="/work"
               className="link-sweep text-accent hover:text-accent-hover group inline-flex items-center gap-2 py-2 text-sm font-medium"
             >
-              Show more
+              All projects
               <ArrowRight
                 aria-hidden
                 size={16}
@@ -83,7 +78,7 @@ export default function Home() {
           label="Contact"
           title="Have a project?"
           accent="Or a role?"
-          body="I take on full-stack builds, AI agents and data apps, and I'm also open to full-time roles. Replies within two days."
+          body={profile.contact.availability}
         />
         <div className="mt-12">
           <ContactBlock />

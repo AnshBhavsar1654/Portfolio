@@ -14,10 +14,15 @@ export const profile = {
   degree: "B.Tech Computer Science, Minor in Adaptive AI",
   cgpa: "9.07",
   about: [
-    "I like building things that people actually use.",
-    "I'm a founding engineer at Serin AI, where I build full-stack features, voice agents and automated evals for LLM systems.",
-    "Outside work, I build and deploy smaller projects that anyone can use.",
+    "I’m a founding engineer at Serin AI.",
+    "I work on full-stack features, voice agents and automated tests for LLM prompts.",
+    "Outside work, I build and publish tools like a trip planner for the Ahmedabad Metro and a clipboard that syncs over Wi-Fi.",
   ],
+  contact: {
+    availability:
+      "I’m open to full-time roles and project work involving full-stack development, AI agents or data apps.",
+    reply: "I reply within two days.",
+  },
   socials: {
     github: "https://github.com/AnshBhavsar1654",
     leetcode: "https://leetcode.com/u/ansh164/",

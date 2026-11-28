@@ -1,27 +1,21 @@
 import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr/ArrowUpRight";
 import { GithubLogo } from "@phosphor-icons/react/dist/ssr/GithubLogo";
-import { Globe } from "@phosphor-icons/react/dist/ssr/Globe";
-import { PlayCircle } from "@phosphor-icons/react/dist/ssr/PlayCircle";
 import Image from "next/image";
 import Link from "next/link";
 import { BrowserFrame, siteName } from "@/components/site/browser-frame";
 import { projects, type Project } from "@/content/projects";
 
-// Editorial project card: large screenshot on top (~45% of the card), serif
-// title, uppercase letter-spaced meta line (from the project's metrics — there
-// are no project dates in the content), short summary, subtle tech line and
-// pill links that only render when the URL exists. The whole card opens the
-// detail page through a stretched title link; the pills sit above it.
+// The stretched title link opens the project details. Preview and resource
+// links sit above it so each still has its own target.
 
-const pill =
-  "border-rule text-strong hover:bg-accent hover:text-on-accent hover:border-accent relative z-10 inline-flex min-h-(--hit-min) items-center gap-1.5 border-[1.5px] px-4 font-mono text-xs whitespace-nowrap transition-[transform,background-color,border-color,color] duration-(--dur-fast) ease-(--ease-out) active:scale-(--press-scale) md:min-h-0 md:py-1.5";
+const resourceLink =
+  "border-line text-body hover:bg-surface-2 hover:text-strong relative z-10 inline-flex min-h-(--hit-min) items-center gap-2 border px-3 text-sm whitespace-nowrap transition-colors duration-(--dur-fast)";
 
 function ProjectCard({ p }: { p: Project }) {
   const previewHref = p.demo ?? p.site;
-  const meta = p.metrics.map((m) => `${m.value} ${m.label}`).join(" · ");
 
   return (
-    <article className="group bg-surface border-rule relative flex h-full flex-col overflow-hidden border-(length:--rule-w) transition-[transform,box-shadow] duration-(--dur-base) ease-(--ease-out) hover:-translate-y-1 hover:shadow-(--shadow-lift) active:scale-(--press-scale-card)">
+    <article className="bg-surface border-line hover:border-rule relative flex h-full flex-col overflow-hidden border transition-colors duration-(--dur-fast)">
       <div className="aspect-[1203/753]">
         <BrowserFrame url={siteName(previewHref ?? p.github ?? p.title)}>
           {previewHref ? (
@@ -54,7 +48,7 @@ function ProjectCard({ p }: { p: Project }) {
               width={1200}
               height={750}
               sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 400px"
-              className="h-full w-full object-cover object-top transition-transform duration-(--dur-slow) ease-(--ease-out) group-hover:scale-105"
+              className="h-full w-full object-cover object-top"
             />
           )}
         </BrowserFrame>
@@ -69,10 +63,7 @@ function ProjectCard({ p }: { p: Project }) {
             {p.title}
           </Link>
         </h3>
-        <p className="text-muted mt-2 font-mono text-[11px] tracking-(--tracking-eyebrow) uppercase tabular-nums">
-          {meta}
-        </p>
-        <p className="text-body mt-4 line-clamp-3 text-sm leading-relaxed">
+        <p className="text-body mt-3 line-clamp-3 text-sm leading-relaxed">
           {p.summary}
         </p>
         <p className="text-muted mt-4 font-mono text-[11px]">
@@ -85,7 +76,7 @@ function ProjectCard({ p }: { p: Project }) {
               href={p.github}
               target="_blank"
               rel="noopener noreferrer"
-              className={pill}
+              className={resourceLink}
             >
               <GithubLogo aria-hidden size={16} />
               GitHub
@@ -96,11 +87,10 @@ function ProjectCard({ p }: { p: Project }) {
               href={p.demo}
               target="_blank"
               rel="noopener noreferrer"
-              className={pill}
+              className={resourceLink}
             >
-              <PlayCircle aria-hidden size={16} />
               Live demo
-              <ArrowUpRight aria-hidden size={12} weight="bold" />
+              <ArrowUpRight aria-hidden size={16} />
             </a>
           ) : null}
           {p.site ? (
@@ -108,11 +98,10 @@ function ProjectCard({ p }: { p: Project }) {
               href={p.site}
               target="_blank"
               rel="noopener noreferrer"
-              className={pill}
+              className={resourceLink}
             >
-              <Globe aria-hidden size={16} />
               Website
-              <ArrowUpRight aria-hidden size={12} weight="bold" />
+              <ArrowUpRight aria-hidden size={16} />
             </a>
           ) : null}
         </div>
